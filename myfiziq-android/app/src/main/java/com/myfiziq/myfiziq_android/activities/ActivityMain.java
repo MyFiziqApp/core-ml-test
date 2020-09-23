@@ -19,7 +19,6 @@ import com.myfiziq.myfiziq_android.lifecycle.AvatarRetryReceiver;
 import com.myfiziq.myfiziq_android.routes.AvatarSelectorRouteExecutor;
 import com.myfiziq.myfiziq_android.routes.HomepageRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.LogoutRouteGenerator;
-import com.myfiziq.myfiziq_android.routes.OnboardingRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.ReinitialiseSdkRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.SettingsRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.SupportRouteGenerator;
@@ -39,7 +38,6 @@ import com.myfiziq.sdk.enums.StatusBarStyle;
 import com.myfiziq.sdk.enums.SupportType;
 import com.myfiziq.sdk.fragments.BaseFragment;
 import com.myfiziq.sdk.helpers.ActionBarHelper;
-import com.myfiziq.sdk.helpers.DateOfBirthCoordinator;
 import com.myfiziq.sdk.helpers.DialogHelper;
 import com.myfiziq.sdk.helpers.SisterColors;
 import com.myfiziq.sdk.helpers.StatusBarHelper;
@@ -52,7 +50,6 @@ import com.myfiziq.sdk.manager.MyFiziqSdkManager;
 import com.myfiziq.sdk.util.UiUtils;
 import com.myfiziq.sdk.views.MYQBottomNavigationView;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -345,10 +342,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         ViewAvatarRouteGenerator viewAvatarRouteGenerator = new ViewAvatarRouteGenerator(this, IntentPairs.VIEW_AVATAR_ROUTE);
         viewAvatarRouteGenerator.startListening();
         registeredReceivers.add(viewAvatarRouteGenerator);
-
-        OnboardingRouteGenerator onboardingGenerator = new OnboardingRouteGenerator(this, IntentPairs.ONBOARDING_ROUTE);
-        onboardingGenerator.startListening();
-        registeredReceivers.add(onboardingGenerator);
 
         TrackRouteGenerator trackGenerator = new TrackRouteGenerator(this, IntentPairs.TRACK_ROUTE);
         trackGenerator.startListening();
