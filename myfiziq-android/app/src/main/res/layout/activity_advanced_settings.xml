@@ -12,7 +12,15 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/settings_tabs"
-        style="@style/MFTFragmentTrackTabLayout" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:elevation="10dp"
+    android:background="@color/myfiziqsdk_white"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    tabTextColor="@color/myfiziqsdk_grey15"
+    tabSelectedTextColor="@color/myfiziqsdk_colorAccent"
+    tabIndicatorColor="@color/myfiziqsdk_colorAccent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/experimental_settings_recycler"
