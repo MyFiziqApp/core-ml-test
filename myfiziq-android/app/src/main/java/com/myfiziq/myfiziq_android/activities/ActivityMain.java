@@ -16,12 +16,10 @@ import com.myfiziq.myfiziq_android.R;
 import com.myfiziq.myfiziq_android.helpers.NotificationHelper;
 import com.myfiziq.myfiziq_android.helpers.SignInHelper;
 import com.myfiziq.myfiziq_android.lifecycle.AvatarRetryReceiver;
-import com.myfiziq.myfiziq_android.routes.AvatarSelectorRouteExecutor;
 import com.myfiziq.myfiziq_android.routes.HomepageRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.LogoutRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.ReinitialiseSdkRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.SettingsRouteGenerator;
-import com.myfiziq.myfiziq_android.routes.SupportRouteGenerator;
 import com.myfiziq.sdk.MyFiziqAvatarDownloadManager;
 import com.myfiziq.sdk.activities.ActivityInterface;
 import com.myfiziq.sdk.activities.BaseActivity;
@@ -304,10 +302,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                 intentManagerService.respond(IntentResponses.SWAP_AVATARS, null);
                 return true;
 
-            case R.id.action_view_support:
-                onViewSupportClicked();
-                return true;
-
             case R.id.action_delete_avatar:
                 onDeleteAvatarClicked();
                 return true;
@@ -332,10 +326,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         homepageRouteGenerator.startListening();
         registeredReceivers.add(homepageRouteGenerator);
 
-        SupportRouteGenerator supportGenerator = new SupportRouteGenerator(this, IntentPairs.SUPPORT_ROUTE);
-        supportGenerator.startListening();
-        registeredReceivers.add(supportGenerator);
-
         SettingsRouteGenerator settingsGenerator = new SettingsRouteGenerator(this, IntentPairs.SETTINGS_ROUTE);
         settingsGenerator.startListening();
         registeredReceivers.add(settingsGenerator);
@@ -347,10 +337,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         ReinitialiseSdkRouteGenerator reinitialiseSdkRouteGenerator = new ReinitialiseSdkRouteGenerator(this, IntentPairs.REINITIALISE_SDK);
         reinitialiseSdkRouteGenerator.startListening();
         registeredReceivers.add(reinitialiseSdkRouteGenerator);
-
-        AvatarSelectorRouteExecutor avatarSelectorRouteExecutor = new AvatarSelectorRouteExecutor(this, IntentPairs.AVATAR_SELECTOR);
-        avatarSelectorRouteExecutor.startListening();
-        registeredReceivers.add(avatarSelectorRouteExecutor);
     }
 
     /**
@@ -416,10 +402,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                 IntentResponses.SHOW_VIEW_SUPPORT_BUTTON,
                 v ->
                 {
-                    if (!SisterColors.getInstance().isSisterMode())
-                    {
-                        onSwapButtonSetVisibility(true, R.id.action_view_support);
-                    }
                     onSwapButtonSetVisibility(true, R.id.action_delete_avatar);
                 }
         );
@@ -427,7 +409,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                 IntentResponses.HIDE_VIEW_SUPPORT_BUTTON,
                 v ->
                 {
-                    onSwapButtonSetVisibility(false, R.id.action_view_support);
                     onSwapButtonSetVisibility(false, R.id.action_delete_avatar);
                 }
         );
@@ -472,27 +453,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                     injectNavBarSelectionIntoParameterSet(result, R.id.navigation_track);
                     startRouteFragment(result, this, false);
                 }
-        );
-    }
-
-    private void onViewSupportClicked()
-    {
-        ModelAvatar modelAvatar = (ModelAvatar) PendingMessageRepository.getPendingMessage(IntentResponses.MESSAGE_MODEL_AVATAR);
-        if (modelAvatar == null)
-        {
-            Timber.e("ModelAvatar intended for support activity is null");
-            return;
-        }
-
-        ParameterSet parameterSet = new ParameterSet.Builder()
-                .addParam(new Parameter(R.id.TAG_ARG_VIEW, SupportType.VIEW_SUPPORT))
-                .addParam(new Parameter(R.id.TAG_ARG_MODEL_AVATAR, modelAvatar))
-                .build();
-
-        new IntentManagerService<ParameterSet>(this).requestAndListenForResponse(
-                IntentPairs.SUPPORT_ROUTE,
-                parameterSet,
-                result -> result.start(this)
         );
     }
 
@@ -553,13 +513,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
 
 
         result.start(activity, addToBackStack);
-    }
-
-    private void onSignOut()
-    {
-        Intent loginActivity = new Intent(this, ActivityLogin.class);
-        loginActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginActivity);
     }
 
     private void onMyFiziqActivityFinishing()

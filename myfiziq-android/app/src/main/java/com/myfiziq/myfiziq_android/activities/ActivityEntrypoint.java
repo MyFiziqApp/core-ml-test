@@ -253,27 +253,6 @@ public class ActivityEntrypoint extends AppCompatActivity
         startActivity(welcomeActivity);
     }
 
-    /**
-     * Starts the login activity.
-     * <p>
-     * Since we're opening the login activity outside of the normal workflow (i.e. without visiting
-     * the welcome screen first, we'll add the Welcome Screen to the back stack so that the user visits
-     * the Welcome screen when they press the back button, as opposed to the splash screen).
-     */
-    private void startActivityLogin()
-    {
-        if (isFinishing() || isDestroyed())
-        {
-            return;
-        }
-
-        Intent loginActivity = new Intent(this, ActivityLogin.class);
-        TaskStackBuilder.create(this)
-                .addNextIntentWithParentStack(loginActivity)
-                .startActivities();
-    }
-
-
     private void renderSplashScreenVideo()
     {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.loading);

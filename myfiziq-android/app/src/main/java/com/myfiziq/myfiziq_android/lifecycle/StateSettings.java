@@ -5,18 +5,13 @@ import android.text.TextUtils;
 
 import com.myfiziq.myfiziq_android.R;
 import com.myfiziq.myfiziq_android.activities.ActivityAdvancedSettings;
-import com.myfiziq.myfiziq_android.activities.ActivityEditProfile;
-import com.myfiziq.myfiziq_android.activities.ActivitySupport;
 import com.myfiziq.sdk.BuildConfig;
-import com.myfiziq.sdk.MyFiziq;
 import com.myfiziq.sdk.activities.DebugActivity;
 import com.myfiziq.sdk.db.ModelSetting;
 import com.myfiziq.sdk.db.ORMDbFactory;
 import com.myfiziq.sdk.enums.IntentPairs;
-import com.myfiziq.sdk.enums.SupportType;
 import com.myfiziq.sdk.fragments.FragmentLogout;
 import com.myfiziq.sdk.fragments.FragmentSettings;
-import com.myfiziq.sdk.fragments.FragmentTermsOfService;
 import com.myfiziq.sdk.lifecycle.Parameter;
 import com.myfiziq.sdk.lifecycle.ParameterSet;
 import com.myfiziq.sdk.lifecycle.ParameterSet.Builder;
@@ -41,12 +36,7 @@ public class StateSettings
      */
     public static ParameterSet getSettings()
     {
-        Builder builder = new Builder(FragmentSettings.class)
-                .addNextSet(new Builder(ActivityEditProfile.class)
-                        .setName("PROFILE")
-                        .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_ICON, R.drawable.ic_edit_black_24dp))
-                        .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_LABEL, R.string.profile_settings))
-                        .build());
+        Builder builder = new Builder(FragmentSettings.class);
 
         if (ModelSetting.getSetting(ModelSetting.Setting.FEATURE_GUEST_USERS, false))
         {
@@ -66,20 +56,6 @@ public class StateSettings
 
             builder.addNextSet(guestParamSet);
         }
-
-        builder.addNextSet(new Builder(ActivitySupport.class)
-                .setName("FEEDBACK")
-                .addParam(new Parameter(R.id.TAG_ARG_VIEW, SupportType.FEEDBACK_SUPPORT))
-                .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_ICON, R.drawable.ic_settings_feedback))
-                .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_LABEL, R.string.feedback))
-                .build());
-
-        builder.addNextSet(new Builder(FragmentTermsOfService.class)
-                .setName("TOS")
-                .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_ICON, R.drawable.ic_settings_tos))
-                .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_LABEL, R.string.myfiziqsdk_terms_of_service))
-                .build());
-
         if (MiscUtils.isInternalBuild())
         {
             builder.addNextSet(new Builder(ActivityAdvancedSettings.class)

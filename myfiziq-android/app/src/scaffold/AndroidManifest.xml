@@ -32,10 +32,6 @@
             android:theme="@style/WelcomeScreenTheme" />
 
         <activity
-            android:name="com.myfiziq.myfiziq_android.activities.ActivityEditProfile"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
             android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityWelcome"
             android:screenOrientation="portrait" />
@@ -54,12 +50,6 @@
             android:name="com.myfiziq.myfiziq_android.activities.ActivityLogin"
             android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
             android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.myfiziq.myfiziq_android.activities.ActivitySupport"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
-            />
 
         <activity
             android:name="com.myfiziq.myfiziq_android.activities.ActivityForgotPassword"
