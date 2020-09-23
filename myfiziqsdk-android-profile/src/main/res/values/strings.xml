@@ -1,7 +1,0 @@
-<resources>
-    <string name="age">Age</string>
-    <string name="years">%1$d Years</string>
-    <string name="get_your_measurements">Get your body measurements using your smart phone.</string>
-    <string name="new_measurement_caps">NEW MEASUREMENT</string>
-    <string name="body_composition">Body Composition</string>
-</resources>

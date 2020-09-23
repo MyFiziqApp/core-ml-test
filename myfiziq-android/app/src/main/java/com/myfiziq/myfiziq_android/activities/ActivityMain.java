@@ -22,8 +22,6 @@ import com.myfiziq.myfiziq_android.routes.LogoutRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.ReinitialiseSdkRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.SettingsRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.SupportRouteGenerator;
-import com.myfiziq.myfiziq_android.routes.ViewAllRouteGenerator;
-import com.myfiziq.myfiziq_android.routes.ViewAvatarRouteGenerator;
 import com.myfiziq.sdk.MyFiziqAvatarDownloadManager;
 import com.myfiziq.sdk.activities.ActivityInterface;
 import com.myfiziq.sdk.activities.BaseActivity;
@@ -333,14 +331,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         HomepageRouteGenerator homepageRouteGenerator = new HomepageRouteGenerator(this, IntentPairs.HOMEPAGE_ROUTE);
         homepageRouteGenerator.startListening();
         registeredReceivers.add(homepageRouteGenerator);
-
-        ViewAllRouteGenerator viewAllRouteGenerator = new ViewAllRouteGenerator(this, IntentPairs.VIEW_ALL_ROUTE);
-        viewAllRouteGenerator.startListening();
-        registeredReceivers.add(viewAllRouteGenerator);
-
-        ViewAvatarRouteGenerator viewAvatarRouteGenerator = new ViewAvatarRouteGenerator(this, IntentPairs.VIEW_AVATAR_ROUTE);
-        viewAvatarRouteGenerator.startListening();
-        registeredReceivers.add(viewAvatarRouteGenerator);
 
         SupportRouteGenerator supportGenerator = new SupportRouteGenerator(this, IntentPairs.SUPPORT_ROUTE);
         supportGenerator.startListening();

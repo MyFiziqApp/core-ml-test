@@ -290,7 +290,6 @@ dependencies {
 
     implementation project(':myfiziqsdk')
     implementation project(':myfiziqsdk-android-input')
-    implementation project(':myfiziqsdk-android-profile')
     //compile group: 'com.myfiziq.sdk', name: 'myfiziqsdk', version: '1.0', ext: 'aar', classifier: 'debug'
 
     annotationProcessor 'com.github.benelog:multiline:0.1.2'

@@ -9,9 +9,6 @@
 [submodule "myfiziqsdk-android-input"]
 	path = myfiziqsdk-android-input
 	url = https://github.com/MyFiziqApp/myfiziqsdk-android-input.git
-[submodule "myfiziqsdk-android-profile"]
-	path = myfiziqsdk-android-profile
-	url = https://github.com/MyFiziqApp/myfiziqsdk-android-profile.git
 [submodule "myfiziqsdk-android-track"]
 	path = myfiziqsdk-android-track
 	url = https://github.com/MyFiziqApp/myfiziqsdk-android-track.git
