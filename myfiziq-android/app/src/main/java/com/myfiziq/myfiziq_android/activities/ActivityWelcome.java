@@ -40,29 +40,17 @@ public class ActivityWelcome extends AppCompatActivity
     {
         Button joinButton = findViewById(R.id.joinButton);
         Button loginButton = findViewById(R.id.loginButton);
-
-        if(BuildConfig.DEBUG){
-        joinButton.setOnClickListener(view -> onJoinClicked());
-        }else{
-            joinButton.setText("");
-        }
+        joinButton.setText("");
         loginButton.setOnClickListener(view -> onLoginClicked());
     }
 
-    public void onJoinClicked()
-    {
-        ParameterSet.Builder builder = new ParameterSet.Builder(ActivityJoin.class);
-        Intent newActivity = new Intent(this, ActivityTermsOfService.class);
-        newActivity.putExtra(BaseFragment.BUNDLE_PARAMETERS, builder.build());
-        startActivity(newActivity);
-    }
 
     public void onLoginClicked()
     {
-        ParameterSet.Builder builder = new ParameterSet.Builder(ActivityLogin.class);
+       // ParameterSet.Builder builder = new ParameterSet.Builder(ActivityLogin.class);
 
-        Intent newActivity = new Intent(this, ActivityTermsOfService.class);
-        newActivity.putExtra(BaseFragment.BUNDLE_PARAMETERS, builder.build());
+        Intent newActivity = new Intent(this, ActivityLogin.class);
+        //newActivity.putExtra(BaseFragment.BUNDLE_PARAMETERS, builder.build());
         startActivity(newActivity);
     }
 }

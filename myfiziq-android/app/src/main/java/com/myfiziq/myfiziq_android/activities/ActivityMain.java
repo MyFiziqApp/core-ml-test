@@ -87,6 +87,7 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         intentManagerService = new IntentManagerService<>(this);
 
         bindRouteGeneratorListeners();
+        bindLifecycleListeners();
 
 //        intentManagerService.requestAndListenForResponse(
 //                IntentPairs.HOMEPAGE_ROUTE,
@@ -294,30 +295,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         intentManagerService.listenIndefinitely(
                 IntentResponses.HIDE_SWAP_MENU_BUTTON,
                 v -> onSwapButtonSetVisibility(false, R.id.menu_item_swap)
-        );
-
-        intentManagerService.listenIndefinitely(
-                IntentResponses.SHOW_VIEW_SUPPORT_BUTTON,
-                v ->
-                {
-
-                    onSwapButtonSetVisibility(true, R.id.action_delete_avatar);
-                }
-        );
-        intentManagerService.listenIndefinitely(
-                IntentResponses.HIDE_VIEW_SUPPORT_BUTTON,
-                v ->
-                {
-                    onSwapButtonSetVisibility(false, R.id.action_delete_avatar);
-                }
-        );
-        intentManagerService.listenIndefinitely(
-                IntentResponses.SHOW_BOTTOM_NAVIGATION_BAR,
-                v -> setBottomNavigationBarVisibility(View.VISIBLE)
-        );
-        intentManagerService.listenIndefinitely(
-                IntentResponses.HIDE_BOTTOM_NAVIGATION_BAR,
-                v -> setBottomNavigationBarVisibility(View.GONE)
         );
         intentManagerService.listenIndefinitely(
                 IntentResponses.CAPTURE_PROCESSING_ERROR,

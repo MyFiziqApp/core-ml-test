@@ -37,16 +37,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.myfiziq.myfiziq_android.activities.ActivityPrivacyPolicy"
-            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.myfiziq.myfiziq_android.activities.ActivityJoin"
-            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.myfiziq.myfiziq_android.activities.ActivityLogin"
             android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
             android:screenOrientation="portrait" />

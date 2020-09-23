@@ -64,7 +64,8 @@ public class ActivityTermsOfService extends AppCompatActivity
         iAgreeCheckbox.setMovementMethod(LinkMovementMethod.getInstance());
         iAgreeCheckbox.setText(createClickableSpans(ss, url ->
         {
-            Intent newActivity = new Intent(this, ActivityPrivacyPolicy.class);
+            Intent newActivity = new Intent(this, ActivityMain.class);
+
             startActivity(newActivity);
         }));
 
