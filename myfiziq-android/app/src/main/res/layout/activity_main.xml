@@ -36,23 +36,11 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottomNav"
             android:layout_below="@+id/appbarMaster"
             android:orientation="horizontal"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </FrameLayout>
-
-        <com.myfiziq.sdk.views.MYQBottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/myfiziqsdk_white"
-            app:itemIconSize="28dp"
-            app:itemIconTint="@drawable/bottom_nav_bar_selector"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/activity_main_nav" />
 
     </RelativeLayout>
 

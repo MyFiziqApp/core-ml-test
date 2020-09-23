@@ -16,6 +16,7 @@ import com.myfiziq.myfiziq_android.R;
 import com.myfiziq.myfiziq_android.helpers.NotificationHelper;
 import com.myfiziq.myfiziq_android.helpers.SignInHelper;
 import com.myfiziq.myfiziq_android.lifecycle.AvatarRetryReceiver;
+import com.myfiziq.myfiziq_android.lifecycle.StateSettings;
 import com.myfiziq.myfiziq_android.routes.HomepageRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.LogoutRouteGenerator;
 import com.myfiziq.myfiziq_android.routes.ReinitialiseSdkRouteGenerator;
@@ -23,19 +24,16 @@ import com.myfiziq.myfiziq_android.routes.SettingsRouteGenerator;
 import com.myfiziq.sdk.MyFiziqAvatarDownloadManager;
 import com.myfiziq.sdk.activities.ActivityInterface;
 import com.myfiziq.sdk.activities.BaseActivity;
+import com.myfiziq.sdk.activities.DebugActivity;
 import com.myfiziq.sdk.activities.DeferredOperation;
 import com.myfiziq.sdk.db.ModelAvatar;
 import com.myfiziq.sdk.enums.IntentPairs;
 import com.myfiziq.sdk.enums.IntentRequests;
 import com.myfiziq.sdk.enums.IntentResponses;
 import com.myfiziq.sdk.enums.SdkResultCode;
-import com.myfiziq.sdk.enums.StatusBarStyle;
-import com.myfiziq.sdk.enums.SupportType;
 import com.myfiziq.sdk.fragments.BaseFragment;
 import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.DialogHelper;
-import com.myfiziq.sdk.helpers.SisterColors;
-import com.myfiziq.sdk.helpers.StatusBarHelper;
 import com.myfiziq.sdk.intents.IntentManagerService;
 import com.myfiziq.sdk.intents.MyFiziqBroadcastReceiver;
 import com.myfiziq.sdk.lifecycle.Parameter;
@@ -50,7 +48,6 @@ import java.util.List;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import timber.log.Timber;
@@ -67,21 +64,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
     private List<MyFiziqBroadcastReceiver> registeredReceivers = new LinkedList<>();
 
     private boolean isPaused = false;
-
-    private ModelAvatar mAvatar;
-    private String mUserGender;
-    private String mUserHeight;
-    private String mUserWeight;
-    private String mPreferredHeightUnits;
-    private String mPreferredWeightUnits;
-    private String mDisplayMode;
-
-    private enum DisplayMode
-    {
-        list,
-        capture,
-        track
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -100,30 +82,25 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         }
         */
 
-        mainToolbar = findViewById(R.id.mainToolbar);
-        bottomNav = findViewById(R.id.bottomNav);
-
-        bottomNav.setOnNavigationItemSelectedListener(this);
-        bottomNav.setOnNavigationItemReselectedListener(this);
-        initToolbar();
+        //mainToolbar = findViewById(R.id.mainToolbar);
 
         intentManagerService = new IntentManagerService<>(this);
 
         bindRouteGeneratorListeners();
-        bindBottomNavigationBarListeners();
-        bindLifecycleListeners();
 
-        StatusBarHelper.setStatusBarStyle(getActivity(), StatusBarStyle.DEFAULT_LIGHT, getResources().getColor(R.color.myfiziqsdk_status_bar_white));
+//        intentManagerService.requestAndListenForResponse(
+//                IntentPairs.HOMEPAGE_ROUTE,
+//                result -> {
+//                    injectNavBarSelectionIntoParameterSet(result, R.id.navigation_home);
+//                    startRouteFragment(result, this, false);
+//                }
+//        );
 
-        mUserGender = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_GENDER, null);
-        mUserHeight = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_HEIGHT_IN_CM, null);
-        mUserWeight = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_WEIGHT_IN_KG, null);
-        mPreferredHeightUnits = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_HEIGHT_UNITS, null);
-        mPreferredWeightUnits = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_WEIGHT_UNITS, null);
-        mDisplayMode = getStringParamValue(com.myfiziq.sdk.R.id.TAG_ARG_ACTIVITY_VIEW, null);
+        ParameterSet test = StateSettings.getSettings();
+        injectNavBarSelectionIntoParameterSet(test, R.id.navigation_home);
+        startRouteFragment(test,this, false);
 
-        initPageState();
-
+        // startActivity(new Intent(this, //DebugActivity.class));
         startBackgroundSignIn();
     }
 
@@ -190,85 +167,6 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         if (homeButtonId != -1 && findViewById(homeButtonId) != null)
         {
             bottomNav.setCheckedItemId(homeButtonId);
-        }
-    }
-
-    void initPageState()
-    {
-        MenuItem navigation_home = bottomNav.getMenu().findItem(R.id.navigation_home);
-        MenuItem navigation_profile = bottomNav.getMenu().findItem(R.id.navigation_profile);
-        MenuItem navigation_new = bottomNav.getMenu().findItem(R.id.navigation_new);
-        MenuItem navigation_track = bottomNav.getMenu().findItem(R.id.navigation_track);
-        boolean bItemSelected = false;
-
-        if (!TextUtils.isEmpty(mDisplayMode))
-        {
-            try
-            {
-                DisplayMode mode = DisplayMode.valueOf(mDisplayMode);
-                switch (mode)
-                {
-                    case list:
-                    {
-                        if (null != navigation_profile && navigation_profile.isVisible())
-                        {
-                            onProfileClicked();
-                            bItemSelected = true;
-                        }
-                    }
-                    break;
-
-                    case capture:
-                    {
-                        if (null != navigation_new && navigation_new.isVisible())
-                        {
-                            onNewAvatarClicked();
-                            bItemSelected = true;
-                        }
-                    }
-                    break;
-
-                    case track:
-                    {
-                        if (null != navigation_track && navigation_track.isVisible())
-                        {
-                            onTrackAvatarClicked();
-                            bItemSelected = true;
-                        }
-                    }
-                    break;
-                }
-            }
-            catch (Exception e)
-            {
-                Timber.e(e);
-            }
-        }
-
-        if (!bItemSelected)
-        {
-            if (getSupportFragmentManager().getFragments().isEmpty())
-            {
-                if (null != navigation_home && navigation_home.isVisible())
-                    onHomeClicked();
-                else if (null != navigation_profile && navigation_profile.isVisible())
-                    onProfileClicked();
-                else if (null != navigation_new && navigation_new.isVisible())
-                    onNewAvatarClicked();
-            }
-        }
-    }
-
-    void initToolbar()
-    {
-        setSupportActionBar(mainToolbar);
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null)
-        {
-            actionBar.setHomeButtonEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(true);
         }
     }
 
@@ -402,6 +300,7 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                 IntentResponses.SHOW_VIEW_SUPPORT_BUTTON,
                 v ->
                 {
+
                     onSwapButtonSetVisibility(true, R.id.action_delete_avatar);
                 }
         );
@@ -459,16 +358,16 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
     private void onNewAvatarClicked()
     {
         ParameterSet.Builder builder = new ParameterSet.Builder();
-        if (!TextUtils.isEmpty(mUserGender))
-            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_GENDER, mUserGender));
-        if (!TextUtils.isEmpty(mUserWeight))
-            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_WEIGHT_IN_KG, mUserWeight));
-        if (!TextUtils.isEmpty(mUserHeight))
-            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_HEIGHT_IN_CM, mUserHeight));
-        if (!TextUtils.isEmpty(mPreferredHeightUnits))
-            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_HEIGHT_UNITS, mPreferredHeightUnits));
-        if (!TextUtils.isEmpty(mPreferredWeightUnits))
-            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_WEIGHT_UNITS, mPreferredWeightUnits));
+//        if (!TextUtils.isEmpty(mUserGender))
+//            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_GENDER, mUserGender));
+//        if (!TextUtils.isEmpty(mUserWeight))
+//            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_WEIGHT_IN_KG, mUserWeight));
+//        if (!TextUtils.isEmpty(mUserHeight))
+//            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_HEIGHT_IN_CM, mUserHeight));
+//        if (!TextUtils.isEmpty(mPreferredHeightUnits))
+//            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_HEIGHT_UNITS, mPreferredHeightUnits));
+//        if (!TextUtils.isEmpty(mPreferredWeightUnits))
+//            builder.addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_PREFERRED_WEIGHT_UNITS, mPreferredWeightUnits));
 
         new IntentManagerService<ParameterSet>(this).requestAndListenForResponse(
                 IntentPairs.ONBOARDING_ROUTE,
