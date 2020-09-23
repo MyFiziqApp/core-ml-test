@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:name="com.myfiziq.myfiziq_android.SampleApplication"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:resizeableActivity="false"
+        android:testOnly="false"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityEntrypoint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityWelcome"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeScreenTheme" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityEditProfile"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityWelcome"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityPrivacyPolicy"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityJoin"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityLogin"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityTermsOfService"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivitySupport"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged"
+            />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityForgotPassword"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityLogin"
+            android:taskAffinity=".forgot_password"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityForgotPasswordReset"
+            android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityForgotPassword"
+            android:taskAffinity=".forgot_password"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityMain"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoBackButton"/>
+
+        <activity
+            android:name="com.myfiziq.myfiziq_android.activities.ActivityAdvancedSettings"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged"
+            />
+
+        <receiver android:name="com.myfiziq.myfiziq_android.lifecycle.AvatarRetryReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.myfiziq.myfiziq_android.AvatarRetryReceiver" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

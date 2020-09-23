@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentCreateAvatarScrollView"
+    style="@style/MFICreateAvatarScrollForm">
+
+    <com.myfiziq.sdk.views.BackgroundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView style="@style/MFICreateAvatarFormTitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:weightSum="100">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/MFTextInputStyle.HeightForm"
+                tools:ignore="HardcodedText">
+                <!-- Leave a space in the TextInputLayout hint for a blank label but keep a hint in the EditText when there is no input -->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/heightEditText"
+                    style="@style/MFEditTextStyle.HeightForm"
+                    tools:ignore="UnusedAttribute" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/MFTextInputStyle.WeightForm"
+                tools:ignore="HardcodedText">
+                <!-- Leave a space in the TextInputLayout hint for a blank label but keep a hint in the EditText when there is no input -->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightEditText"
+                    style="@style/MFEditTextStyle.WeightForm"
+                    tools:ignore="UnusedAttribute" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/dateOfBirthHeading"
+            style="@style/MFIDateOfBirthLabel"
+            android:visibility="gone"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateOfBirthContainer"
+            style="@style/MFTextInputStyle.BirthDateForm"
+            tools:ignore="HardcodedText"
+            android:visibility="gone"
+            >
+            <!-- Leave a space in the TextInputLayout hint for a blank label but keep a hint in the EditText when there is no input -->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dateOfBirth"
+                style="@style/MFEditTextStyle.BirthDateForm"
+                tools:ignore="UnusedAttribute" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView style="@style/MFIGenderLabel" />
+
+        <LinearLayout
+            android:id="@+id/genderGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:weightSum="100">
+
+            <com.myfiziq.sdk.views.InputDataLinearLayout style="@style/MFRadioButtonContainer.MaleForm">
+
+                <RadioButton
+                    android:id="@+id/genderMale"
+                    style="@style/MFIRadioButtonMaleForm" />
+
+            </com.myfiziq.sdk.views.InputDataLinearLayout>
+
+            <com.myfiziq.sdk.views.InputDataLinearLayout style="@style/MFRadioButtonContainer.FemaleForm">
+
+                <RadioButton
+                    android:id="@+id/genderFemale"
+                    style="@style/MFIRadioButtonFemaleForm" />
+
+            </com.myfiziq.sdk.views.InputDataLinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/layoutProcessing"
+            style="@style/MFIPleaseWaitProcessingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_waitprocessing" />
+
+        <com.myfiziq.sdk.views.TintableButton
+            android:id="@+id/btnCapture"
+            style="@style/MFButton.CreateAvatarButton"
+            android:enabled="false"
+            android:visibility="gone" />
+
+    </com.myfiziq.sdk.views.BackgroundLinearLayout>
+
+</ScrollView>
+

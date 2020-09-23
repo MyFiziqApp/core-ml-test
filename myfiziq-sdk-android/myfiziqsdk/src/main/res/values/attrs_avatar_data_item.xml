@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarDataItem">
+        <attr name="nameText" format="string" localization="suggested" />
+        <attr name="valueText" format="string" localization="suggested" />
+        <attr name="dividerTop" format="boolean" />
+        <attr name="dividerBottom" format="boolean" />
+        <attr name="layout" format="reference" />
+    </declare-styleable>
+</resources>

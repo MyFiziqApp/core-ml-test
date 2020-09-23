@@ -1,0 +1,148 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven {
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+            content {
+                includeGroupByRegex "com\\.myfiziq.*"
+            }
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.1'
+
+        // Check for v3.1.2 or higher
+        classpath 'com.google.gms:google-services:4.3.3'  // Google Services plugin
+
+        // Add the Crashlytics Gradle plugin.
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+
+        // Sonarqube. Only for sample application
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.8"
+
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven {
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+            content {
+                includeGroupByRegex "com\\.myfiziq.*"
+            }
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+
+
+subprojects {
+    afterEvaluate { project ->
+
+        if (!project.hasProperty("android") || !project.android.hasProperty("libraryVariants")) {
+            // This task only supports Javadoc generation for Android libraries.
+            // Ignore projects if they're not Android libraries.
+            return
+        }
+
+
+        android.libraryVariants.configureEach { variant ->
+
+            if (!variant.name.toLowerCase().contains("release")) {
+                // Only works with release builds
+                return
+            }
+
+            task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+
+                title = null
+                description = "Generates Javadoc for the $variant.name variant."
+                group = 'Documentation'
+
+                failOnError false
+
+                //destinationDir = new File("${project.getProjectDir()}/doc/compiled/", variant.baseName)
+                source = variant.javaCompileProvider.get().source
+                source = android.sourceSets.main.java.sourceFiles
+
+                //source = variant.sourceSets.collect { it.java.sourceFiles }.inject { m, i -> m + i }
+
+                //ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+                //classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+
+                exclude '**/BuildConfig.java'
+                exclude '**/R.java'
+                exclude 'layers/**'
+                exclude 'messagepack/**'
+                exclude 'network/**'
+                exclude 'numdroid/**'
+                exclude 'org/**'
+
+                ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+
+                doFirst {
+                    //classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+                    //classpath += variant.javaCompiler.classpath
+
+                    classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+
+                    options {
+                        docletpath = configurations.doclava.files as List
+                        doclet "com.google.doclava.Doclava"
+                        memberLevel = JavadocMemberLevel.PUBLIC
+                        /*bootClasspath new File(System.getenv('JAVA_HOME') + "/jre/lib/rt.jar")*/
+                        addStringOption "hdf project.name", "MyFiziq SDK Documentation"
+                        addStringOption "hdf project.version", project.version
+                        addStringOption "apiversion", "v2"
+                        overview = "overview.html"
+                        addStringOption "federate android", "http://developer.android.com/reference"
+                        addStringOption "federationxml android", project.rootDir.toString() + "/docs/android-22.xml"
+                        addStringOption "templatedir", project.rootDir.toString() + "/docs/template"
+                        addBooleanOption "notimestamp", false           // Unsupported on Doclava
+                        //if (JavaVersion.current().isJava8Compatible()) {
+                        //    options.addStringOption('Xdoclint:none', '-quiet')
+                        //}
+                    }
+                }
+
+                //doFirst { classpath = files(variant.javaCompile.classpath.files) + files(android.getBootClasspath()) }
+                //doFirst { classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar) }
+
+                //options.links("http://docs.oracle.com/javase/7/docs/api/")
+                //options.links("http://developer.android.com/reference/")
+
+                //options.linksOffline("http://d.android.com/reference","${android.sdkDirectory}/docs/reference")
+            }
+        }
+    }
+}
+
+
+apply plugin: "org.sonarqube"

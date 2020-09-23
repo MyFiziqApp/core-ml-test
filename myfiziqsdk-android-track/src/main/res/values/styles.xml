@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--My Fiziq Track SDK Styling, MFT = My Fiziq Track-->
+    <style name="MFTProgressTabParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey6</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFTProgressTabScrollview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFTProgressTabContentContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarComparisonContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarContainerContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">350dp</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="MFTProgressTabCircleButtonContainerContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDate">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarMeasurement">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDeltaContainer">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDeltaTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">@string/change_caps</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDeltaMeasurementContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDeltaIndicator">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/ic_mini_arrow_up</item>
+    </style>
+
+    <style name="MFTProgressTabAvatarDeltaMeasurement">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="MFTProgressTabCircleButtonContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="rescaleH">true</item>
+    </style>
+
+    <style name="MFTProgressTabCircleButton">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">85sp</item>
+        <item name="android:layout_height">85sp</item>
+        <item name="android:textColor">@color/myfiziqsdk_colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="circleColor">@color/myfiziqsdk_colorPrimaryDark</item>
+        <item name="circleWidth">3dp</item>
+    </style>
+
+    <style name="MFTProgressTabDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/myfiziqsdk_grey11</item>
+    </style>
+
+    <style name="MFTProgressMeasurementTypePagerContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFTProgressMeasurementTypePagerArrow">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">30sp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="MFTProgressMeasurementTypePagerArrowLeft" parent="MFTProgressMeasurementTypePagerArrow">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">10sp</item>
+        <item name="android:scaleType">fitStart</item>
+        <item name="android:src">@drawable/ic_left_navigation</item>
+    </style>
+
+    <style name="MFTProgressMeasurementTypePagerArrowRight" parent="MFTProgressMeasurementTypePagerArrow">
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginRight">10sp</item>
+        <item name="android:scaleType">fitEnd</item>
+        <item name="android:src">@drawable/ic_right_navigation</item>
+    </style>
+
+    <style name="MFTProgressMeasurementTypePagerText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35sp</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="MFTProgressDurationTabContainer" parent="Base.Widget.Design.TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="tabIndicatorColor">@color/myfiziqsdk_colorAccent</item>
+        <item name="tabSelectedTextColor">@color/myfiziqsdk_colorAccent</item>
+    </style>
+
+    <style name="MFTProgressTabDurationTab">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">25dp</item>
+        <item name="android:paddingBottom">25dp</item>
+    </style>
+
+    <style name="MFTProgressTabChart">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/myfiziqsdk_grey6</item>
+
+    </style>
+
+
+    <style name="MFTProgressTabLoadingSpinner" parent="MFProgressBar">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="rescaleH">true</item>
+    </style>
+
+    <!--Fragment Avatar Selector Styling-->
+    <style name="MFTFragmentAvatarSelectorRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <!--Fragment No Avatar Styling-->
+    <style name="MFTFragmentNoAvatarRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFTFragmentNoAvatarHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:text">@string/no_avatars_heading</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="MFTFragmentNoAvatarDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:text">@string/no_avatars_description</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+    </style>
+
+    <style name="MFButton.FragmentNoAvatarButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:text">@string/new_measurement</item>
+    </style>
+
+    <!--Fragment Track Selector Styling-->
+    <style name="MFTFragmentTrackRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFTFragmentTrackTabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="tabTextColor">@color/myfiziqsdk_grey15</item>
+        <item name="tabSelectedTextColor">@color/myfiziqsdk_colorAccent</item>
+        <item name="tabIndicatorColor">@color/myfiziqsdk_colorAccent</item>
+    </style>
+
+    <style name="MFTFragmentTrackViewPager">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFProgressChart.TrackChart">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
+    <!--View Compare Measurement Item Styling-->
+    <style name="MFTViewCompareMeasurementItemLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_grey16</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemTitle" parent="TextBody2.Bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemFirstValue" parent="TextBody2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">80dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemSecondValue" parent="TextBody2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">80dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemDeltaContainer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemDeltaImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">10sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemDeltaText" parent="TextBody2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/myfiziqsdk_grey14</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MFTViewCompareMeasurementItemDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/myfiziqsdk_grey22</item>
+    </style>
+
+    <!--Fragment Progress Styling-->
+    <style name="MFTFragmentProgressMeasurementTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="myfiziqsdk_circle_stroke_width">3dp</dimen>
+    <dimen name="myfiziqsdk_icon_padding">6dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="toolbar_height">40dp</dimen>
+
+    <integer name="myfiziqsdk_avatar_generation_timeout_seconds">300</integer>
+
+    <integer name="myfiziqsdk_capture_timer_top_margin">50</integer>
+    <integer name="myfiziqsdk_capture_timer_right_margin">100</integer>
+    <integer name="myfiziqsdk_capture_timer_bottom_margin">50</integer>
+    <integer name="myfiziqsdk_capture_timer_left_margin">100</integer>
+
+    <item type="dimen" format="float" name="myfiziqsdk_capture_timer_error_buttons_guideline">0.5</item>
+    <item type="dimen" format="float" name="myfiziqsdk_capture_confirm_help_bottom_guideline">0.9</item>
+
+    <dimen name="view_avatar_item_margin_start">14dp</dimen>
+    <dimen name="view_avatar_item_margin_end">14dp</dimen>
+
+    <!-- Override me in the customer app to enable -->
+    <bool name="enable_rgb_capture_upload">false</bool>
+
+    <string name="avatar_extended_support_s3_bucket">%1$s-%2$s-rgb-captures</string>
+
+    <integer name="myfiziqsdk_default_user_age">18</integer>
+
+    <dimen name="support_form_main_margin">15dp</dimen>
+
+    <string name="customUsernameFormat">%1$s-%2$s-%3$s@myfiziq.com</string>
+    
+    <!--
+        The number of milliseconds to delay opening a fragment by. This allows expensive UI elements
+        to be rendered before the transition animation begins, thus increasing the likelihood that
+        the transition animation between fragments won't stutter.
+    -->
+    <integer name="myfiziq_fragment_transition_delay">250</integer>
+
+    <integer name="avatar_background_fetch_interval_seconds">20</integer>
+
+    <!-- The below URL is CACHED!! (i.e. bad for development). If you try to change the file in S3 it will take several hours for the changes to be visible in the "ondemand.myfiziq.io" domain -->
+    <string name="styles_url">https://ondemand.myfiziq.io/resources/android/%1$s/%2$s/%3$s/styles.json</string>
+
+    <!-- This URL bypasses the CloudFront cache (i.e. good for development). Don't use for non-development environments. -->
+    <string name="styles_url_dev">https://myfiziq-sister-app.s3-us-west-2.amazonaws.com/resources/android/%1$s/%2$s/%3$s/styles.json</string>
+
+    <!-- The base URL where remote resources are stored -->
+    <string name="remote_resources_base_url">https://resources.myfiziq.io</string>
+    <bool name="remote_resources_upgrade">true</bool>
+    <integer name="remote_resources_wifi_size_mb">0</integer>
+
+    <!-- on-device classification settings -->
+    <bool name="ondevice_classify">true</bool>
+    <bool name="ondevice_run_joints">false</bool>
+    <bool name="ondevice_upload_payload">true</bool>
+    <bool name="ondevice_upload_results">true</bool>
+
+    <!-- Whether to download remote resources as compressed zip files to reduce the download size -->
+    <bool name="download_resources_as_zipped">true</bool>
+    <string name="remote_resources_zip_extension">.zip</string>
+
+</resources>

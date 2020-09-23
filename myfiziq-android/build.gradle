@@ -1,0 +1,49 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        mavenLocal()
+        maven {
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+            content {
+                includeGroupByRegex "com\\.myfiziq.*"
+            }
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        mavenLocal()
+        maven {
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+            content {
+                includeGroupByRegex "com\\.myfiziq.*"
+            }
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="25dp"
+    android:height="25dp"
+    android:viewportWidth="25"
+    android:viewportHeight="25">
+  <path
+      android:pathData="M22.1084,12.1245C22.1084,6.6045 17.6284,2.1245 12.1084,2.1245C6.5884,2.1245 2.1084,6.6045 2.1084,12.1245C2.1084,17.6445 6.5884,22.1245 12.1084,22.1245C17.6284,22.1245 22.1084,17.6445 22.1084,12.1245ZM15.1084,6.6245L18.6084,10.1245L15.1084,13.6245V11.1245H11.1084V9.1245H15.1084V6.6245ZM5.6084,14.1245L9.1084,17.6245V15.1245H13.1084V13.1245H9.1084V10.6245L5.6084,14.1245Z"
+      android:fillColor="@color/myfiziqsdk_toolbar_button_color"
+      android:fillType="evenOdd"/>
+</vector>

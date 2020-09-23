@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">OnDemand</string>
+    <string name="new_avatar">New</string>
+    <string name="myfiziqsdk_title_new_measurement">New Body Scan</string>
+    <string name="unable_to_scan">"You are unable to start a new scan as your access has expired.\n\nFor more information, please contact support from the app where you purchased Body Scan onDemand.</string>
+    <string name="myfiziqsdk_confirm_close_detail">Your front and side photos will not be saved.</string>
+    <string name="myfiziqsdk_are_you_sure">Are you sure you want to Exit?</string>
+    <string name="myfiziqsdk_align_circles_exit_detail"></string>
+    <string name="myfiziqsdk_align_circles_confirm">Continue</string>
+    <string name="align_circles_slowly_nover_one_another">Align circles slowly\nover one another.</string>
+    <string name="myfiziqsdk_align_circles_table">Place phone upright so the\nfront camera points at your hips.</string>
+    <string name="delete_avatar">Delete Scan?</string>
+    <string name="permanent_delete">This action cannot be undone.</string>
+    <string name="get_your_measurements">Get your body measurements using your smart phone.</string>
+    <string name="no_avatars_description">Track &amp; Compare your body changes by taking a second body scan.</string>
+</resources>

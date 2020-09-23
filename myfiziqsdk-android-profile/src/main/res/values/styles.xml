@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--My Fiziq Profile SDK Styling, MFP = My Fiziq Profile-->
+
+    <!-- Profile page where there are no avatars -->
+    <style name="MFPFragmentContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey9</item>
+        <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="MFPCardsContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_grey9</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">25dp</item>
+        <item name="android:paddingBottom">25dp</item>
+    </style>
+
+    <style name="MFPCardContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="MFPCardTextContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFPCardMarginTop" parent="MFProfileCard">
+        <item name="android:layout_marginTop">25dp</item>
+    </style>
+
+    <style name="MFPDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+
+
+    <style name="MFPTextHeading" parent="TextH6">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFPTextDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MFPNewAvatarButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:background">@drawable/drawable_myfiziq_button_background_enabled</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MFPAvatarPreview">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">125dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="MFPProgressBar" parent="MFProgressBar">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">30dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <!-- View Measurement Item -->
+    <style name="MFPViewMeasurementItemTitle" parent="TextBody2.Bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MFPViewMeasurementItemDetail" parent="TextBody2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MFPViewMeasurementItemImage">
+        <item name="android:layout_width">14dp</item>
+        <item name="android:layout_height">14dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="MFPViewMeasurementItemDelta" parent="TextBody2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- View Avatar Fragment -->
+    <style name="MFPViewAvatarContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFPViewAvatarScrollview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFPViewAvatarScrollViewChild">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+
+    <style name="MFPViewAvatarDataContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFPViewAvatarButtonContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MFPViewAvatarPlayButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/ic_play</item>
+        <item name="android:color">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <style name="MFPViewAvatarResetButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/ic_replay</item>
+        <item name="android:color">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <style name="MFPViewAvatarHeading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingTop">32dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_grey17</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

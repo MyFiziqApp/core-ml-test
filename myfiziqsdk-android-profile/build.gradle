@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+apply from: '../buildflavours.gradle'
+apply from: '../buildtypes.gradle'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+
+clean.doFirst {
+    println "Deleting ${buildDir}"
+    project.delete buildDir
+}
+
+configurations {
+    doclava
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':myfiziqsdk')
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.work:work-runtime:2.3.4'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    doclava("com.google.doclava:doclava:1.0.6")
+}
+
+def publishingGradlePath = "${projectDir}/../publishing.gradle"
+
+if (file(publishingGradlePath).exists()) {
+    apply from: publishingGradlePath
+}
+else {
+    logger.warn ("Cannot find file at ${publishingGradlePath}. Publishing will be unsupported.")
+}

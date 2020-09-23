@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    style="@style/MFPViewAvatarContainer">
+
+    <com.myfiziq.sdk.views.ScrollViewDisableable
+        android:id="@+id/viewAvatarScrollView"
+        style="@style/MFPViewAvatarScrollview"
+        tools:ignore="UselessParent">
+
+        <com.myfiziq.sdk.views.AvatarLayout
+            android:id="@+id/avatarLayout"
+            style="@style/MFPViewAvatarScrollViewChild">
+
+            <com.myfiziq.sdk.views.AvatarViewSpinner
+                android:id="@+id/avatar"
+                style="@style/MFViewAvatarAvatar" />
+
+            <com.myfiziq.sdk.views.BackgroundLinearLayout
+                android:id="@+id/layout_data"
+                style="@style/MFPViewAvatarDataContainer">
+
+                <LinearLayout style="@style/MFPViewAvatarButtonContainer">
+
+                    <com.myfiziq.sdk.views.TintableImageView
+                        android:id="@+id/button_play"
+                        style="@style/MFPViewAvatarPlayButton" />
+
+                    <com.myfiziq.sdk.views.TintableImageView
+                        android:id="@+id/button_reset"
+                        style="@style/MFPViewAvatarResetButton" />
+
+                </LinearLayout>
+
+
+                <!-- TODO MERGE THIS WITH FRAGMENT PROFILE INTO IT'S OWN VIEW?? -->
+                <com.myfiziq.sdk.views.RowItemLinearLayout
+                    android:id="@+id/layout_body_fat_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                    <com.myfiziq.sdk.views.QuantityTextView
+                        android:id="@+id/header_body_composition"
+                        style="@style/MFPViewAvatarHeading"
+                        android:paddingTop="32dp"
+                        android:text="@string/body_composition" />
+
+                    <com.myfiziq.sdk.views.AvatarDataItem
+                        android:id="@+id/layout_total_body_fat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dividerBottom="true"
+                        app:dividerTop="true"
+                        app:nameText="Total Body Fat %" />
+
+                    <com.myfiziq.sdk.views.AvatarDataItem
+                        android:id="@+id/layout_body_composition_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dividerBottom="true"
+                        app:nameText="Category" />
+
+                </com.myfiziq.sdk.views.RowItemLinearLayout>
+
+
+                <com.myfiziq.sdk.views.QuantityTextView
+                    style="@style/MFPViewAvatarHeading"
+                    android:paddingTop="32dp"
+                    android:text="@string/measurements" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_chest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:dividerTop="true"
+                    app:nameText="@string/chest" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_waist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/waist" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_hips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/hips" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_thighs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/thighs" />
+
+
+                <com.myfiziq.sdk.views.QuantityTextView
+                    style="@style/MFPViewAvatarHeading"
+                    android:paddingTop="40dp"
+                    android:text="@string/info" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:dividerTop="true"
+                    app:nameText="@string/age" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/gender" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/height" />
+
+                <com.myfiziq.sdk.views.AvatarDataItem
+                    android:id="@+id/layout_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerBottom="true"
+                    app:nameText="@string/weight" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+
+            </com.myfiziq.sdk.views.BackgroundLinearLayout>
+        </com.myfiziq.sdk.views.AvatarLayout>
+    </com.myfiziq.sdk.views.ScrollViewDisableable>
+</LinearLayout>

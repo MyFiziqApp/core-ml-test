@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BCT Health Risk</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-size: min(max(12px, 2vmax), 14px);
+  font-family: -apple-system, "Roboto", sans-serif;
+  line-height: 1.25;
+  background: white;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: 16px;
+  color: black;
+}
+
+.wrapper h1 {
+  color: black;
+  font-weight: 400;
+}
+
+.wrapper h2 {
+  font-size: min(max(16px, 2.25vmax), 20px);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.wrapper h3 {
+  font-size: min(max(13px, 2.25vmax), 16px);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.wrapper a {
+  color: black;
+}
+
+.wrapper table {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  font-size: min(max(11px, 2vmax), 14px);
+}
+.wrapper table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.wrapper table th {
+  padding: 5px;
+}
+
+.wrapper table th.isleft {
+  text-align: left;
+  padding-left: 8px;
+}
+
+.wrapper table tbody tr td {
+  padding: 5px;
+}
+
+.wrapper table.risk {
+  font-size: min(max(10px, 1.75vmax), 14px);
+  margin-bottom: 20px;
+}
+
+.wrapper ul {
+  margin: 10px 0px;
+  padding: 5px 0px;
+}
+
+.wrapper ul li {
+  margin: 5px 10px;
+}
+
+.iscategory {
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: white;
+  display: block;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.islow {
+  background: #4cd964;
+}
+
+.ismedium {
+  background: #ffcc00;
+}
+
+.ishigh {
+  background: #ff9500;
+}
+
+.isveryhigh {
+  background: #ff3b30;
+}
+
+.info-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+p.footnote {
+  font-size: min(max(10px, 1.75vmax), 12px);
+  margin-top: 20px;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>BCT Health Risk</h1>
+      <section>
+        <p>
+          BCT Health Risk categorization is determined by predicted
+          <strong>body fat percentage</strong> and
+          <strong>the location of that fat on the body</strong>.
+        </p>
+        <p>
+          <strong>Excess body fat</strong> combined with a
+          <strong>wider waist</strong> can be indicative of a heightened level
+          of <strong>visceral adipose tissue</strong> which is linked to
+          <strong>increased risks of chronic disease and mortality</strong>.
+        </p>
+      </section>
+
+      <h2>Male and Female Health Risk</h2>
+
+      <h3 name="group1">
+        ( United States | Europids | Middle&nbsp;East | African )
+      </h3>
+      <h3>Males</h3>
+
+      <!-- GROUP 2 -->
+      <table class="risk">
+        <thead>
+          <tr>
+            <th rowspan="2">BF% Risk</th>
+            <th colspan="3">Waist Circumference</th>
+          </tr>
+          <tr>
+            <th>&lt;&nbsp;94&nbsp;cm</th>
+            <th>&ge;&nbsp;94&nbsp;cm<br />&lt;&nbsp;102&nbsp;cm</th>
+            <th>&ge;&nbsp;102&nbsp;cm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Low/Medium</td>
+            <td>
+              <span class="iscategory islow"><strong>LOW</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"
+                ><strong>V.&nbsp;HIGH</strong></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Very High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"
+                ><strong>V.&nbsp;HIGH</strong></span
+              >
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"
+                ><strong>V.&nbsp;HIGH</strong></span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Females</h3>
+
+      <!-- GROUP 2 -->
+      <table class="risk">
+        <thead>
+          <tr>
+            <th rowspan="2">BF% Risk</th>
+            <th colspan="3">Waist Circumference</th>
+          </tr>
+          <tr>
+            <th>&lt;&nbsp;80&nbsp;cm</th>
+            <th>&ge;&nbsp;80&nbsp;cm<br />&lt;&nbsp;88&nbsp;cm</th>
+            <th>&ge;&nbsp;88&nbsp;cm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Low/Medium</td>
+            <td>
+              <span class="iscategory islow"><strong>LOW</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>
+              <span class="iscategory islow"><strong>LOW</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Very High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- South Asian/Chinese/Japanese/South and Central Americans -->
+
+      <h3 name="group2">
+        ( South Asian | Chinese | Japanese |
+        South&nbsp;and&nbsp;Central&nbsp;Americans )
+      </h3>
+
+      <h3>Males</h3>
+
+      <!-- GROUP 2 -->
+      <table class="risk">
+        <thead>
+          <tr>
+            <th rowspan="2">BF% Risk</th>
+            <th colspan="3">Waist Circumference</th>
+          </tr>
+          <tr>
+            <th>&lt;&nbsp;90&nbsp;cm</th>
+            <th>&ge;&nbsp;90&nbsp;cm<br />&lt;&nbsp;102&nbsp;cm</th>
+            <th>&ge;&nbsp;102&nbsp;cm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Low/Medium</td>
+            <td>
+              <span class="iscategory islow"><strong>LOW</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Very High</td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Females</h3>
+
+      <!-- GROUP 2 -->
+      <table class="risk">
+        <thead>
+          <tr>
+            <th rowspan="2">BF% Risk</th>
+            <th colspan="3">Waist Circumference</th>
+          </tr>
+          <tr>
+            <th>&lt;&nbsp;80&nbsp;cm</th>
+            <th>&ge;&nbsp;80&nbsp;cm<br />&lt;&nbsp;88&nbsp;cm</th>
+            <th>&ge;&nbsp;88&nbsp;cm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Low/Medium</td>
+            <td>
+              <span class="iscategory islow"><strong>LOW</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Very High</td>
+            <td>
+              <span class="iscategory ismedium"><strong>MED</strong></span>
+            </td>
+            <td>
+              <span class="iscategory ishigh"><strong>HIGH</strong></span>
+            </td>
+            <td>
+              <span class="iscategory isveryhigh"><strong>V.HIGH</strong></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section>
+        <h3><span class="info-icon islow"></span>Low Risk</h3>
+        <p>
+          Body fat percentage and body measurements do not indicate an increased
+          level of metabolic health risk.
+        </p>
+
+        <h3><span class="info-icon ismedium"></span>Medium Risk</h3>
+        <p>
+          Body fat percentage and body measurements indicate a medium risk of
+          metabolic health issues.
+        </p>
+
+        <h3><span class="info-icon ishigh"></span>High Risk</h3>
+        <p>
+          Body fat percentage and body measurements indicate a high risk of
+          metabolic health issues. This could be due to excess fat or a
+          preferential storage of excess body fat around the waist, which has
+          been strongly linked with increased metabolic complications.
+        </p>
+
+        <h3><span class="info-icon isveryhigh"></span>Very High Risk</h3>
+        <p>
+          Body fat percentage and body measurements indicate a very high risk of
+          metabolic health issues. This could be due to excess fat or a
+          preferential storage of excess body fat around the waist, which has
+          been strongly linked with increased metabolic complications.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>

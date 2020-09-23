@@ -1,0 +1,129 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+clean.doFirst {
+    println "Deleting ${buildDir}"
+    project.delete buildDir
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.squareup:javapoet:1.8.0'
+    compile 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+
+
+
+allprojects {
+
+    afterEvaluate { project ->
+
+        // Iterate through all publications for the CURRENT project being evaluated by Gradle
+        project.publishing.publications.forEach { publication ->
+
+            // Only execute this code if we're running a publishing task
+            if (gradle.startParameter.taskNames.any { element -> element.contains("publish") })
+            {
+                // If no version number has been specified, exit
+                if (System.getProperty("VERSION_NUMBER") == null) {
+                    throw new GradleException('Please pass in a parameter called VERSION_NUMBER which specifies the version number to publish.')
+                }
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.withType(PublishToMavenRepository) { task ->
+
+        // Iterate through all tasks
+        // Check to see if the task matches the name of the repository
+        // This ensures that the right aar gets uploaded to the right repository
+        //
+        // Keeps tasks like: publishMavenReleaseAarPublicationToReleaseRepository
+        // And deletes tasks like: publishMavenDebugAarPublicationToReleaseRepository
+        if (task.publication.hasProperty("repo") && task.publication.repo != task.repository.name)
+        {
+            // e.g. "Repo debug and Task: release is invalid. Deleting task publishMavenDebugAarPublicationToReleaseRepository"
+            //println ("Repo ${task.publication.repo} and task ${task.repository.name} is invalid. Deleting task " + task.name)
+            task.enabled = false
+            task.group = null
+        }
+    }
+}
+
+publishing {
+    publications {
+
+        privateDebug(MavenPublication)
+        {
+            from components.java
+            groupId 'com.myfiziq.sdk'
+            artifactId project.archivesBaseName
+            version System.getProperty("VERSION_NUMBER") + "-debug"
+
+
+            // Give this publication a label so we can later associate it with a repository
+            // (e.g. "release" variants get uploaded to the "release" S3 Maven Repository)
+            ext.repo = "privateDebug"
+        }
+
+        privateRelease(MavenPublication)
+        {
+            from components.java
+            groupId 'com.myfiziq.sdk'
+            artifactId project.archivesBaseName
+            version System.getProperty("VERSION_NUMBER") + "-release"
+
+            // Give this publication a label so we can later associate it with a repository
+            // (e.g. "release" variants get uploaded to the "release" S3 Maven Repository)
+            ext.repo = "privateRelease"
+        }
+
+        publicRelease(MavenPublication)
+        {
+            from components.java
+            groupId 'com.myfiziq.sdk'
+            artifactId project.archivesBaseName
+            version System.getProperty("VERSION_NUMBER") + "-release"
+
+            // Give this publication a label so we can later associate it with a repository
+            // (e.g. "release" variants get uploaded to the "release" S3 Maven Repository)
+            ext.repo = "publicRelease"
+        }
+
+    }
+
+    // Specifies where the publications (e.g. aar's) get uploaded to
+    repositories {
+        maven {
+            name "privateDebug"
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+        }
+        maven {
+            name "privateRelease"
+            url "s3://myfiziq-android-maven/release"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+        }
+        maven {
+            // Customer facing public repo
+            name "publicRelease"
+            url "s3://myfiziq-android-sdk/release"
+            credentials(AwsCredentials) {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+        }
+    }
+}

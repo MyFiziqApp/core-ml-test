@@ -1,0 +1,137 @@
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+
+            release(MavenPublication) {
+                from components.release
+
+                groupId 'com.myfiziq.sdk'
+                artifactId project.archivesBaseName
+                version System.getProperty("VERSION_NUMBER") + "-release"
+                ext.set("repo", "release")
+            }
+
+            debug(MavenPublication) {
+                from components.debug
+
+                groupId 'com.myfiziq.sdk'
+                artifactId project.archivesBaseName
+                version System.getProperty("VERSION_NUMBER") + "-debug"
+                ext.set("repo", "debug")
+            }
+        }
+
+        // Specifies where the publications (e.g. aar's) get uploaded to
+        repositories {
+            maven {
+                name "privateDebug"
+                url "s3://myfiziq-android-maven/development"
+                credentials(AwsCredentials) {
+                    accessKey AWS_ACCESS_KEY
+                    secretKey AWS_SECRET_KEY
+                }
+            }
+            maven {
+                name "privateRelease"
+                url "s3://myfiziq-android-maven/release"
+                credentials(AwsCredentials) {
+                    accessKey AWS_ACCESS_KEY
+                    secretKey AWS_SECRET_KEY
+                }
+            }
+            maven {
+                // Customer facing public repo
+                name "publicRelease"
+                url "s3://myfiziq-android-sdk/release"
+                credentials(AwsCredentials) {
+                    accessKey AWS_ACCESS_KEY
+                    secretKey AWS_SECRET_KEY
+                }
+            }
+        }
+    }
+}
+
+
+
+allprojects {
+
+    afterEvaluate { project ->
+
+        // Iterate through all publications for the CURRENT project being evaluated by Gradle
+        project.publishing.publications.forEach { publication ->
+
+            // Only execute this code if we're running a publishing task
+            if (gradle.startParameter.taskNames.any{element -> element.contains("publish")})
+            {
+                if (System.getProperty("VERSION_NUMBER") == null)
+                {
+                    throw new GradleException('Please pass in a parameter called VERSION_NUMBER which specifies the version number to publish.')
+                }
+
+                //println("Evaluating ${gradle.startParameter.taskNames} and ${publication.name}")
+
+                // Extract the variant from the name of the task that's being executed (e.g. debug, release, etc)
+                def taskNameMatcher = gradle.startParameter.taskNames =~ ~/publish([a-zA-Z]+)Publication/
+                assert taskNameMatcher.find()
+                assert taskNameMatcher.size() == 1
+
+                def flavourInTaskName = taskNameMatcher[0][1]
+                def flavourInPublicationName = publication.name
+
+                //println("Comparing ${flavourInTaskName} to ${flavourInPublicationName}")
+
+                // If the publication the iterator is at is not for a variant that the task is currently running, then mark it as an alias.
+                // This will cause Gradle to ignore it.
+                // E.g. If we're trying to publish a release variant but Gradle sees a publication for debug, then disable it (i.e. mark it as an alias).
+                if (!flavourInTaskName.toLowerCase().contains(flavourInPublicationName.toLowerCase()))
+                {
+                    // Use an alias to prevent "Publishing is not able to resolve a dependency on a project with multiple publications that have different coordinates"
+                    // ... valid as of Gradle 5.5.1
+                    //
+                    // See: https://stackoverflow.com/a/51369592/487559
+                    publication.alias = true
+                    //println("Marking '${publication.name}' as an alias since we're only looking for '${flavourInTaskName}' publications")
+                }
+            }
+        }
+    }
+}
+
+
+afterEvaluate {
+
+    tasks.all { task ->
+        // Remove tasks like "publishAllPublicationsToPublicReleaseRepository"
+        // We don't want to publish debug artifacts to the public release repository
+        if (task.name.contains("publishAll"))
+        {
+            //println ("Removing task ${task.name}")
+            task.enabled = false
+            task.group = null
+        }
+    }
+
+    tasks.withType(AbstractPublishToMaven) { task ->
+
+        // Iterate through all tasks
+        // Check to see if the task matches the name of the repository
+        // This ensures that the right aar gets uploaded to the right repository
+        //
+        // Keeps tasks like: publishMavenReleaseAarPublicationToReleaseRepository
+        // And deletes tasks like: publishMavenDebugAarPublicationToReleaseRepository
+        if (task.publication.hasProperty("repo")
+                && task.hasProperty("repository")
+                && task.repository.hasProperty("name")
+                && !task.publication.repo.toLowerCase().contains(task.repository.name)
+                && !task.repository.name.toLowerCase().contains(task.publication.repo))
+        {
+            // e.g. "Repo debug and Task: release is invalid. Deleting task publishMavenDebugAarPublicationToReleaseRepository"
+            //println ("Repo ${task.publication.repo} and task ${task.repository.name} is invalid. Deleting task " + task.name)
+            task.enabled = false
+            task.group = null
+        }
+    }
+}

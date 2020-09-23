@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <integer name="minimum_password_length">6</integer>
+
+    <!-- Defaults to false in the SDK -->
+    <!-- THIS IS ONLY FOR THE DEMO APP -->
+    <!-- REMOVE THIS LINE IN AN ACTUAL IMPLEMENTATION -->
+    <!-- DO NOT USE IN PRODUCTION -->
+    <bool name="enable_rgb_capture_upload">true</bool>
+</resources>

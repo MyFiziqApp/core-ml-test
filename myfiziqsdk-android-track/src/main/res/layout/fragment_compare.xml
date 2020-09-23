@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.myfiziq.sdk.views.BackgroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.myfiziq.sdk.views.LockableNestedScrollView
+        android:id="@+id/avatarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.myfiziq.sdk.views.BackgroundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/avatarMiddleGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.50" />
+
+
+                <com.myfiziq.sdk.views.AvatarLayout
+                    android:id="@+id/progressAvatarContainer"
+                    style="@style/MFTProgressTabAvatarContainerContainer">
+
+                    <RelativeLayout style="@style/MFTProgressTabAvatarContainer">
+
+                        <com.myfiziq.sdk.views.AvatarViewSpinner
+                            android:id="@+id/avatarOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_above="@+id/avatarOneDate" />
+
+                        <LinearLayout
+                            android:id="@+id/avatarOneSel"
+                            style="@style/MFTProgressTabCircleButtonContainerContainer"
+                            android:layout_above="@+id/avatarOneDate"
+                            android:visibility="invisible">
+
+                            <com.myfiziq.sdk.views.FixedAspectRatioFrameLayout style="@style/MFTProgressTabCircleButtonContainer">
+
+                                <com.myfiziq.sdk.views.CircleTextView
+                                    android:id="@+id/avatarOneChange"
+                                    style="@style/MFTProgressTabCircleButton"
+                                    android:text="@string/change_caps" />
+
+                            </com.myfiziq.sdk.views.FixedAspectRatioFrameLayout>
+
+                            <com.myfiziq.sdk.views.FixedAspectRatioFrameLayout style="@style/MFTProgressTabCircleButtonContainer">
+                                <com.myfiziq.sdk.views.CircleTextView
+                                    android:id="@+id/avatarOneView"
+                                    style="@style/MFTProgressTabCircleButton"
+                                    android:text="@string/view_caps" />
+
+                            </com.myfiziq.sdk.views.FixedAspectRatioFrameLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/avatarOneDate"
+                            style="@style/MFTProgressTabAvatarDate"
+                            android:layout_alignParentBottom="true"
+                            tools:text="14 MAR '18" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout style="@style/MFTProgressTabAvatarContainer">
+
+                        <com.myfiziq.sdk.views.AvatarViewSpinner
+                            android:id="@+id/avatarTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_above="@+id/avatarTwoDate" />
+
+                        <LinearLayout
+                            android:id="@+id/avatarTwoSel"
+                            style="@style/MFTProgressTabCircleButtonContainerContainer"
+                            android:layout_above="@+id/avatarTwoDate"
+                            android:visibility="invisible">
+
+                            <com.myfiziq.sdk.views.FixedAspectRatioFrameLayout style="@style/MFTProgressTabCircleButtonContainer">
+
+                                <com.myfiziq.sdk.views.CircleTextView
+                                    android:id="@+id/avatarTwoChange"
+                                    style="@style/MFTProgressTabCircleButton"
+                                    android:text="@string/change_caps" />
+
+                            </com.myfiziq.sdk.views.FixedAspectRatioFrameLayout>
+
+                            <com.myfiziq.sdk.views.FixedAspectRatioFrameLayout style="@style/MFTProgressTabCircleButtonContainer">
+
+                                <com.myfiziq.sdk.views.CircleTextView
+                                    android:id="@+id/avatarTwoView"
+                                    style="@style/MFTProgressTabCircleButton"
+                                    android:text="@string/view_caps" />
+
+                            </com.myfiziq.sdk.views.FixedAspectRatioFrameLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/avatarTwoDate"
+                            style="@style/MFTProgressTabAvatarDate"
+                            android:layout_alignParentBottom="true"
+                            tools:text="14 MAR '18" />
+
+                    </RelativeLayout>
+                </com.myfiziq.sdk.views.AvatarLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutMeasurements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical" />
+
+        </com.myfiziq.sdk.views.BackgroundLinearLayout>
+
+    </com.myfiziq.sdk.views.LockableNestedScrollView>
+
+
+</com.myfiziq.sdk.views.BackgroundLinearLayout>

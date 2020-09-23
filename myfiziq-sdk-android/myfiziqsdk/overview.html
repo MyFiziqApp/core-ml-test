@@ -1,0 +1,319 @@
+<body>
+<h2>MyFiziq SDK Documentation.</h2>
+
+<style>
+table {border:none;}
+td {border: 0; padding: 2px;}
+</style>
+
+The Android example application can be found at: <a href="https://github.com/MyFiziqApp/myfiziq-android.git">https://github.com/MyFiziqApp/myfiziq-android.git</a>
+<br>
+<br>
+Low level SDK functions are in {@link com.myfiziq.sdk.MyFiziq}<br>
+High level SDK functions are in {@link com.myfiziq.sdk.MyFiziqSdkManager}<br>
+The Avatar capture activity is {@link com.myfiziq.sdk.activities.MyFiziqActivity}<br>
+
+<h3>Installation</h3>
+To include the MyFiziqSDK in your project add the following code to your build.gradle:
+<pre>
+    <code>
+        maven
+        {
+            url "s3://myfiziq-android-maven/development"
+            credentials(AwsCredentials)
+            {
+                accessKey AWS_ACCESS_KEY
+                secretKey AWS_SECRET_KEY
+            }
+        }
+    </code>
+</pre>
+
+<h3>MyFiziqSDK Initialization</h3>
+<pre>
+    <code>
+        MyFiziqSdkManager.initialiseSdk(
+            BuildConfig.SECRET,
+            new AsyncHelper.CallbackVoid()
+            {
+                @Override
+                public void execute()
+                {
+                    if(SdkResultCode.isOk())
+                    {
+                        Log.w(TAG, "MyFiziq SDK initialised");
+                    }
+                }
+            }
+        );
+    </code>
+</pre>
+<h3>User Authorization</h3>
+Before MyFiziqSDK will allow a user to use the provided services for requesting and viewing Avatars, an authenticated user must be authenticated with the MyFiziq service. An existing idP can be configured with the MyFiziq service using SAML, OAuth, or any other AWS Cognito supported idP for user authorization (contact MyFiziq Dev support for more information).
+<pre>
+    <code>
+        MyFiziqSdkManager.signIn(
+                "user@myfiziq.com",
+                "123456",
+                (responseCode, sdkResultCode) ->
+                        runOnUiThread(() ->
+                                {
+                                    if (responseCode.isOk())
+                                    {
+                                        Log.w(TAG, "Sign in success");
+
+                                    }
+                                    else if (responseCode.isConfigurationEmpty())
+                                    {
+                                        Log.w(TAG, "Configuration is empty. Signing out the user and relaunching MyFiziq.");
+                                    }
+                                    else if (responseCode.isInternetDown())
+                                    {
+                                        Log.w(TAG, "No network connection");
+                                    }
+                                    else
+                                    {
+                                        Log.w(TAG, "Sign in failed");
+                                    }
+                                }
+                        )
+        );
+
+        MyFiziqSdkManager.assignConfiguration(
+            BuildConfig.KEY,
+            BuildConfig.ENV,
+            new MyFiziqApiCallback()
+            {
+                @Override
+                public void apiResult(SdkResultCode sdkResultCode, String s)
+                {
+                    if (!sdkResultCode.isOk())
+                    {
+                        Log.i("", "Cannot assign configuration. Response Code: " + sdkResultCode.getCode() + ". Result: " + s);
+                    }
+                    else
+                    {
+                        Log.i("","Successfuly assigned configuration");
+                    }
+                }
+            }
+        );
+    </code>
+</pre>
+
+<h3>Core SDK</h3>
+Perform inspection on an image, assign the result to an avatar, and use an AvatarUploadWorker to send to server.
+<pre>
+    <code>
+        avatar = Orm.newModel(ModelAvatar.class);
+        avatar.setHeight(new Centimeters(170));
+        avatar.setWeight(new Kilograms(70));
+        avatar.setGender(Gender.M);
+
+        String id = MyFiziq.getInstance().getContourId(255, 255, 1280, 720, avatar.height, avatar.weight, avatar.gender, Side.front, 0);
+        String[] results = MyFiziq.getInstance().inspect(
+                    Side.front,
+                    id,
+                    new String[]{IMAGE_FILE_PATH},
+                    "BASE_FILE_NAME"
+        );
+        String result = MiscUtils.join(Character.toString((char) 1), results);
+        avatar.setFrontInspectResult(result);
+
+        avatar.save();
+        AvatarUploadWorker.createWorker(avatar);
+    </code>
+</pre>
+
+Retrieve avatar results from server. This example retrieves the most recent 10 avatars with Completed Status.
+<pre>
+    <code>
+        mAvatarDownloadManager = new MyFiziqAvatarDownloadManager(new MyFiziqAvatarDownloadManager.Callbacks()
+        {
+            @Override
+            public void refreshStart()
+            {
+                Log.i("Started fetching avatars");
+            }
+
+            @Override
+            public void refreshEnd()
+            {
+                if (state == WorkInfo.State.SUCCEEDED)
+                {
+                    Log.i("fetched avatars successfully");
+                }
+                else if (state == WorkInfo.State.FAILED)
+                {
+                    Log.i("failed to fetch avatars");
+                }
+            }
+        });
+
+        mAvatarDownloadManager.getAvatarsNow();
+
+        ArrayList&lt;ModelAvatar&gt; avatars = ORMTable.getModelList(
+            ModelAvatar.class,
+            String.format("Status='%s'", Status.Completed),
+            "attemptId DESC LIMIT " + 10);
+    </code>
+</pre>
+
+<h3>Input SDK</h3>
+Collect biometrics, proceed to image consent screen and then begin capture.<br>
+This will occur without an onboarding tutorial, see the Onboarding SDK section for how to include an onboarding tutorial.
+<pre>
+    <code>
+        StateInput
+            .getInput(
+                null,
+                StateCapture.getCapture()
+            )
+            .start((ActivityInterface)this);
+    </code>
+</pre>
+
+<h3>Support SDK</h3>
+Upload support data to storage bucket
+<pre>
+    <code>
+        final MyFiziqSdkManager mgr = MyFiziqSdkManager.getInstance();
+        final String message = "Trouble with my last avatar";
+        final String reason = "My last avatar looks very strange"
+        final ModelAvatar avatar = ORMDbQueries.getLastXCompletedAvatars(1);
+
+        AsyncHelper.Callback&lt;Boolean&gt; onComplete = result ->
+        {
+            runOnUiThread(() ->
+            {
+                if (result)
+                {
+                    Log.i("Successfully sent support data");
+                }
+                else
+                {
+                    Log.i("Sending support data failed");
+                }
+            });
+        };
+
+        mgr.uploadSupportData(reason, message, finalModelAvatar, onComplete);
+    </code>
+</pre>
+
+<h3>Track SDK</h3>
+See avatar measurements visually tracked over time<br>
+Ensure your Activity implements the interface com.myfiziq.sdk.activities.ActivityInterface.<br>
+Assemble a ParameterSet and use .start() to navigate
+<pre>
+    <code>
+        public class MainActivity extends AppCompatActivity implements ActivityInterface
+        ...
+
+
+        ParameterSet trackSet = StateTrack.getTrack();
+        trackSet.addNextSet(
+            new ParameterSet
+                    .Builder(FragmentViewAvatar.class)
+                    .setName(StateTrack.BUNDLE_VIEWAVATAR)
+                    .build()
+        );
+        trackSet.start((ActivityInterface)this);
+    </code>
+</pre>
+
+<h3>Profile SDK</h3>
+See list of all avatars.<br>
+Tapping on any list item will navigate to view that avatar
+<pre>
+    <code>
+        new ParameterSet
+            .Builder(FragmentProfileList.class)
+            .build()
+            .start((ActivityInterface)this);
+    </code>
+</pre>
+navigate to view latest avatar (aka homepage)
+<pre>
+    <code>
+        ArrayList&lt;ModelAvatar&gt; avatars = ORMDbQueries.getLastXCompletedAvatars(1);
+        ModelAvatar lastReadyAvatar = avatars.get(0);
+
+        parameterSet = new ParameterSet
+            .Builder(FragmentViewAvatarHome.class)
+            .addParam(new Parameter(com.myfiziqsdk_android_profile.R.id.TAG_MODEL, lastReadyAvatar.id))
+            .build();
+
+        parameterSet.start((ActivityInterface)this)
+
+    </code>
+</pre>
+<h3>Onboarding SDK</h3>
+If you want a tutorial to run in between the input screen and capture process, use this method to navigate to the input screen<br>
+You may choose between image and video onboarding.<br>
+<br>
+View a video broken into segments to make a tutorial.<br>
+<pre>
+    <code>
+        List&lt;OnboardingVideoPageVO&gt; pages = new LinkedList&lt;&gt;();
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_1, 0, 0, true, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_2, 0, 6900, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_3, 6900, 10800, false, false, true));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_4, 10800, 13000, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_5, 13000, 27500, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_6, 27500, 30000, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_7, 30000, 33200, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_8, 33200, 35750, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_9, 35750, 39700, false, false));
+        pages.add(new OnboardingVideoPageVO(FragmentOnboardingVideoPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_video_page_10, 39700, 51500, false, true));
+
+        StateOnboarding.getOnboardingVideo(pages, true).start((ActivityInterface)this);
+
+    </code>
+</pre>
+
+View a sequence of images to make a tutorial.<br>
+<pre>
+    <code>
+        List&lt;OnboardingPageVO&gt; pages = new LinkedList&lt;&gt;();
+        pages.add(new OnboardingPageVO(FragmentOnboardingPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_page_1, 0, com.myfiziqsdk_android_onboarding.R.id.onboarding_page_1_next_page_button, 0, true, true));
+        pages.add(new OnboardingPageVO(FragmentOnboardingPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_page_2, com.myfiziqsdk_android_onboarding.R.id.onboarding_page_2_next_screen_button, 0, 0, false, true));
+        pages.add(new OnboardingPageVO(FragmentOnboardingPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_page_3, com.myfiziqsdk_android_onboarding.R.id.onboarding_page_3_next_screen_button, 0, 0, false, true));
+        pages.add(new OnboardingPageVO(FragmentOnboardingPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_page_4, com.myfiziqsdk_android_onboarding.R.id.onboarding_page_4_next_screen_button, 0, 0, false, true));
+        pages.add(new OnboardingPageVO(FragmentOnboardingPage.class, com.myfiziqsdk_android_onboarding.R.layout.fragment_onboarding_page_5, com.myfiziqsdk_android_onboarding.R.id.onboarding_page_5_next_screen_button, 0, 0, false, true));
+
+        StateOnboarding.getOnboarding(pages, true).start((ActivityInterface)this);
+
+    </code>
+</pre>
+
+<h3>Custom Settings Screen and Logout</h3>
+We provide FragmentSettings, a Fragment which along with ParameterSet allows a custom settings screen to be built.
+You may create a ParameterSet containing FragmentSettings and add any number of other ParameterSets containing an Activity or Fragment class.
+Each ParameterSet added will appear in a list of options on the settings screen and will navigate to it's destination when clicked.
+For example we provide FragmentLogout which signs the user out, delete user related data on device and navigate to the app entrypoint.
+<br>
+<pre>
+    <code>
+        new ParameterSet.Builder(FragmentSettings.class)
+                .addNextSet(new ParameterSet.Builder(MyActivity.class)
+                        .setName("My Own Activity")
+                        .build())
+                .addNextSet(new ParameterSet.Builder(FragmentTermsOfService.class)
+                        .setName("TOS")
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_ICON, com.myfiziq.sdk.R.drawable.ic_settings_tos))
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_LABEL, com.myfiziq.sdk.R.string.myfiziqsdk_terms_of_service))
+                        .build())
+                .addNextSet(new ParameterSet.Builder(FragmentLogout.class)
+                        .setName("LOGOUT")
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_ICON, com.myfiziq.sdk.R.drawable.ic_settings_logout))
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_LABEL, com.myfiziq.sdk.R.string.logout))
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_IS_NEED_CONFIRMATION, "true"))
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_CONFIRMATION_TEXT, com.myfiziq.sdk.R.string.myfiziqsdk_confirm_logout))
+                        .addParam(new Parameter(com.myfiziq.sdk.R.id.TAG_ARG_SETTINGS_CONFIRMATION_POSITIVE_TEXT, com.myfiziq.sdk.R.string.logout))
+                        .build())
+                .build()
+                .start((ActivityInterface)this);
+    </code>
+</pre>
+</body>

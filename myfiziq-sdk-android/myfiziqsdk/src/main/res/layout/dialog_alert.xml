@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MFDialogAlertRootLayout">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/MFDialogAlertTitle"
+        tools:text="@string/myfiziqsdk_confirm_exit" />
+
+    <TextView
+        android:id="@+id/textViewDetail"
+        style="@style/MFDialogAlertSubtitle"
+        tools:text="@string/myfiziqsdk_confirm_close_detail" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.myfiziq.sdk.views.TintableButton
+            android:id="@+id/buttonCancel"
+            style="@style/MFDialogAlertNegativeButton"
+            android:visibility="gone"
+            tools:text="@string/myfiziqsdk_cancel" />
+
+        <com.myfiziq.sdk.views.TintableButton
+            android:id="@+id/buttonConfirm"
+            style="@style/MFDialogAlertPositiveButton"
+            tools:text="@string/myfiziqsdk_ok" />
+    </LinearLayout>
+
+</LinearLayout>

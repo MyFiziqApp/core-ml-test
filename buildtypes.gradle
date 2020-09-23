@@ -1,0 +1,120 @@
+
+android {
+    buildTypes {
+        all {
+            externalNativeBuild {
+                cmake {
+                    // "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
+                    arguments "-DANDROID_STL=c++_shared", "-DANDROID_PLATFORM=android-21", "-DANDROID_LD=lld", "-DANDROID_ARM_MODE=arm", "-DANDROID_DISABLE_FORMAT_STRING_CHECKS=TRUE"
+                    cppFlags "-std=c++14 -fexceptions"
+                    abiFilters "arm64-v8a"
+                }
+            }
+
+            // Note! We can't specify the packagingOptions per buildType. If we specify it for one, it sets it globally in Gradle as the script is evaluated :(
+            // We can check what type of build we're currently running though and set it that way instead
+            if (getCurrentBuildType() == 'miniRelease') {
+                packagingOptions {
+                    excludes += ['**/*.bin']
+                }
+            }
+            else if (getCurrentBuildType() == 'miniDebug') {
+                packagingOptions {
+                    excludes += ['**/*.bin']
+                }
+            }
+        }
+        debug {
+            testCoverageEnabled false
+            zipAlignEnabled false
+            debuggable true
+        }
+        miniDebug {
+            testCoverageEnabled false
+            zipAlignEnabled false
+            debuggable true
+        }
+        release {
+            zipAlignEnabled true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        miniRelease {
+            zipAlignEnabled true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def getCurrentBuildType()
+{
+    Gradle gradle = getGradle()
+    String currentTaskName = gradle.getStartParameter().getTaskRequests().toString()
+
+    def currentBuildType = getBuildTypeFromTaskName(currentTaskName)
+    System.out.println("The current build type is: ${currentBuildType}")
+
+    return currentBuildType
+}
+
+def getGitReleaseName()
+{
+    try
+    {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--abbrev-ref', "HEAD"
+            standardOutput = stdout
+        }
+        def versionName = "${stdout.toString().trim().replaceFirst("(?:release/)?([^/]+).*", "\$1")}"
+        println "SDK version: ${versionName}"
+        return versionName
+    }
+    catch (ignored) {
+        println "Exception thrown on git describe"
+        return "";
+    }
+}
+/**
+ * Gets the current build type from a task name.
+ *
+ * @param prefix A task name currently being executed.
+ * @return The current build type (e.g. debug, staging, release, etc).
+ */
+def getBuildTypeFromTaskName(String taskName)
+{
+    def lowercaseTaskName = taskName.toLowerCase()
+
+    if (lowercaseTaskName.contains("minidebug"))
+    {
+        return "miniDebug"
+    }
+    else if (lowercaseTaskName.contains("debug"))
+    {
+        return "debug"
+    }
+    else if (lowercaseTaskName.contains("minirelease"))
+    {
+        return "miniRelease"
+    }
+    else if (lowercaseTaskName.contains("release"))
+    {
+        return "release"
+    }
+    else
+    {
+        return ""
+    }
+}
+
+
+// Export the functions to be used by other Gradle scripts
+ext
+{
+    getCurrentBuildType = this.&getCurrentBuildType
+    getBuildTypeFromTaskName = this.&getBuildTypeFromTaskName
+    getGitReleaseName = this.&getGitReleaseName
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNavigationBarLayout"
+    style="@style/MFBottomBarNavRootLayout">
+
+    <ImageView
+        android:id="@+id/bottomNavigationBarImage"
+        style="@style/MFBottomNavBarImage"
+        app:srcCompat="@drawable/ic_track_v2" />
+
+    <TextView
+        android:id="@+id/bottomNavigationBarText"
+        style="@style/MFBottomNavBarText" />
+
+</LinearLayout>

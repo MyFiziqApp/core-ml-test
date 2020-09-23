@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MFCaptureHelpRootLayout">
+
+    <TextView
+        android:id="@+id/helpTitle"
+        style="@style/MFCaptureHelpTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/helpDescription"
+        style="@style/MFCaptureHelpDescription"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helpTitle" />
+
+    <ImageView
+        android:id="@+id/helpImageBackground"
+        style="@style/MFCaptureHelpImage"
+        android:src="@drawable/capture_confirm_help_image"
+        app:layout_constraintBottom_toTopOf="@+id/continueButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helpDescription" />
+
+    <Button
+        android:id="@+id/continueButton"
+        style="@style/MFButton.HelpButton"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@dimen/myfiziqsdk_capture_confirm_help_bottom_guideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

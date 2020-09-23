@@ -1,0 +1,359 @@
+{
+  "project_info": {
+    "project_number": "543695196885",
+    "firebase_url": "https://myfiziq-android-dev.firebaseio.com",
+    "project_id": "myfiziq-android-dev",
+    "storage_bucket": "myfiziq-android-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:94b79ee7ee1d163a",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:98c6fc6c7bd47c8337085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.evolt.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:dc7f3c7eeda7fd8a37085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.clouddev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:7b920c58a5fc1cc337085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:382d680fd9190aad37085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.prod.external"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:7a77d61be0c32d4b37085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.prod.internal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:ccd0f5c3b928eaf137085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.staging.external"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:a41bf00d93d2de7037085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.myfiziq.staging.internal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:75795e46b5c7740737085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.ondemand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:0519defa859bf5d537085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.ondemand.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:84770ea7b7636b6d37085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.redPiranha.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543695196885:android:772eb8454e2931d937085c",
+        "android_client_info": {
+          "package_name": "com.myfiziq.myfiziq_android.samsung.trial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN4-ijCQxcUmusCdPqOYXLL0PxD_ClhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543695196885-5ulk82prdosmbstj3s1reb6288pvc8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

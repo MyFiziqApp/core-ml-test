@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MFViewSettingsRowLayout">
+
+    <ImageView
+        android:id="@+id/settingsIcon"
+        style="@style/MFViewSettingsRowIcon"
+        tools:src="@drawable/ic_settings_tos" />
+
+    <TextView
+        android:id="@+id/settingsLabel"
+        style="@style/MFViewSettingsRowLabel"
+        tools:text="Terms of Service" />
+
+</LinearLayout>

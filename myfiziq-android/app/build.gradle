@@ -1,0 +1,308 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.crashlytics'
+
+// Used to set the package version name and version code
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 11
+
+apply from: '../../buildflavours.gradle'
+apply from: '../../buildtypes.gradle'
+
+
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.myfiziq.myfiziq_android"
+        minSdkVersion 21
+        targetSdkVersion 29
+        multiDexEnabled true
+        versionCode computeVersionCode()
+        versionName computeVersionName()
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        splits {
+
+            // Configures multiple APKs based on ABI.
+            abi {
+
+                // Enables building multiple APKs per ABI.
+                enable true
+
+                // By default all ABIs are included, so use reset() and include to specify that we only
+                // want APKs for x86 and x86_64.
+
+                // Resets the list of ABIs that Gradle should create APKs for to none.
+                reset()
+
+                // Specifies a list of ABIs that Gradle should create APKs for.
+                include "arm64-v8a"
+
+                // Specifies that we do not want to also generate a universal APK that includes all ABIs.
+                universalApk false
+            }
+        }
+    }
+
+    /*signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword 'MyFiziq'
+            storeFile file('keystore/debug.jks')
+            storePassword 'MyFiziq'
+        }
+        release {
+            keyAlias 'key0'
+            keyPassword 'MyFiziq'
+            storeFile file('keystore/debug.jks')
+            storePassword 'MyFiziq'
+        }
+    }*/
+
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword 'MyFiziq'
+            storeFile file('keystore/debug.jks')
+            storePassword 'MyFiziq'
+        }
+
+        release {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file("release.myfiziq.properties")))
+            storeFile file('keystore/release.jks')
+            storePassword = props.keyStorePassword
+            keyAlias = props.keyAlias
+            keyPassword = props.keyAliasPassword
+            keyAlias 'myfiziq'
+            keyPassword 'password'
+            storePassword 'password'
+        }
+
+        // A release that downloads the C++ binaries from AWS after installing the APK
+        miniRelease {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file("release.myfiziq.properties")))
+            storeFile file('keystore/release.jks')
+            storePassword = props.keyStorePassword
+            keyAlias = props.keyAlias
+            keyPassword = props.keyAliasPassword
+            keyAlias 'myfiziq'
+            keyPassword 'password'
+            storePassword 'password'
+        }
+    }
+
+
+    productFlavors {
+
+        def flavorSigningVariable = signingConfigs.debug
+
+        // All flavors must now belong to a named flavor dimension. See: https://d.android.com/r/tools/flavorDimensions-missing-error-message.html
+        flavorDimensions "client"
+
+        // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+        // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+        //                                                                                                                               //
+        //   DON'T FORGET to create a new project in Firebase with the environment's package name and update "google-services.json"      //
+        //   when setting up a new product flavour. Otherwise you'll get Gradle errors like:                                             //
+        //                                                                                                                               //
+        //      Execution failed for task ':app:processRedPiranhaProdReleaseGoogleServices'.                                             //
+        //                                                                                                                               //
+        // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+        // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+        
+
+        myFiziqDev {
+            //new token with sha1
+            buildConfigField 'String', 'TOKEN', '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJJVzBheXprakV1OGg2QTI4L0JVcC92K1g3N2UvT3NHYWlXaTVZamxIaTFMRXc3TWdWVE9SR3ZaNXR3UGZvQ1ZDa0JHb0xOSHNvaDRnMThjVCtNRkE4NkFZWFBpWEZjS1ZacVdKMHA5dHZncE9KQUQxTTBXT0hZUGxKOWtqNVJvMU1KOENKTnBkbWZqWnhRRnNXRWhVUHNmVnFRaUo4c2FpR0QrbWZuODh6eFI3dERTNmozZnNEbjlMK0NNQU44bnY5WTdUK3dBVFE3T2pCQ0kyNXNDQ3ROR0w4ZHV3SS9ualBuMEg1RlN0d3lSVmhZM1c0eU9aK3JTVFJGZEVYbXQwSGVqbnNlRU1sMWJOSGFtMjkyUE84Nk5HZlRYdmhxNHp2YVFpcHNwbUt0N2EwWWZPclM3cGxLMHUxWkJNY2NrYnlkb1Uwb0xERjlsSWh3QlphQ1NaaWc9PSIsInZlciI6MiwiZXhwIjo0NzUyMDEzNjk0fQ.vLAwCq6y4Pjcmui4EL4mePAXLQcb9iT8Y_AXD6rrJN-UHYimZpIRSbL4sB88iXlZ7yB_GvAmUa67BacMKkGrLz05ONDwofE5A5_CWAR0yduu9BOuAk70kU1XODP_XFjONWnNWKzP3vC0Ea8FAbj5v5jZSU6-jeV5Jva7upZI69aInpzG_dj9J6EXFDBI-YORqUEVyv7WDhIIkFbzYoa1p-7LHvuXi3kKnQ5qyrbrLYrWUkHtYF75VJn4iSrKfzO2ib724JHVgoVuW59s5tMT0mAyffRuZn4RzXLl1N6DSE8Qm2maMjMLBIr-VFA5rfy5cCK1-Rcd83u19osniR1PwA"'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.myfiziq.dev"
+            // Make this the default flavour when developing in Android Studio
+            isDefault = true
+        }
+
+        myFiziqExternalStaging {
+            buildConfigField 'String', 'TOKEN', '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJFd0M0MW0zZWM3RWFlaHAwRHE1YmZmQ1VkVlhJVWhCcDdrRUVHSXdWU0pjYVMyWU9Xa2FKYlNFYTk4TzVwTU01eXRJdkxlWld1ckdLVmp0cUxSeVp0WGUxR0FwcU9xWUVPOVNvWWl0UmtIbGhkRkVGWDBuOHJEd1cyK09OVkl5b3BVSUxRU2RwcnpxTlEveHBrdlVnZDc3VkllOC8xME5TdTFwWGhkd3pHREpMRllMZTBsSm5qOGJCVnJNcy82MXZGUkV1bWhWRTRzU3I1K1dPWktKTnZtb2xXZXBveHNpRHpCSEE5TUp5LzhEcmlQYXN4TWxVQitob29CZHNaWnByeCtXeXEyMElUVHVaMjJ5aVlrNFNtRDlJZEJWaERVZUFhUWQ5c1l6dm4rRXpGWTRCVmk2M0xqSUtKM3kreHAvQjhmWHp4THIyb3RsVitRUy9rY3Z5enc9PSIsInZlciI6MiwiZXhwIjo0NzUyMDEzNjk2fQ.M9m0H6XhBAYN-0sdH76tacPM_AThhWTmKwYr8W4n6nX5TAVQIb1d3P4OWTtLn3nj8eoUVJSaICnIgDujdKAKevtac_Y14L8c8NHek7QUGjABXRswcc-nhdiNhwyIw0f4-ky3jF_XOEwjn1aEh35rWfLoll2344PECcHDb0bbb2MNCzxUUn7ztw0vC71Fq6sPluRu4XDU6PTaJ-dedZZ8BbLtfXctrGEctELGVjXVZn6gtGcWw2B_kinlAcKZziQJG5N8pgF-68SUOtYtj5zRDl__pLzyxF3aa6vUiApnIqbblulCRjCR_1ni5fBkiGk_3G40ieljYF4fItMjAJiiag"'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.myfiziq.staging.external"
+        }
+
+        myFiziqInternalStaging {
+            buildConfigField 'String', 'TOKEN', '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJrLytRbWtrNzNuTVhSMTkxcmh0aVFjRWhQTm1sMUpzVkV4dzdmYmV0THVSVFBwVG5jU0Fmdlpva2JjbjJNZkJ1QUZBRXpDNk5qWUtUbHljT0lWRGZMVWUwY1JLV3lramFEWjFDOFhNbWppUmhjR1c3NGZUNUhCRUE5cWhuVEZTUjB2TTlEQjdFM25GV3VCQlgxUHVvaVZ1ZTZSb05oUFl1akhwL3RUbnBJUDJvWGJZZE01ZHo1Uzd4WllKaVFaOC9BaXJoYmtranJ0WFY2anVuY0dLN0lLM2NybjBZMTNuRVUzSzhxQWNnMnBLcjIrS1FEaGU3YmhHUTZQVmpndnFZZ2tuS3Z2bDJwZzZVazFWTVNxOXpIZE8wNVhCSjF3QXdjYk12anJDaEVLVU1PaGJjTGRwREdVVnFDN05DdU5PMitmc3FKYXhjODRBMEFHUFFodi9NUFE9PSIsInZlciI6MiwiZXhwIjo0NzUyMDEzNjk3fQ.uZYn7ellr3avgQpPZkTy8l8iWLhYD-bUhSwH38XE4RJbvT2yIkhB36fN-mb_fnjob7uqSbI0RpN9q0-Eh4eHv4cLILspbwRkKn3N1NX7DCmHaC1gogU0_224-S-TsySuFM6a4BARyxLt8Eq6WI_97XkygvwImopJE7cLL7N0y64BofkkDwuwIjpGC9zDSeMkJEM17vOsIOT3maz7tncSRjHTUNkr3sbMVmTWOwa6efog9rnZhkVwsX6I-5bB3jxW8dq-TEoWMozMtmJ9EaLUbjLWHnmwRs2PfJkDDsGFqWcdpe-R6o6aSX_iuew_X16NSD4JRCMfDU0ruWo-wN8z6g"'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.myfiziq.staging.internal"
+        }
+
+        myFiziqExternalProd {
+            buildConfigField 'String', 'TOKEN', '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaDEyVFZEWU5XNE5nREdFQTV4NGM1Qyt6ZU1SbTBuOWE4aXAwZTVRVndJT1VzWmtPd24xZzUwOWcyZ0ZqUm1DU3daNXhnOE8yVzJzWnhCNk8wTktXbGE1QTcvNnVlUHJHeFFRdnE4bDgzM0x3ZHJoci96SkdlVmZKelpQSzAyd0lWYXQwUHBPSkY3NDFRUVBCckZ6Ui81emNlcE9jWStBSUZHSi9qc2JFV0VQWVByL3Z3aTRaaUc4QmdBNy9aKy8wNWVlcllmbmVIbjl5dkpGRm9jQ21ZYm9aRzFHNzRWbVpzcWxQYjJ3OFRBN2lQVTExM2pwWVQ5elJsUVYzWnZ3UWtrWDdNZjFtZ2xPTUtQZmFPbHhWcnpFWGYvTTNKNVF5UGUxR2R3OEtRYzNjNUV5bFRNaXhRRVJVQzRoeVVWbmVlSXI2bGg4M1JJTE1lSWNNZmxqbUE9PSIsInZlciI6MiwiZXhwIjo0NzUyMDE4MTM0fQ.w7eGZz39QhIhNxD1kwfGLblBaK1UFxiXzEgdNIRHrl_-kmAZUOmyqgnVpGgxpyS9ulQBPnQC7qryd3LHppuDItYqElu2ZeEz3t37g-Y2LKQ3dQo0Vc88tRtkeUU-wAc2Wx2jmqNrKa6BQ_04L5VrYScEtNy8wymv0JDpsKkyb54Pzk8chyvKF2QoV-p-ttGhdu_ZL99vh86s_KjykicglU3rIFe3a0f9c96QFoM1P3oL0nW58u2etMUCelyQ7jlxqt9jkS7bJ-NFur_DXMvt64qhWZMqAm3ZeFmrIE0T9b7pK8PfmtxAAZCyolSV2EhU96yzCiqO9vrzfjl9Q9B89w"'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.myfiziq.prod.external"
+        }
+
+        myFiziqInternalProd {
+            buildConfigField 'String', 'TOKEN', '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJYa1hUT2doT0FqTTl0NnFWKzhTWiswdUVDK2ZqYkxuQ1lLUzMzSDFIZnhQczZ6cVF5SnNpaHZDS1lTUm5pODB3OHp3cDBlYVhVL25ZYUoyRjhYQW1udzBIU2Y5eXcwbGlzSENhdGE3MmJxd1hmemFQd1dzSlhxRGwxNkkyQmYwWkVXRFkvaEZ0OWc3aFRDRmlXU2VDeTNMd1plRnZLdmxCNzJVOFhGbms4bGJVN21DNHlSU0U5SG9oRDh0TGxJMFpHS1QvUmF2S25mRk9jWk9HcFVZZUpYOTNmNGQ3cVp2cTEzbXFFZGo2ZmVBTlBuSXJ1T1Q2KzUwdHpDbmtVU0ttU0tiQnovWHFCQklQOXFXZUk1MVFGa095UGRmVlNsSzlTRnU3dkNZRTVLZXF0RkxaeUMwbTRNQnRuVyt4NVlTYlh5QjV2Ym95ZUJTODcwWjNrSVBoSmc9PSIsInZlciI6MiwiZXhwIjo0NzUyMDEzNzAwfQ.eP0QzuD3x0I71foXmGs2meXD79QSNwRStQHsHOJ_v7C_KmXN5psjo5tJjlsOVCUPJJlbjcVpg7YuvwKgQhbvdbJFTFUQxQC4iDL1GwA5iPL6Hs0Lrw5qFeOm3d9NqGJ7nv8zhaodyoCcilnO74J5dEh1HkzU81it2u-jATpWERhmLtwjPFcK9MC6Xi0Hfgn3m--x4yv0qM6gKOnmmjEk8yLlJwzJynsqYvoUhtL9ubLjoP-ArwrRnpiZUSUE6AlVspU39rLABb1DgxTOGeZgu28_qmGz577pe7-rvG2wmHkDYXYyxF7t0RQHDV9AD2FFDlWWTurCz77RgHjSZ6tDTw"'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.myfiziq.prod.internal"
+        }
+
+        onDemand {
+            buildConfigField 'String', 'TOKEN', '""'
+
+            signingConfig flavorSigningVariable
+            applicationId "com.myfiziq.myfiziq_android.ondemand"
+        }
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['build/jniLibs']
+        }
+
+        myFiziqDev {
+            manifest.srcFile 'src/scaffold/AndroidManifest.xml'
+        }
+
+        myFiziqExternalStaging {
+            manifest.srcFile 'src/scaffold/AndroidManifest.xml'
+        }
+
+        myFiziqInternalStaging {
+            manifest.srcFile 'src/scaffold/AndroidManifest.xml'
+        }
+
+        myFiziqExternalProd {
+            manifest.srcFile 'src/scaffold/AndroidManifest.xml'
+        }
+
+        myFiziqInternalProd {
+            manifest.srcFile 'src/scaffold/AndroidManifest.xml'
+        }
+
+        onDemand {
+            manifest.srcFile 'src/onDemand/AndroidManifest.xml'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def curBuildType = variant.buildType.name
+        def appId = "com.myfiziq.sdk.${curBuildType}"
+
+        variant.resValue "string", "content_provider", "myq.release.provider"
+        variant.buildConfigField "String", "CONTENT_PROVIDER", "\"myq.release.provider\""
+        variant.resValue "string", "account_type", appId + ".authenticator"
+
+        if (getCurrentBuildType() == 'release' || getCurrentBuildType() == 'miniRelease') {
+            variant.mergeAssetsProvider.get().doLast {
+                // Ensure that we don't add debugging videos to the release APK
+                delete(fileTree(dir: variant.mergeAssetsProvider.get().outputDir, includes: ['**/front*.mp4', '**/side*.mp4']))
+            }
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+                strippedNativeLibsDir '../../myfiziqsdk-android-cpp/build/intermediates/stripped_native_libs/" + getCurrentBuildType() + "/out/lib'
+                unstrippedNativeLibsDir '../../myfiziqsdk-android-cpp/build/intermediates/merged_native_libs/" + getCurrentBuildType() + "/out/lib'
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    testOptions {
+        animationsDisabled = true
+    }
+}
+
+clean.doFirst {
+    println "Deleting ${buildDir}"
+    project.delete buildDir
+}
+
+def computeVersionName() {
+    // Basic <major>.<minor> version name
+    return String.format('%d.%d.%d', versionMajor, versionMinor, versionPatch)
+}
+
+def computeVersionCode() {
+
+    // If the build is not through the CI system, return 1
+    if (Integer.valueOf(System.env.BUILD_NUMBER ?: 0) == 0)
+    {
+        return (versionMajor * 10000000) + (versionMinor * 100000) + versionPatch
+    }
+
+    // Major + minor + Jenkins build number (where available)
+    // Max major version number = 99
+    // Max minor version number = 99 (before having to increase major version)
+    // Max build number = 99999 (maximum number of possible CI builds)
+    return (versionMajor * 10000000) + (versionMinor * 100000) + Integer.valueOf(System.env.BUILD_NUMBER ?: 0)
+}
+
+
+//TODO: remove when C++ layer is implemented.
+apply from: '../../dependencies.gradle'
+
+dependencies {
+    annotationProcessor project(':orm')
+    implementation project(':orm')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.alphamovie.library:alpha-movie:1.2.1'
+
+    implementation 'androidx.work:work-runtime:2.3.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // Dynamic View inflation!!
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+
+    androidTestImplementation('com.microsoft.appcenter:espresso-test-extension:1.4')
+
+    implementation project(':myfiziqsdk')
+    implementation project(':myfiziqsdk-android-input')
+    implementation project(':myfiziqsdk-android-profile')
+    implementation project(':myfiziqsdk-android-track')
+    //compile group: 'com.myfiziq.sdk', name: 'myfiziqsdk', version: '1.0', ext: 'aar', classifier: 'debug'
+
+    annotationProcessor 'com.github.benelog:multiline:0.1.2'
+    compileOnly 'com.github.benelog:multiline:0.1.2'
+
+    // Crashlytics
+    implementation 'com.google.firebase:firebase-core:17.5.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.2.1'
+}
+
+
+
+// I live at the [BOTTOM] of the file
+apply plugin: 'com.google.gms.google-services'

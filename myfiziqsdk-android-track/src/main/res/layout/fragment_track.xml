@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contentPanel"
+    style="@style/MFTFragmentTrackRootLayout">
+
+    <com.myfiziq.sdk.views.MYQTabLayout
+        android:id="@+id/tablayout"
+        style="@style/MFTFragmentTrackTabLayout" />
+
+    <com.myfiziq.sdk.views.NonSwipeableViewPager
+        android:id="@+id/viewPager"
+        style="@style/MFTFragmentTrackViewPager" />
+
+</LinearLayout>

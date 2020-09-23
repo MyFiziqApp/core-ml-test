@@ -1,0 +1,44 @@
+
+def getCurrentBuildFlavour()
+{
+    Gradle gradle = getGradle()
+    String currentTaskName = gradle.getStartParameter().getTaskRequests().toString()
+
+    def currentBuildFlavour = getBuildFlavourFromTaskName(currentTaskName)
+    System.out.println("The current build flavour is: ${currentBuildFlavour}")
+
+    return currentBuildFlavour
+}
+
+/**
+ * Gets the current build flavour from a task name.
+ *
+ * @param prefix A task name currently being executed.
+ * @return The current flavour (e.g. "myFiziqDev", "myFiziqStaging", "evoltStaging" etc).
+ */
+def getBuildFlavourFromTaskName(String taskName)
+{
+    def identifiedProductFlavor = "";
+
+    def lowercaseTaskName = taskName.toLowerCase();
+
+    android.productFlavors.all {
+        flavor ->
+            def lowercaseProductFlavor = flavor.name.toLowerCase();
+
+            // If the productFlavor we're looking at is in the task's name being executed, return it
+            if (lowercaseTaskName.contains(lowercaseProductFlavor)) {
+                identifiedProductFlavor = flavor.name
+            }
+    }
+
+    return identifiedProductFlavor
+}
+
+
+// Export the functions to be used by other Gradle scripts
+ext
+{
+    getCurrentBuildFlavour = this.&getCurrentBuildFlavour
+    getBuildFlavourFromTaskName = this.&getBuildFlavourFromTaskName
+}

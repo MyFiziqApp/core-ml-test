@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/dividerTop"
+        style="@style/MFViewAvatarDividerStyle" />
+
+    <com.myfiziq.sdk.views.DataItemRelativeLayout
+        style="@style/MFViewAvatarDataLayout">
+
+        <TextView
+            android:id="@+id/avatarDataItemName"
+            style="@style/MFViewDataItem.Name" />
+
+        <com.myfiziq.sdk.views.QuantityTextView
+            android:id="@+id/avatarDataItemValue"
+            style="@style/MFViewDataItem.Value" />
+
+
+    </com.myfiziq.sdk.views.DataItemRelativeLayout>
+
+    <View
+        android:id="@+id/dividerBottom"
+        style="@style/MFViewAvatarDividerStyle" />
+
+</LinearLayout>

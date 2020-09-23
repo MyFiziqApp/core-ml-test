@@ -1,0 +1,1440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+        <item name="colorAccent">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="DialogWindowTitle">
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textAppearance">@style/DialogWindowTitleAppearance</item>
+    </style>
+
+    <style name="DialogWindowTitleAppearance" parent="@android:style/TextAppearance.Holo.DialogWindowTitle">
+        <item name="android:textColor">@color/myfiziqsdk_grey0</item>
+    </style>
+
+    <!-- ToolBar -->
+    <style name="ToolbarTheme.v2" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:textColorPrimary">@color/myfiziqsdk_grey2</item>
+    </style>
+
+    <style name="checkBoxStyle">
+        <item name="colorAccent">@color/myfiziqsdk_orange2</item>
+        <item name="android:colorPrimary">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <!--Text Style start here-->
+
+    <style name="TextVeryLarge">
+        <item name="android:textSize">250sp</item>
+    </style>
+
+    <style name="TextVeryLarge.RobotoBoldFont">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextVeryLarge.RobotoBoldFont.DarkColor">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="TextLarge">
+        <item name="android:textSize">100sp</item>
+    </style>
+
+    <style name="TextLarge.RobotoBoldFont">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextLarge.RobotoBoldFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextH1">
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="TextH1.RobotoslabBoldFont">
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+    </style>
+
+    <style name="TextH1.RobotoslabBoldFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextH2">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="TextH2.RobotoslabBoldFont">
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+    </style>
+
+    <style name="TextH2.RobotoBlackFont">
+        <item name="android:fontFamily">@font/roboto_black</item>
+    </style>
+
+    <style name="TextH2.RobotoslabBoldFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextH2.RobotoBlackFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextH3">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TextH3.RobotoslabBoldFont">
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+    </style>
+
+    <style name="TextH3.RobotoslabBoldFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextH4">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="TextH4.DarkColor">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="TextH5">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextH6">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextH6.LightColor">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextBody1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextBody1.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBody1.Bold.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextBody1.SerifFont">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextBody1.RobotoslabBoldFont">
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+    </style>
+
+    <style name="TextBody1.SerifFont.Grey0Color">
+        <item name="android:textColor">@color/myfiziqsdk_grey0</item>
+    </style>
+
+    <style name="TextBody1.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextBody1.PrimaryColor">
+        <item name="android:textColor">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <style name="TextBody1.SerifFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextBody1.RobotoslabBoldFont.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextBody2">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextBody2.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBody2.PrimaryColor">
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+    </style>
+
+    <style name="TextBody2.LightColor">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextBody2.Bold.DarkColor">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="TextBody3">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextBody3.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBody3.SerifFont">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextBody3.Grey14Color">
+        <item name="android:textColor">@color/myfiziqsdk_grey14</item>
+    </style>
+
+    <style name="TextBody3.DarkColor">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="TextBody3.Bold.DarkColor">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="TextBody3.BlackOpaqueColor">
+        <item name="android:textColor">@color/myfiziqsdk_black_87_percent_opaque</item>
+    </style>
+
+    <style name="TextBody3.Grey0Color">
+        <item name="android:textColor">@color/myfiziqsdk_grey0</item>
+    </style>
+
+    <style name="TextBody3.Grey17Color">
+        <item name="android:textColor">@color/myfiziqsdk_grey17</item>
+    </style>
+
+    <style name="TextBody3.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextCaption1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextCaption1.SerifFont">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextCaption1.SerifFont.Grey0Color">
+        <item name="android:textColor">@color/myfiziqsdk_grey0</item>
+    </style>
+
+    <style name="TextCaption1.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextCaption1.Bold.LightColor">
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="TextCaption2" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">8sp</item>
+    </style>
+
+    <!--End of Text Style-->
+
+    <!--Component Styling Start Here, MF = MyFiziq-->
+
+    <style name="MFButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:background">@drawable/selector_myfiziq_button_background</item>
+        <item name="android:elevation">5dp</item>
+        <!-- stateListAnimator must be "@null" to add elevation to a button -->
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+
+        <!-- This enables the ripple effect when clicking on the button -->
+        <!--<item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>-->
+    </style>
+
+    <style name="MFRadioButtonContainer">
+        <item name="android:background">@drawable/shape_radio_button_background_unchecked</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="MFRadioButton" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorControlNormal">@color/myfiziqsdk_grey7</item>
+        <item name="colorControlActivated">@color/myfiziqsdk_orange2</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorPrimary">@color/myfiziqsdk_black_87_percent_opaque</item>
+        <item name="android:textColor">@color/myfiziqsdk_black_87_percent_opaque</item>
+        <item name="android:textAppearance">@style/TextCaption2</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <style name="MFDatePickerTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MFDatePicker</item>
+    </style>
+
+    <style name="MFDatePicker" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
+    <style name="MFProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/myfiziqsdk_black</item>
+        <item name="android:indeterminateTint">@color/myfiziqsdk_black</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
+
+
+    <!-- Android seems to detect that "CardView" means "android.support.v7.widget.CardView" -->
+    <style name="MFProfileCard" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/myfiziqsdk_white</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+
+
+    <style name="MFProgressChart">
+        <item name="primaryLineColour">@color/myfiziqsdk_colorAccent</item>
+        <item name="primaryLineCircleColour">@color/myfiziqsdk_colorAccent</item>
+        <item name="primaryLineWidth" format="float">1.5</item>
+        <item name="primaryLineDashLength">0</item>
+        <item name="primaryLineLength">0</item>
+        <item name="primaryCircleRadius">3</item>
+
+        <item name="secondaryLineColour">@color/myfiziqsdk_grey4</item>
+        <item name="secondaryLineCircleColour">@color/myfiziqsdk_grey4</item>
+        <item name="secondaryLineWidth" format="float">1.5</item>
+        <item name="secondaryLineDashLength">10</item>
+        <item name="secondaryLineLength">10</item>
+        <item name="secondaryCircleRadius">3</item>
+
+        <item name="xAxisTextSize">12</item>
+        <item name="xAxisLineColor">@color/myfiziqsdk_grey14</item>
+        <item name="xAxisLineWidth" format="float">1.5</item>
+        <item name="xAxisTextColor">@color/myfiziqsdk_grey14</item>
+
+        <item name="leftAxixDrawGridLines">true</item>
+        <item name="leftAxisGridColor">@color/myfiziqsdk_grey13</item>
+
+        <item name="lineDataValueTextColor">@color/myfiziqsdk_black</item>
+        <item name="lineDataValueTextSize">12</item>
+        <item name="lineDataValueTypefaceIsBold">true</item>
+
+        <item name="lineDataValueFormat" format="float">0.0</item>
+
+        <item name="maxVisibleValues">4</item>
+
+        <item name="desiredMaxXAxisLabels">8</item>
+    </style>
+
+    <style name="MFViewAvatarAvatar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">400dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- This would set the toolbar's background color -->
+        <item name="android:background">@android:color/transparent</item>
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <!-- android:actionMenuTextColor is the color of the text of action (menu) items  -->
+        <item name="actionMenuTextColor">@color/myfiziqsdk_colorAccent</item>
+        <!-- Clicking icons to trigger a ripple effect -->
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+        <item name="colorControlNormal">@color/myfiziqsdk_grey1</item>
+        <item name="android:textColorSecondary">@color/myfiziqsdk_grey1</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="MFTextInputStyle" parent="android:Widget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MFFailedCardTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="MFEditTextStyle.Support">
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+    </style>
+
+    <style name="MFEditTextStyle" parent="@style/TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/drawable_myfiziq_textinput_background</item>
+        <item name="android:paddingTop">15sp</item>
+        <item name="android:paddingBottom">15sp</item>
+        <item name="android:paddingLeft">10sp</item>
+        <item name="android:layout_marginTop">10sp</item>
+    </style>
+
+    <style name="MFInputLabel" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
+    <style name="MFAsyncProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+        <item name="colorAccent">@color/myfiziqsdk_black</item>
+    </style>
+
+    <!-- Dialog Alert Styling -->
+    <style name="MFDialogAlertRootLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/dialog_alert_bg</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="MFDialogAlertTitle" parent="TextBody1.SerifFont.Grey0Color">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="MFDialogAlertSubtitle" parent="TextCaption1.SerifFont.Grey0Color">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="MFDialogAlertPositiveButton" parent="TextBody3.LightColor">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/primary_button</item>
+    </style>
+
+    <style name="MFDialogAlertNegativeButton" parent="TextBody3.LightColor">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/secondary_button</item>
+    </style>
+
+    <!-- Dialog Image Styling -->
+    <style name="MFDialogImageView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFDialogImageRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Dialog Measurement Styling -->
+    <style name="MFMeasurementSpinnerTitle" parent="TextH5">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="MFDialogMeasurementRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFDialogMeasurementSpinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!-- Fragment Capture Styling -->
+    <style name="MFFragmentCaptureTitle" parent="TextH2.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:text">@string/myfiziqsdk_align_circles</item>
+    </style>
+
+    <style name="MFFragmentCaptureSubtitle" parent="TextBody1.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:text">@string/myfiziqsdk_align_circles_table</item>
+    </style>
+
+    <style name="MFFragmentCaptureBottomDesc" parent="TextBody1.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:text">@string/myfiziqsdk_confirm_detail</item>
+    </style>
+
+    <style name="MFButton.CaptureButtonPositive">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFButton.CaptureButtonNegative">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:text">Retake Pictures</item>
+        <item name="android:textColor">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <style name="MFFragmentCaptureRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey0</item>
+        <item name="android:clickable">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFFragmentCaptureBackground">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_black_opaque</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="MFFragmentCaptureCircleWhite">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/circle_white</item>
+    </style>
+
+    <style name="MFFragmentCaptureCircleOrange">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/circle_orange</item>
+    </style>
+
+    <style name="MFFragmentCaptureShutter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/ic_shutter_white</item>
+    </style>
+
+    <style name="MFFragmentCaptureConfirmLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_capture_page_background_color</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="MFFragmentCaptureTextDetailLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_above">@+id/layoutButtons</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFFragmentCaptureConfirmButtonLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFFragmentLayoutToolbarClose">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="MFFragmentCaptureToolbarTitle" parent="TextH2.RobotoBlackFont.LightColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:text">@string/myfiziqsdk_front</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="MFFragmentCaptureToolbarHelp">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <!-- Fragment Terms Service Styling-->
+    <style name="MFFragmentTermsContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+    </style>
+
+    <style name="MFFragmentTermsText" parent="TextBody3.Bold.DarkColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <!-- View Data Item Styling -->
+    <style name="MFViewDataItem" parent="TextBody3.Grey17Color">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+    <style name="MFViewDataItem.Name">
+        <item name="android:text">Label</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFViewDataItem.Value">
+        <item name="android:text">Value</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+
+    <!-- View Data Item Profile Styling -->
+    <style name="MFViewDataItemProfile" parent="TextBody3.DarkColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+    </style>
+
+    <style name="MFViewDataItemProfile.Name">
+        <item name="android:text">Label</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="MFViewDataItemProfile.Value">
+        <item name="android:text">Value</item>
+        <item name="android:gravity">end</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">14dp</item>
+    </style>
+
+    <style name="MFViewAvatarItemDate" parent="TextBody3.Grey14Color">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/view_avatar_item_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/view_avatar_item_margin_end</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:text">Date</item>
+    </style>
+
+    <style name="MFViewAvatarItemHeading" parent="TextH4.DarkColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/view_avatar_item_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/view_avatar_item_margin_end</item>
+        <item name="android:text">% TBF</item>
+    </style>
+
+    <style name="MFViewAvatarItemIndicator" parent="TextCaption1.Bold.LightColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginStart">@dimen/view_avatar_item_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/view_avatar_item_margin_end</item>
+        <item name="android:background">@color/myfiziqsdk_body_fat_indicator_normal</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:text">@string/body_fat_indicator_normal</item>
+    </style>
+
+    <style name="MFViewAvatarItemSubheading" parent="TextBody3.Bold.DarkColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/view_avatar_item_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/view_avatar_item_margin_end</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:text">Weight: 92.0 kg</item>
+    </style>
+
+    <style name="MFViewAvatarDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/myfiziqsdk_grey_list_divider</item>
+    </style>
+
+    <style name="MFViewAvatarDataLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/myfiziqsdk_grey16</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
+    <style name="MFViewAvatarSideDividerStyle">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey_list_divider</item>
+    </style>
+
+    <!-- View Avatar Item Completed Styling -->
+    <style name="MFViewAvatarCompleted" parent="TextBody2.Bold.DarkColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:text">Sample</item>
+    </style>
+
+    <style name="MFViewAvatarImageCompleted">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <!-- View Avatar Item Loading Styling -->
+    <style name="MFViewAvatarLoadingText" parent="TextCaption1.Bold.LightColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:text">Loading</item>
+    </style>
+
+    <style name="MFViewAvatarLoadingMan">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="MFViewAvatarLoadingIcon">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
+    </style>
+
+    <style name="MFViewAvatarItemLoadingLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_orange2</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <!-- View Bottom Nav Bar Button Styling -->
+    <style name="MFBottomNavBarText" parent="TextBody3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">Track</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MFBottomNavBarImage">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="MFBottomBarNavRootLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- View Capture Confirm Help-->
+    <style name="MFCaptureHelpTitle" parent="TextH3.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:text">Confirmation Help</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MFCaptureHelpDescription" parent="TextBody1.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:text">If you are having trouble fitting inside the outline, make sure
+            the front camera is pointing at your hips.
+        </item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MFCaptureHelpRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey0</item>
+    </style>
+
+    <style name="MFCaptureHelpImage">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="MFFragmentConfirmImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="MFButton.HelpButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:text">Continue</item>
+    </style>
+
+    <!-- View Capture Countdown Help-->
+    <style name="MFViewCaptureCountdownText" parent="TextVeryLarge.RobotoBoldFont.DarkColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="MFViewCaptureCountdownLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="MFViewCaptureCircleCountdownLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- View Capture Error-->
+    <style name="MFCaptureErrorText" parent="TextH1.RobotoslabBoldFont.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MFCaptureErrorSubText" parent="TextBody1.Bold.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MFCaptureErrorTryAgainButton" parent="TextBody1.PrimaryColor">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:background">@drawable/drawable_white_button_border_white</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:text">Try Again</item>
+    </style>
+
+    <style name="MFCaptureErrorExitButton" parent="TextBody1.LightColor">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:background">@drawable/drawable_white_button_border_transparent</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:text">Exit</item>
+    </style>
+
+    <style name="MFCaptureErrorContactButton" parent="TextBody1.Bold.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@color/myfiziqsdk_backgroundColor</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:text">Contact Support</item>
+    </style>
+
+    <style name="MFCaptureErrorButtonContainer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- View Capture Circle Countdown-->
+    <style name="MFCaptureCircleCountdown" parent="TextLarge.RobotoBoldFont.LightColor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:translationY">-3dp</item>
+    </style>
+
+    <!-- View Settings-->
+    <style name="MFViewSettingsRowLabel" parent="TextBody3.DarkColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <!-- Toolbar-->
+    <style name="MFViewToolbarTitle" parent="TextBody1.RobotoslabBoldFont">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_toRightOf">@+id/layoutLeftImg</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="MFViewToolbarLeftIcon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="MFViewToolbarRightIcon">
+        <item name="android:layout_width">?android:attr/actionBarSize</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="MFGridFrameImage">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">128dp</item>
+    </style>
+
+    <!--Settings Fragment-->
+    <style name="MFFragmentSettingsRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey16</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFFragmentSettingsRowLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFFragmentSettingsVersionText" parent="TextBody3.Grey14Color">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="MFViewSettingsRowLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
+    <style name="MFViewSettingsRowIcon">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:tint">@color/myfiziqsdk_grey2</item>
+    </style>
+
+    <style name="MFFailedCardCancelButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
+    <style name="MFFailedCardRetryButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textColor">@color/myfiziqsdk_orange2</item>
+    </style>
+
+    <style name="MFFailedCardButtonLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MFCardStateText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="MFSEditMultiLineTextStyle" parent="@style/TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/drawable_myfiziq_textinput_background</item>
+        <item name="android:paddingTop">10sp</item>
+        <item name="android:paddingBottom">15sp</item>
+        <item name="android:paddingLeft">10sp</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:lines">7</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="MFSInputLayoutStyle">
+        <item name="colorAccent">@color/myfiziqsdk_grey3</item>
+    </style>
+
+    <style name="MFSWhiteProgressBar">
+        <item name="colorAccent">@color/myfiziqsdk_white</item>
+        <item name="android:indeterminateTint">@color/myfiziqsdk_white</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
+
+    <!--Error Support Form Styling-->
+
+    <style name="MFSErrorFormScrollView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFSErrorFormLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFSErrorFormTitleLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:text">@string/reason</item>
+    </style>
+
+    <style name="MFSErrorFormTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+        <item name="android:text">@string/trouble_capturing_my_body_measurements</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSErrorFormInputLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@drawable/bg_text_input_layout</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:text">@string/message</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MFSEditMultiLineTextStyle.ErrorSupportInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">true</item>
+        <item name="android:overScrollMode">always</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+    </style>
+
+    <style name="MFSErrorAgreement">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:text">@string/contact_support_agreement</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+    </style>
+
+    <style name="MFSErrorCheckbox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">64dp</item>
+        <item name="android:text">@string/i_agree_to_the_terms_of_service</item>
+        <item name="android:theme">@style/checkBoxStyle</item>
+    </style>
+
+    <style name="MFButton.ErrorSupportButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">@string/continueText</item>
+    </style>
+
+    <!--View Support Form Styling-->
+
+    <style name="MFSViewProgressBar">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+        <item name="android:layout_marginBottom">39dp</item>
+        <item name="android:theme">@style/MFSWhiteProgressBar</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="MFSViewFormScrollView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFSViewFormLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:focusableInTouchMode">true</item>
+
+    </style>
+
+    <style name="MFSViewFormTitleLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:text">@string/reason</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSViewSpinnerFrameLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">@drawable/bg_rounded_white</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSViewSpinnerLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MFSEditMultiLineTextStyle.ViewSupportForm">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">true</item>
+        <item name="android:overScrollMode">always</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSViewAgreement">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:text">@string/contact_support_agreement</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSViewCheckbox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+        <item name="android:layout_marginBottom">108dp</item>
+        <item name="android:theme">@style/checkBoxStyle</item>
+        <item name="android:text">@string/i_agree_to_the_terms_of_service</item>
+    </style>
+
+    <style name="MFButton.ViewSupportButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">@string/send</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <style name="MFSViewFormInputLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@drawable/bg_text_input_layout</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:text">@string/message</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginStart">@dimen/support_form_main_margin</item>
+        <item name="android:layout_marginEnd">@dimen/support_form_main_margin</item>
+    </style>
+
+    <!-- Guest -->
+    <style name="MFButton.NewGuestButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:text">@string/continueText</item>
+    </style>
+
+    <!-- Guest screens -->
+    <style name="MFSelectGuestNewGuestHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFSelectGuestNewGuestIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/ic_add_plain</item>
+        <item name="android:contentDescription" />
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="MFSelectGuestNewGuestLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/create_guest_label</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFSelectGuestRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/myfiziqsdk_grey16</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="MFSelectGuestItemContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">20dp</item>
+    </style>
+
+    <style name="MFSelectGuestItemSelectedIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/ic_guest</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:contentDescription">@string/selected</item>
+    </style>
+
+    <style name="MFSelectGuestItemGuestName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="MFSelectGuestItemSpace">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="MFSelectGuestItemDeleteButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/ic_delete_black_24dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:contentDescription">@string/delete</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+    <style name="MFSelectGuestClearGuestHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MFSelectGuestHeaderContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:background">@color/myfiziqsdk_white</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+    <style name="MFSelectGuestClearGuestIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/ic_clear_all</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="MFSelectGuestClearGuestLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/clear_guest_selection</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFSelectGuestExistingGuests">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:text">@string/existing_guests</item>
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MFCreateGuest">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:fillViewport">true</item>
+    </style>
+
+    <style name="MFCreateGuestContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MFCreateGuestFormTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+        <item name="android:paddingStart">30dp</item>
+        <item name="android:paddingTop">35dp</item>
+        <item name="android:paddingEnd">30dp</item>
+        <item name="android:paddingBottom">25dp</item>
+        <item name="android:text">@string/enter_guest_name</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="MFTextInputStyle.CreateGuestFormGuestNameTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:hint">@string/single_space</item>
+    </style>
+
+    <style name="MFEditTextStyle.CreateGuestFormGuestNameField">
+        <item name="android:focusable">true</item>
+        <item name="android:hint">@string/guestInputHint</item>
+        <item name="android:imeOptions">actionNext|flagNoExtractUi</item>
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+</resources>
