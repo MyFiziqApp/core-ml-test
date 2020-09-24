@@ -1,20 +1,13 @@
 package com.myfiziq.myfiziq_android.helpers;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import com.myfiziq.myfiziq_android.activities.ActivityWelcome;
 import com.myfiziq.sdk.MyFiziqApiCallback;
 import com.myfiziq.sdk.MyFiziqAvatarDownloadManager;
 import com.myfiziq.sdk.enums.SdkResultCode;
 import com.myfiziq.sdk.helpers.AsyncHelper;
 import com.myfiziq.sdk.manager.MyFiziqSdkManager;
 import com.myfiziq.sdk.util.AwsUtils;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import timber.log.Timber;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -120,19 +113,6 @@ public class SignInHelper
                 AsyncHelper.run(userProfile::save);
             }
         });
-    }
-
-    /**
-     * Starts the Welcome activity.
-     *
-     * Since the Welcome activity is the first screen in the workflow, we'll clear the back stack
-     * to ensure that the user won't go back to the Splash screen when they press the back button.
-     */
-    private void startActivityWelcome(Activity activity)
-    {
-        Intent welcomeActivity = new Intent(activity, ActivityWelcome.class);
-        welcomeActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-        activity.startActivity(welcomeActivity);
     }
 
     private void executeAndClearCallbacks(SdkResultCode resultCode, String message)

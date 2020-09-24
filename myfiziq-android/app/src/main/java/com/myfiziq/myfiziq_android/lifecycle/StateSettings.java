@@ -56,14 +56,6 @@ public class StateSettings
 
             builder.addNextSet(guestParamSet);
         }
-        if (MiscUtils.isInternalBuild())
-        {
-            builder.addNextSet(new Builder(ActivityAdvancedSettings.class)
-                    .setName("ADVANCED_SETTINGS_PAGE")
-                    .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_ICON, R.drawable.advanced_settings_big))
-                    .addParam(new Parameter(R.id.TAG_ARG_SETTINGS_LABEL, R.string.advanced_settings))
-                    .build());
-        }
 
         if (isAuthorisedToViewDebugActivity())
         {

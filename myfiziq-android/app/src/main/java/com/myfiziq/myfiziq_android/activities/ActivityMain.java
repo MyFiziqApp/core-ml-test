@@ -71,37 +71,14 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        if (ModelSetting.getSetting(ModelSetting.Setting.DEBUG_STYLING, false))
-        {
-            String json = ModelSetting.getSetting(ModelSetting.Setting.STYLE, "");
-            if (!TextUtils.isEmpty(json))
-            {
-                SisterColors.getInstance().init(json);
-            }
-        }
-        */
-
-        //mainToolbar = findViewById(R.id.mainToolbar);
-
         intentManagerService = new IntentManagerService<>(this);
 
         bindRouteGeneratorListeners();
         bindLifecycleListeners();
+        injectNavBarSelectionIntoParameterSet(StateSettings.getSettings(), R.id.navigation_home);
+        startRouteFragment(StateSettings.getSettings(),this, false);
 
-//        intentManagerService.requestAndListenForResponse(
-//                IntentPairs.HOMEPAGE_ROUTE,
-//                result -> {
-//                    injectNavBarSelectionIntoParameterSet(result, R.id.navigation_home);
-//                    startRouteFragment(result, this, false);
-//                }
-//        );
-
-        ParameterSet test = StateSettings.getSettings();
-        injectNavBarSelectionIntoParameterSet(test, R.id.navigation_home);
-        startRouteFragment(test,this, false);
-
-        // startActivity(new Intent(this, //DebugActivity.class));
+        //startActivity(new Intent(this, DebugActivity.class));
         startBackgroundSignIn();
     }
 
@@ -611,22 +588,9 @@ public class ActivityMain extends BaseActivity implements BottomNavigationView.O
                 MyFiziqSdkManager.signOut((responseCode1, result1) ->
                 {
                     Timber.e("Session invalid. Sending user to login screen.");
-                    startActivityWelcome(this);
+                    startActivity(new Intent(this, DebugActivity.class));
                 });
             }
         });
-    }
-
-    /**
-     * Starts the Welcome activity.
-     *
-     * Since the Welcome activity is the first screen in the workflow, we'll clear the back stack
-     * to ensure that the user won't go back to the Splash screen when they press the back button.
-     */
-    private void startActivityWelcome(Activity activity)
-    {
-        Intent welcomeActivity = new Intent(activity, ActivityWelcome.class);
-        welcomeActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-        activity.startActivity(welcomeActivity);
     }
 }

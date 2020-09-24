@@ -14,7 +14,9 @@ import com.myfiziq.myfiziq_android.Credentials;
 import com.myfiziq.myfiziq_android.LoggingTree;
 import com.myfiziq.myfiziq_android.R;
 import com.myfiziq.myfiziq_android.helpers.MyFiziqCrashHelper;
+import com.myfiziq.myfiziq_android.lifecycle.StateSettings;
 import com.myfiziq.myfiziq_android.views.SplashScreenVideo;
+import com.myfiziq.sdk.activities.DebugActivity;
 import com.myfiziq.sdk.db.ResourceDownloadStatus;
 import com.myfiziq.sdk.enums.SdkResultCode;
 import com.myfiziq.sdk.helpers.AsyncHelper;
@@ -34,7 +36,7 @@ import timber.log.Timber;
 
 public class ActivityEntrypoint extends AppCompatActivity
 {
-    private SplashScreenVideo avatarView;
+    //private SplashScreenVideo avatarView;
     private boolean sdkInitDone = false;
     private boolean hasCachedCredentials = false;
 
@@ -42,48 +44,50 @@ public class ActivityEntrypoint extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         MyFiziqCrashHelper.startCrashReporting(this);
-
-        if (BuildConfig.DEBUG)
-        {
-            // Print to Logcat when we're performing blocking operations on the UI thread and slowing down the UI
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyLog()
-                    .build());
-
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .build());
-        }
-
-        LoggingTree.plantNewTree();
+//
+//        if (BuildConfig.DEBUG)
+//        {
+//            // Print to Logcat when we're performing blocking operations on the UI thread and slowing down the UI
+//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                    .detectDiskReads()
+//                    .detectDiskWrites()
+//                    .detectNetwork()   // or .detectAll() for all detectable problems
+//                    .penaltyLog()
+//                    .build());
+//
+//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                    .detectLeakedSqlLiteObjects()
+//                    .detectLeakedClosableObjects()
+//                    .penaltyLog()
+//                    .build());
+//        }
+//
+//        LoggingTree.plantNewTree();
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splash);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //setContentView(R.layout.activity_login);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        avatarView = findViewById(R.id.splashScreenVideo);
+        //avatarView = findViewById(R.id.splashScreenVideo);
 
-        renderSplashScreenVideo();
+        //renderSplashScreenVideo();
+
+        //startActivity(new Intent(this, DebugActivity.class));
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        avatarView.onPause();
+        //avatarView.onPause();
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        avatarView.onResume();
+        //avatarView.onResume();
 
         if (ensureRunningOnCompatibleDevice())
         {
@@ -230,9 +234,7 @@ public class ActivityEntrypoint extends AppCompatActivity
             return;
         }
 
-        Intent mainActivity = new Intent(this, ActivityMain.class);
-        mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-        startActivity(mainActivity);
+        startActivity(new Intent(this, DebugActivity.class));
     }
 
     /**
@@ -248,19 +250,19 @@ public class ActivityEntrypoint extends AppCompatActivity
             return;
         }
 
-        Intent welcomeActivity = new Intent(this, ActivityWelcome.class);
+        Intent welcomeActivity = new Intent(this, ActivityLogin.class);
         welcomeActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(welcomeActivity);
     }
-
-    private void renderSplashScreenVideo()
-    {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.loading);
-
-        avatarView.setVideoFromUri(this, uri);
-        avatarView.setLooping(true);
-        avatarView.start();
-    }
+//
+//    private void renderSplashScreenVideo()
+//    {
+//        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.loading);
+//
+//        avatarView.setVideoFromUri(this, uri);
+//        avatarView.setLooping(true);
+//        avatarView.start();
+//    }
 
     /**
      * Determines if the user has changed to another environment since logging in.

@@ -23,6 +23,7 @@ import com.myfiziq.myfiziq_android.helpers.MyFiziqCrashHelper;
 import com.myfiziq.myfiziq_android.helpers.Utils;
 import com.myfiziq.sdk.MyFiziqAvatarDownloadManager;
 import com.myfiziq.sdk.activities.AsyncProgressDialog;
+import com.myfiziq.sdk.activities.DebugActivity;
 import com.myfiziq.sdk.db.ModelSetting;
 import com.myfiziq.sdk.enums.SdkResultCode;
 import com.myfiziq.sdk.enums.StatusBarStyle;
@@ -376,7 +377,7 @@ public class ActivityLogin extends AppCompatActivity
             mDlg.dismiss();
             mHandler.post(() ->
             {
-                Intent mainActivity = new Intent(ActivityLogin.this, ActivityMain.class);
+                Intent mainActivity = new Intent(ActivityLogin.this, DebugActivity.class);
                 mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
                 startActivity(mainActivity);
             });
