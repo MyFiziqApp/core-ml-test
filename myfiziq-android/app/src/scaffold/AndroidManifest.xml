@@ -41,12 +41,5 @@
             android:parentActivityName="com.myfiziq.myfiziq_android.activities.ActivityEntrypoint"
             android:screenOrientation="portrait" />
 
-        <receiver
-            android:name="com.myfiziq.myfiziq_android.lifecycle.AvatarRetryReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.myfiziq.myfiziq_android.AvatarRetryReceiver" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

@@ -1,13 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="default_weight_in_kg">70</integer>
-    <integer name="default_height_in_cm">170</integer>
-    <integer name="minimum_metric_weight">16</integer>
-    <integer name="maximum_metric_weight">300</integer>
-    <integer name="minimum_imperial_weight">35</integer>
-    <integer name="maximum_imperial_weight">660</integer>
-    <integer name="minimum_stone_weight">2</integer>
-    <integer name="minimum_stone_fraction_weight">7</integer>
-    <integer name="maximum_stone_weight">47</integer>
-    <integer name="maximum_stone_fraction_weight">3</integer>
-</resources>
+<resources></resources>

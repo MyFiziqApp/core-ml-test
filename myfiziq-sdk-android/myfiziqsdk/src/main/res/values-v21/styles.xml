@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="ProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
-        <item name="colorAccent">@color/myfiziqsdk_black</item>
-        <item name="android:indeterminateTint">@color/myfiziqsdk_black</item>
-        <item name="android:indeterminateTintMode">src_in</item>
-    </style>
-</resources>
+<resources></resources>

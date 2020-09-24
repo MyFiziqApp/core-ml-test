@@ -289,7 +289,6 @@ dependencies {
     androidTestImplementation('com.microsoft.appcenter:espresso-test-extension:1.4')
 
     implementation project(':myfiziqsdk')
-    implementation project(':myfiziqsdk-android-input')
     //compile group: 'com.myfiziq.sdk', name: 'myfiziqsdk', version: '1.0', ext: 'aar', classifier: 'debug'
 
     annotationProcessor 'com.github.benelog:multiline:0.1.2'

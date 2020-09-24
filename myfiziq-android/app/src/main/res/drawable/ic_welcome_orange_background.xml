@@ -1,9 +1,0 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="412dp"
-    android:height="484dp"
-    android:viewportWidth="412"
-    android:viewportHeight="484">
-  <path
-      android:pathData="M-9.131,-52.921L431.057,-175V361.442L-9.131,483.521V-52.921Z"
-      android:fillColor="@color/myfiziqsdk_orange2"/>
-</vector>

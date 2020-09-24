@@ -1,18 +1,5 @@
 <resources>
-    <string name="tfcCameraParams">Camera params: %1$dx%2$d @%3$.1f fps</string>
-    <string name="tfcRectSize">Rect size (pixels): %1$dx%2$d</string>
-    <string name="tfcZoomArea">Zoom area (pixels): %1$dx%2$d</string>
-    <string name="tfcZoomLabel">Zoom: </string>
-    <string name="tfcSizeLabel">Size: </string>
-    <string name="tfcRotateLabel">Rotate: </string>
-    <string name="secondsOfVideo">SEC %f</string>
-    <string name="nowSaving">SAVING</string>
-    <string name="nowRecording">RECORDING</string>
-    <string name="recordingSucceeded">REC SUCCESS</string>
-    <string name="recordingFailed">REC FAILED %d</string>
     <string name="please_wait">Please wait…</string>
-    <string name="play_button_text">Play</string>
-    <string name="stop_button_text">Stop</string>
     <string name="myfiziqsdk_front">F R O N T</string>
     <string name="myfiziqsdk_side">S I D E</string>
     <string name="myfiziqsdk_confirm">Confirm</string>
@@ -26,77 +13,30 @@
     <string name="myfiziqsdk_align_circles_camera_reason">You must allow camera access to the MyFiziq app to create 3D avatars.</string>
     <string name="myfiziqsdk_align_circles_nocamera">Enable Camera</string>
     <string name="myfiziqsdk_align_circles_nocamera_detail">Tap the screen to enable your camera. This is required to get your body measurements.</string>
-    <string name="myfiziqsdk_align_circles_retake">Retaking Picture…</string>
-    <string name="myfiziqsdk_align_circles_prepare">Prepare for Front &amp; Side pictures</string>
     <string name="myfiziqsdk_align_circles_table">Place phone upright so the front camera points at your hips.</string>
     <string name="myfiziqsdk_align_circles_ready">Prepare for front &amp; side pictures.</string>
     <string name="myfiziqsdk_align_circles_title">Alignment Help</string>
     <string name="myfiziqsdk_align_circles_help">Find a table that is about half your height. Using a cup or solid object, lean your phone against it so the circles move over each other.</string>
     <string name="myfiziqsdk_align_circles_confirm">Continue</string>
-    <string name="myfiziqsdk_align_circles_exit_detail">If you exit you will not be able to create a 3D Avatar.</string>
     <string name="myfiziqsdk_confirm_detail">I confirm that I am wearing form fitting clothing and my arms &amp; legs are inside the outline.</string>
     <string name="myfiziqsdk_confirm_exit">Do you wish to exit?</string>
-    <string name="myfiziqsdk_confirm_help">Confirming your image allows you to see what the camera sees before sending.</string>
-    <string name="myfiziqsdk_confirm_help_title">Image Confirmation</string>
-    <string name="myfiziqsdk_confirm_help_confirm">Got it, thanks!</string>
     <string name="myfiziqsdk_confirm_close_detail">You will lose your front and side avatar images if you exit.</string>
     <string name="myfiziqsdk_photos_will_not_save">Your front and side photos will not be saved.</string>
     <string name="myfiziqsdk_confirm_retake">Take again</string>
-    <string name="myfiziqsdk_confirm_logout">Are you sure you want to logout?</string>
-    <string name="myfiziqsdk_error_title">An error has occurred</string>
     <string name="myfiziqsdk_error_unknown">An Unknown\nError Occurred,\nPlease Try Again.</string>
-    <string name="myfiziqsdk_error_detect_face">Could not detect your face, please try again.</string>
-    <string name="myfiziqsdk_error_detect_body">Could not detect part of your body, please try again.</string>
     <string name="myfiziqsdk_error_camera_too_high">Please consider moving your phone to a lower position, such as a lower chair.</string>
     <string name="myfiziqsdk_error_camera_too_low">Please consider moving your phone to a higher position, such as a higher table.</string>
-    <string name="myfiziqsdk_home">Home</string>
-    <string name="myfiziqsdk_track">Track</string>
-    <string name="myfiziqsdk_profile">Profile</string>
     <string name="myfiziqsdk_settings">Settings</string>
-    <string name="error_sending_support">Error sending support data</string>
-    <string name="success_sending_support">Successfully sent support data</string>
     <string name="myfiziqsdk_title_new_measurement">New Body Scan</string>
-    <string name="myfiziqsdk_title_image_consent">Image Consent</string>
     <string name="myfiziqsdk_title_select_guest">Select Guest</string>
     <string name="myfiziqsdk_title_create_guest">New Guest</string>
-    <string name="myfiziqsdk_title_track">Track</string>
-
-    <string name="myfiziqsdk_track_days">DAYS</string>
-    <string name="myfiziqsdk_track_weeks">WEEKS</string>
-    <string name="myfiziqsdk_track_months">MONTHS</string>
-
-    <string name="myfiziqsdk_track_select">Select</string>
-
-    <string name="myfiziqsdk_profilelist_title">MyFiziq</string>
-    <string name="new_measurement">New Measurement</string>
 
     <string name="myfiziqsdk_terms_of_service">Terms of Service</string>
-    <string name="profile_settings">Profile Settings</string>
-    <string name="debug_menu">Debug Page</string>
-    <string name="logout">Logout</string>
-    <string name="feedback">Feedback</string>
-    <string name="new_avatar">New Avatar</string>
-    <string name="track">Track</string>
-    <string name="view_all">View All</string>
-    <string name="profile">Profile</string>
-    <string name="loading_avatar">Loading Avatar…</string>
-    <string name="measurements">Measurements</string>
     <string name="chest">Chest</string>
     <string name="waist">Waist</string>
     <string name="hips">Hips</string>
     <string name="thighs">Thighs</string>
-    <string name="thanks">Thanks!</string>
-    <string name="info">Info</string>
-    <string name="gender">Gender</string>
-    <string name="height">Height</string>
-    <string name="weight">Weight</string>
-    <string name="weight_lb">Weight (lb)</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="date_of_birth">Date of Birth</string>
-    <string name="email_address">Email Address</string>
     <string name="email">Email</string>
-    <string name="name">Name</string>
     <string name="height_label">Height: %1$s</string>
     <string name="weight_label">Weight: %1$s</string>
     <string name="tbf_label">%1$s TBF</string>
@@ -104,13 +44,10 @@
     <string name="body_fat_indicator_normal">Normal</string>
     <string name="body_fat_indicator_overweight">Overweight</string>
     <string name="body_fat_indicator_obese">Obese</string>
-    <string name="terms_and_conditions_text">The use of this trial application (\"app\") is subject to the terms and conditions of the signed mutual non–disclosure agreement or equivalent agreement (\"NDA\") with MyFiziq Limited of Unit 5, 71–73 South Perth Esplanade, South Perth, Western Australia, 6151 (\"MyFiziq\").\n\nTo the extent of any inconsistency between the provisions of the NDA and these Terms and Conditions, the NDA will prevail.\n\nThis app is to be used in conjunction with documentation which outlines the correct protocols and procedures when testing measurement accuracy. Please contact support@myfiziq.com if you do not have this document.\n\nWhen using the trial application, by creating or logging into an account, you acknowledge that personal information you provide including images captured will be stored on the MyFiziq Amazon Web Services (\"AWS\") cloud, and will be used for the specific purposes of:\n\n\u00A0\u00A0\u00A0\u00A0• generating a 3D model and anthropometric measurements\n\u00A0\u00A0\u00A0\u00A0• assessing the performance of the application\n\u00A0\u00A0\u00A0\u00A0• user image capture, 3D model, or anthropometric measurement support enquiries.\n\nWhere images are captured of an individual that is not the MyFiziq app account holder, you acknowledge that you have requested, received and documented the individual’s permission to capture images for the purposes mentioned above.\n\nThe English version shall always prevail in case of any discrepancy or inconsistency between English version and any translation version of the app.\n\nVer. 6</string>
     <string name="myfiziqsdk_dialog_title_no_internet">No Connection</string>
     <string name="myfiziqsdk_dialog_message_no_internet">Please connect to the internet and try again.</string>
     <string name="myfiziqsdk_image_confirmation">Image Confirmation</string>
-    <string name="error_no_camera_permissions">Camera permission is needed to run this application</string>
     <string name="error_misaligned">The Phone Has\nBecome Misaligned</string>
-    <string name="retrying">Retrying</string>
     <string name="myfiziqisdk_error_multiple_faces">Detected\nMultiple Faces</string>
     <string name="myfiziqisdk_error_no_face">Cannot Detect\nYour Face</string>
     <string name="myfiziqisdk_error_no_arms">Both Arms\nnot in Outline</string>
@@ -136,7 +73,6 @@
     <string name="retry">Retry</string>
     <string name="processing_session">Processing…\nETA 30s</string>
     <string name="cancel_session">Cancel Session</string>
-    <string name="sure_cancel_session">Are you sure you want to permanently cancel this session?</string>
     <string name="error_processing">There was an unknown error\nprocessing your measurements.</string>
     <string name="error_processing_timeout">The process for calculating your\nmeasurements has timed out.</string>
     <string name="error_processing_no_internet">Please check your\ninternet connection and try again.</string>
@@ -144,19 +80,7 @@
     <string name="single_space">\u00A0</string>
     <string name="turn_phone_upright">Turn Phone Upright</string>
     <string name="continueText">Continue</string>
-    <string name="continueGuestText">Continue as Guest</string>
     <string name="guestInputHint">Name</string>
-    <string name="send">send</string>
-    <string name="reason">Reason</string>
-    <string name="trouble_capturing_my_body_measurements">Trouble capturing my body measurements.</string>
-    <string name="message">Message</string>
-    <string name="contact_support_agreement"><![CDATA[By contacting support, you agree to send personal information such as date of birth, height & weight and any pictures taken during this capture process.]]></string>
-    <string name="contact_support">Contact Support</string>
-    <string name="help_request_sent">Help request sent!</string>
-    <string name="results_query">Results Query</string>
-    <string name="other">Other</string>
-    <string name="i_agree_to_the_terms_of_service">I agree to the Terms of Service and consent to processing of my personal data as set out in the</string>
-    <string name="privacy_policy">Privacy Policy</string>
     <string name="error_emptyguestname">Guest Name cannot be empty</string>
     <string name="error_invalidguestname">Guest Name must be alphanumeric</string>
     <string name="create_guest_label">New Guest</string>
@@ -176,16 +100,6 @@
     <string name="dialog_practise_scan_complete_title">Practise Scan Complete!</string>
     <string name="dialog_practise_scan_complete_message">You made it! Practise makes perfect.\n\nRemember, the better you have your phone height, the easier it is to position yourself in the outline.</string>
     <string name="dialog_practise_scan_complete_button">Exit</string>
-    <string name="downloading_resources_title">Downloading MyFiziq resources</string>
-    <string name="downloading_resources_message">Downloading resources...</string>
-    <string name="downloading_resources_label">%,1d kb / %,2d kb</string>
-    <string name="installing_resources_message">Installing...</string>
-    <string name="waist_to_hip_ratio">WAIST-TO-HIP\nRATIO</string>
-    <string name="waist_to_height_ratio">WAIST-TO-HEIGHT\nRATIO</string>
-    <string name="waist_circumference">WAIST\nCIRCUMFERENCE</string>
-    <string name="overall_health_risk">OVERALL\nHEALTH RISK</string>
-    <string name="view_info"><b>View info</b></string>
-    <string name="ethnicity">Ethnicity</string>
     <string name="ethnicity1">Europid/Middle East/African</string>
     <string name="ethnicity2">South Asian/Chinese/Japanese</string>
     <string name="ethnicity3">South and Central American</string>
@@ -217,119 +131,6 @@
         <p>17. UNITED STATES LEGAL COMPLIANCE You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a "terrorist supporting" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.</p>
         <p>18. SURVIVAL Clauses 2 (Your use of the Website), 7 (Medical Disclaimer), 8 (Limitation of Liability), 9 (Indemnity) and 10 (Intellectual Property) shall survive the termination and/or expiry of this agreement.</p>
         <footer>MYQ-TS-002 Rev 5. Revision date: 10th September 2020</footer>
-    </body>
-</html>
-]]></string>
-    <string name="privacy_policy_text"><![CDATA[<html>
-    <body>
-        <p>1. Introduction</p>
-        <p>This Privacy Policy applies to users ("you") of the software program (and functionality provided through the software program) provided by MyFiziq (the "Application") and downloaded and accessed by You on an iPhone or Android smart device, named MyFiziq (the "Service").</p>
-        <p>The Service is for demonstration purposes only, and can only be accessed if you have supplied your name and email address to MyFiziq for the purposes of creating an account and password for the Service.</p>
-        <p>The Service creates silhouettes of your body shape using pictures you take with your smartphone and collects information you input about your height, weight, gender and date of birth.</p>
-        <p>We use the information above to:</p>
-        <ul>
-            <li>calculate accurate statistics including body measurements and body composition.</li>
-            <li>infer your risk of chronic diseases / mortality.</li>
-        </ul>
-        <p>We do collect information about your use of the Application and the Service, as described in this Privacy Policy, to help us secure and improve the Application and develop the Service.</p>
-        <p>Our collection and use of your Personal Data are subject to the data protection laws applicable where you reside, as set out in this Privacy Policy.</p>
-        <p>Where we collect and process your Personal Data based on your explicit consent, as set out in this Privacy Policy, we will ask for your consent in the Service before we collect any of your Personal Data. You can withdraw your consent at any time by using the contact details provided in this Privacy Policy. If you do withdraw your consent, you will no longer be able to participate in the demonstration trial.</p>
-        <p>2. Interpretation & Definitions</p>
-        <p>Capitalised words in this Privacy Policy have the meanings given below. All definitions have the same meaning regardless of whether they are used in singular or plural.</p>
-        <ul>
-            <li><strong>Business</strong> means the legal entity that determines the purposes and means of processing of Personal Data about residents of California in accordance with the CCPA.</li>
-            <li>Controller means the legal entity or natural person that determines the means and purposes of processing of Personal Data about individuals in the European Economic Area or the United Kingdom in accordance with the GDPR.</li>
-            <li>CCPA means the California Consumer Privacy Act, California Civil Code sections 1798.100 et seq, and its implementing regulations.</li>
-            <li>GDPR means the General Data Protection Regulation (EU) 2016/679 and, from the point at which the GDPR ceases to apply in the United Kingdom, the UK GDPR.</li>
-            <li>MyFiziq means MyFiziq Limited of U5, 71-73 South Perth Esplanade, South Perth, Western Australia, 6151.</li>
-            <li>Personal Data means information which can be used directly or indirectly to identify you and which relates to you (and shall be deemed to include "Personal Data" as defined in the GDPR and "personal information" as defined in the CCPA and the Australian Privacy Act 1998 (Cth) respectively).</li>
-            <li>Processor means the legal entity or natural person that processes Personal Data on behalf of and in accordance with instructions from a Controller in accordance with the GDPR.</li>
-            <li>Service Provider means the legal entity that processes Personal Data about residents of California on behalf of a Business in accordance with the CCPA.</li>
-            <li>UK GDPR means the General Data Protection Regulation (EU) 2016/679 as it forms part of the law of the United Kingdom by virtue of section 3 of the European Union (Withdrawal) Act 2018.</li>
-        </ul>
-        <p>3. Body Scan Data</p>
-        <p>When you use the Service, we collect your height, weight and gender when you provide this information to us and also collect photos you take using the Application, as well as silhouettes of your body image created using photos you take using the Application ("Body Scan Data").</p>
-        <p>We use the Body Scan Data to calculate digital anthropometric circumference measurements, body composition information (such as your body fat %, for example) and body joint information (the areas where your bones are attached to permit body parts to move), as well as provide user support.</p>
-        <p>This information is your Personal Data because it is about you and can be used to identify and / or differentiate you from other individuals using the Service. We collect body scan data with your explicit consent.</p>
-        <p>4. Risk Inference Data</p>
-        <p>Where we infer risk, we collect information you input about your height, weight, gender, and date of birth. In combination with your body measurements and body composition, we use these to infer your risk of chronic diseases / mortality.</p>
-        <p>Where we infer risk, we provide additional information on how the risk was inferred including, information from risks tables generated from studies by organisations such as The World Health Organisation, and the International Diabetes Federation, and where possible, reference the study name, organization that conducted the study, and the risk classification tables generated from the study, so that You can understand how we arrived at the inferred risk result based on the input information, as well as the body measurements and body composition statistics the Service outputs. </p>
-        <p>MyFiziq risk inference is not intended to replace traditional methods of diagnosis or treatment, it is only intended to provide extra information to You that might be helpful, however does not replace a doctor\'s visit.</p>
-        <p>Where we infer risk, we will create information that relates to your health you may be at risk of, which is your Personal Data. We process these Personal Data with your explicit consent.</p>
-        <p>5. Usage Data</p>
-        <p>Usage Data
-        We collect information about how you use the Service ("Usage Data") automatically. Usage Data includes information about the device you are using to access the Service (including your IP address, your browser type and version, your operating system, and the type of smartphone used), the pages of the Service that you visit, the time and date of your visit, the time spent on those pages and other diagnostic information.</p>
-        <p>We use Usage Data to secure and identify problems with the Service, monitor crash reports, and to help us support and improve the Application and to develop the Service.</p>
-        <p>We collect and process Usage Data based on our legitimate interest to support and secure the Service and the Application and to identify potential improvements.</p>
-        <p>6. Sharing Your Personal Data</p>
-        <p>We will share your Personal Data with trusted third parties who provide us with services necessary to enable us to provide the Service to you. Any such third parties are required by a contract between us and them to take appropriate security measures to protect your Personal Data and may only use your Personal Data in line with our instructions and not for their own purposes.</p>
-        <p>The Service is hosted in the Amazon Web Services ("AWS") cloud platform and AWS is one of our trusted third-party service providers that will have access to your Personal Data.</p>
-        <p>Our primary AWS hosting location is in the USA and our business operations, including our development and support teams, are based in Australia. This means that your Personal Data will be stored in and accessible by us from the US and Australia where the data protection laws may not provide the same level of protection to the country or region in which you live.</p>
-        <p>If you are located in the EEA or UK, we will only transfer your Personal Data outside that region with your explicit consent.</p>
-        <p>We may also share your Personal Data where required to do so by law or where we believe in good faith that disclosure is necessary to protect the safety of users of the Service or the public, investigate and prevent possible wrongdoing in connection with the Service, to protect and defend our rights and assets and to protect against legal liability.</p>
-        <p>If we are subject to any merger, acquisition of asset sale, your Personal Data may be transferred to the acquiring or merged entity. We will notify you if this occurs and provide you with details of any arising change to this Privacy Policy.</p>
-        <p>7. Retaining Your Data</p>
-        <p>We will only retain your Body Scan Data, and Risk Inference Data Personal Information for as long as is required to provide you with the Service or as otherwise instructed by you.</p>
-        <p>We retain Usage Data for as long as is reasonably necessary for the purposes set out above and to enable us to meet our contractual and legal obligations. If we need to hold it for a longer period, we will anonymise the data by removing identifiers and aggregating it with other diagnostic information.</p>
-        <p>8. Protecting Your Data</p>
-        <p>The security of your Personal Data is important to us, and we have implemented organisational and technical security measures in line with good industry practice to ensure that your Personal Data is protected.</p>
-        <p>Unfortunately, no method of transmission over the internet or method of electronic storage is 100% secure. Whilst we will always take steps to protect your information in line with good industry practice, we cannot guarantee its absolute security.</p>
-        <p>9. Children\'s Privacy</p>
-        <p>Our Terms of Service prohibit use of the Service by anyone under the age of 13, and we do not knowingly collect Personal Data from anyone under the age of 13.</p>
-        <p>If You are a parent or guardian and you believe your child is using the Service, please contact us to delete their Body Scan Data and the Usage Data.</p>
-        <p>If we become aware that we have collected Personal Data from anyone under the age of 13, we will take steps to delete their Personal Data.</p>
-        <p>10. Your Rights</p>
-        <p>You have rights in respect of your Personal Data. The specific rights available to you depend on your country of residence. If you are in the European Economic Area or UK, you have the rights listed at Section 11 of this Privacy Policy. If you are a resident of California, you have the rights listed at Section 12 of this Policy.</p>
-        <p>If you live in Australia, you have the right to request access to or correction of the Personal Data we hold about you and the right to stop receiving unwanted direct marketing. You can also make a complaint about us to the Office of the Australian Information Commissioner if you think we have mishandled your Personal Data.</p>
-        <p>You can exercise your rights or complain to us about how we use your data by emailing us at support@myfiziq.com or writing to us at the address provided at Section 13, below.</p>
-        <p>11. GDPR Specific Processing</p>
-        <p>If you reside in the European Economic Area ("EEA") or the United Kingdom ("UK"), this Privacy Policy applies as follows:</p>
-        <ul>
-            <li>MyFiziq is the Controller for your Body Scan Data, Risk Inference Data, and Usage Data.</li>
-            <li>The trusted third parties with whom we share your Personal Data as described in the Privacy Policy are our processors for Body Scan Data, Risk Inference Data, and Usage Data. We enter into data processing agreements that meet the requirements of Article 28 of GDPR with our sub-processors and processors.</li>
-            <li>We only transfer your Body Scan Data, and Risk Inference Data outside the EEA or UK with your explicit consent or where otherwise permitted by law to do so.</li>
-            <li>We transfer your Body Scan Data, Risk Inference Data, and Usage Data outside the EEA and the UK including to the United States, and Australia where the data protection laws may offer a lower level of protection than in your country.</li>
-            <li>Our representative in the EU and UK is Evalian Limited, who can be contacted by emailing myfiziq@evalian.co.uk.</li>
-            <li>We have designated a Data Protection Officer, who can be contacted by emailing support@myfiziq.com.</li>
-            <li>You have the following rights in respect of your Personal Data:</li>
-            <ul>
-                <li>You have the right of access to your Personal Data and can request copies of it and information about our processing of it.</li>
-                <li>If the Personal Data we hold about you is incorrect or incomplete, you can ask us to rectify or add to it.</li>
-                <li>Where we are using your Personal Data with your consent, you can withdraw your consent at any time. </li>
-                <li>Where we are using your Personal Data because it is in our legitimate interests to do so, you can object to us using it this way.</li>
-                <li>Where we are using your Personal Data for direct marketing, including profiling for direct marketing purposes, you can object to us doing so.</li>
-                <li>You can ask us to restrict the use of your Personal Data if:<br />- It is not accurate.<br />- It has been used unlawfully but you do not want us to delete it.<br />- We do not need it anymore, but you want us to keep it for use in legal claims; or <br />- if you have already asked us to stop using your data but you are waiting to receive confirmation from us as to whether we can comply with your request.</li>
-                <li>In some circumstances you can compel us to erase your Personal Data and request a machine-readable copy of your Personal Data to transfer to another service provider.</li>
-                <li>You have the right not to be subject to a decision based solely on automated processing (including profiling) that produces legal effects concerning you or similarly significantly affects you.</li>
-                <li>You can withdraw consent. If you withdraw your consent, we may not be able to provide You with access to certain specific functionalities of the Service.</li>
-                <li>You can also raise a complaint with the data protection supervisory authority in the country in which you reside.</li>
-            </ul>
-            <li>To exercise your rights in respect of Body Scan Data, Risk Inference Data, and Usage Data you can contact us using the details set out at Section 10 or Section 13 of this Privacy Policy.</li>
-        </ul>
-        <p>12. California Specific Processing</p>
-        <p>If you are a resident of California, this Privacy Policy applies as follows:</p>
-        <ul>
-            <li>To the extent applicable under the CCPA, MyFiziq is the Business for Body Scan Data, Risk Inference Data, and Usage Data.</li>
-            <li>MyFiziq does not sell your Personal Data within the meaning of the CCPA.</li>
-            <li>You have the following rights in respect of your Personal Data to the extent required by the CCPA:</li>
-            <ul>
-                <li>You have the right to disclosure of specific information to you about the collection and use of your Personal Data over the last 12 months.</li>
-                <li>You have the right to request that your Personal Data is deleted, subject to certain exceptions.</li>
-                <li>You have the right not to be discriminated against for exercising your rights under the CCPA.</li>
-            </ul>
-            <li>To exercise your rights in respect of Body Scan Data, Risk Inference Data, and Usage Data you can contact us using the details set out at Section 10 or Section 13 of this Privacy Policy.</li>
-            <li>The Service does not respond to \'Do Not Track\' signals.</li>
-            <li>California Business and Professions Code section 22581 allow California residents under the age of 18 who are registered users of online sites, services or applications to request and obtain removal of content or information they have publicly posted. If this applies to you, please contact t us using the details set out at Section 10 or Section 13 of this Privacy Policy. We will action your request to the extent required by law.</li>
-            <li>California Civil Code Section 1798 (California\'s \'Shine the Light\' law) enables California residents with an established business relationship with us to request information once a year about the sharing of their Personal Data with third parties for direct marketing purposes. If this applies to you, please contact us using the details provided at Section 10 or 13 of this Privacy Policy.</li>
-        </ul>
-        <p>13. Our Contact Details</p>
-        <p>You can contact us about this Privacy Policy, to exercise your rights or to complain by writing to:</p>
-        <p>MyFiziq Limited, U5, 71-73 South Perth Esplanade, South Perth, Western Australia, 6151.</p>
-        <p>You can email us about this Privacy Policy at support@myfiziq.com.</p>
-        <p>14. Updates to this Privacy Notice</p>
-        <p>We will review and update this Privacy Policy from time to time. Please visit this page periodically to check for updates.</p>
-        <p>This Privacy Policy was last updated on the date shown at the top of this document.</p>
-        <footer>MYQ-POL-001 Rev 1. Revision date: 10th September 2020</footer>
     </body>
 </html>
 ]]></string>

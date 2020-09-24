@@ -6,43 +6,11 @@
         <item name="colorAccent">@color/myfiziqsdk_orange2</item>
     </style>
 
-    <style name="AppTheme.NoBackButton">
-        <item name="android:displayOptions">showTitle</item>
-    </style>
-
-    <style name="AppTheme.WithBackButton">
-        <item name="android:displayOptions">showTitle|homeAsUp</item>
-    </style>
-
-    <style name="WelcomeScreenTheme" parent="AppTheme">
-        <item name="android:navigationBarColor">@color/myfiziqsdk_black</item>
-    </style>
-
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@color/myfiziqsdk_orange2</item>
         <item name="colorPrimaryDark">@color/myfiziqsdk_orange2</item>
     </style>
 
-
-    <style name="WelcomeHeader" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:fontFamily">@font/robotoslab_bold</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">60dp</item>
-    </style>
-
-    <style name="WelcomeDescription" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:breakStrategy">simple</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">22dp</item>
-    </style>
 
     <!--You can override/customize a style from the sdk.Below is an example of a style that override a view toolbar title.
     Enable those style, and you will found that the toolbar color is customized now, based on attributes below-->
