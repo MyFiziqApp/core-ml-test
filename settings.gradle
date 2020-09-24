@@ -6,3 +6,4 @@ include(':myfiziqsdk')
 project(':myfiziqsdk').projectDir = new File('myfiziq-sdk-android/myfiziqsdk')
 include(':myfiziqsdk-android-cpp')
 project(':myfiziqsdk-android-cpp').projectDir = new File('myfiziqsdk-android-cpp')
+

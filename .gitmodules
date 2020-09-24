@@ -4,7 +4,7 @@
 	branch = master
 [submodule "myfiziq-sdk-android"]
 	path = myfiziq-sdk-android
-	url = https://github.com/MyFiziqApp/myfiziq-sdk-android
+	url = git@github.com:MyFiziqApp/myfiziq-sdk-android.git
 	branch = master
 [submodule "myfiziqsdk-android-cpp"]
 	path = myfiziqsdk-android-cpp
