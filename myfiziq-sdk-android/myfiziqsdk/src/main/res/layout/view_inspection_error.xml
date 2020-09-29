@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.myfiziq.sdk.views.CaptureErrorConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myfiziqsdk_orange2">
+
+    <TextView
+        android:id="@+id/errorText"
+        style="@style/MFCaptureErrorText"
+        android:layout_above="@+id/layoutCircle"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/layoutCircle"
+        tools:text="Error message" />
+
+    <com.myfiziq.sdk.views.FixedAspectRatioFrameLayout
+        android:id="@+id/layoutCircle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.myfiziq.sdk.views.CircleCountdown
+            android:id="@+id/viewCountdown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:countdownRingSync="true"
+            app:countdownTime="10" />
+
+    </com.myfiziq.sdk.views.FixedAspectRatioFrameLayout>
+
+    <com.myfiziq.sdk.views.CaptureErrorButtonView
+        android:id="@+id/inspectionErrorButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/errorText"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</com.myfiziq.sdk.views.CaptureErrorConstraintLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="myfiziqsdk_datepicker_padding_left">0</integer>
+    <integer name="myfiziqsdk_datepicker_padding_top">50</integer>
+    <integer name="myfiziqsdk_datepicker_padding_right">0</integer>
+    <integer name="myfiziqsdk_datepicker_padding_bottom">50</integer>
+
+    <integer name="myfiziqsdk_capture_timer_top_margin">25</integer>
+    <integer name="myfiziqsdk_capture_timer_right_margin">50</integer>
+    <integer name="myfiziqsdk_capture_timer_bottom_margin">25</integer>
+    <integer name="myfiziqsdk_capture_timer_left_margin">50</integer>
+
+    <item type="dimen" format="float" name="myfiziqsdk_capture_timer_error_buttons_guideline">0.65</item>
+    <item type="dimen" format="float" name="myfiziqsdk_capture_confirm_help_bottom_guideline">0.95</item>
+
+</resources>

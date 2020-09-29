@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.myfiziq.sdk.views.MYQDialogView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MFDialogMeasurementRootLayout">
+
+    <TextView
+        android:id="@+id/heading"
+        style="@style/MFMeasurementSpinnerTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <Spinner
+        android:id="@+id/unitsOfMeasurement"
+        style="@style/MFDialogMeasurementSpinner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+    <NumberPicker
+        android:id="@+id/measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/measurement_second"
+        app:layout_constraintTop_toBottomOf="@+id/unitsOfMeasurement" />
+
+    <NumberPicker
+        android:id="@+id/measurement_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/measurement"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unitsOfMeasurement" />
+
+
+</com.myfiziq.sdk.views.MYQDialogView>

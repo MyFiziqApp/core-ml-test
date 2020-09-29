@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--PERMISSION REQUESTS-->
+    <item name="TAG_PERMISSION_CAMERA" type="integer">1</item>
+
+    <!--OPTIONAL ACTIVITY ARGUMENTS-->
+    <item name="TAG_ARG_ACTIVITY_FLAGS" type="id" />
+    <item name="TAG_ARG_ACTIVITY_VIEW" type="id" />
+
+    <!--MANDATORY FRAGMENT ARGUMENTS-->
+    <item name="TAG_ARG_VIEW" type="id" />
+    <item name="TAG_ARG_IMAGE" type="id" />
+    <item name="TAG_ARG_SIDE" type="id" />
+    <item name="TAG_ARG_GENDER" type="id" />
+    <item name="TAG_ARG_DOB" type="id" />
+    <item name="TAG_ARG_ETHNICITY" type="id" />
+    <item name="TAG_ARG_HEIGHT_IN_CM" type="id" />
+    <item name="TAG_ARG_WEIGHT_IN_KG" type="id" />
+    <item name="TAG_ARG_PREFERRED_HEIGHT_UNITS" type="id" />
+    <item name="TAG_ARG_PREFERRED_WEIGHT_UNITS" type="id" />
+    <item name="TAG_ARG_BIRTH_DATE" type="id" />
+
+
+    <!--OPTIONAL FRAGMENT ARGUMENTS-->
+    <item name="TAG_ARG_NEXT_PAGE_BUTTON_ID" type="id" />
+    <item name="TAG_ARG_PREVIOUS_PAGE_BUTTON_ID" type="id" />
+    <item name="TAG_ARG_NEXT_SCREEN_BUTTON_ID" type="id" />
+    <item name="TAG_ARG_FULLSCREEN_ONBOARDING_PAGE" type="id" />
+    <item name="TAG_ARG_SKIPPABLE" type="id" />
+    <item name="TAG_ARG_CAPTURE_PRACTISE_MODE" type="id" />
+    <item name="TAG_ARG_MODEL_AVATAR" type="id" />
+
+    <!--ONBOARDING VIDEO ARGUMENTS-->
+    <item name="TAG_ARG_START_TIME" type="id" />
+    <item name="TAG_ARG_END_TIME" type="id" />
+    <item name="TAG_ARG_HAD_TITLE" type="id" />
+    <item name="TAG_ARG_USE_SLIDE_ANIM" type="id" />
+    <item name="TAG_ARG_USE_FULLSCREEN_MODE" type="id" />
+
+    <item name="TAG_MODEL" type="id" />
+    <item name="TAG_HOLDER" type="id" />
+    <item name="TAG_TITLE" type="id" />
+    <item name="TAG_MODEL_ID" type="id" />
+    <item name="TAG_NOTIFICATION_ID" type="id" />
+
+    <!-- TnC -->
+    <item name="TAG_ARG_PAGE_TITLE" type="id" />
+    <item name="TAG_ARG_PAGE_CONTENT" type="id" />
+    <item name="TAG_ARG_PAGE_VERSION" type="id" />
+
+    <!-- Input -->
+    <item name="TAG_ARG_INPUT_ENABLE_BIRTH_DATE" type="id" />
+    <item name="TAG_ARG_INPUT_HEIGHT_CM" type="id" />
+    <item name="TAG_ARG_INPUT_WEIGHT_KG" type="id" />
+    <item name="TAG_ARG_INPUT_DATE_OF_BIRTH" type="id" />
+    <item name="TAG_ARG_INPUT_GENDER" type="id" />
+
+    <!-- Track -->
+    <item name="TAG_CHART_DATA" type="id" />
+    <item name="TAG_ARG_SELECTION_MODEL" type="id" />
+    <item name="TAG_ARG_SELECTION_RESPONSE" type="id" />
+    <item name="TAG_ARG_EXCLUDE_MODEL" type="id" />
+
+    <!-- Settings -->
+    <item name="TAG_ARG_SETTINGS_ICON" type="id" />
+    <item name="TAG_ARG_SETTINGS_LABEL" type="id" />
+    <item name="TAG_ARG_SETTINGS_IS_NEED_CONFIRMATION" type="id" />
+    <item name="TAG_ARG_SETTINGS_CONFIRMATION_TEXT" type="id"/>
+    <item name="TAG_ARG_SETTINGS_CONFIRMATION_POSITIVE_TEXT" type="id"/>
+    <!-- If an IntentPair is specified, we will broadcast an intent when the settings value is clicked and will wait for a response -->
+    <item name="TAG_ARG_SETTINGS_INTENT_PAIR_CALLBACK" type="id" />
+
+</resources>

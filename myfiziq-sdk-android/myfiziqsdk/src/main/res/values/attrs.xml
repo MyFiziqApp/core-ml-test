@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FixedAspectRatioFrameLayout">
+        <attr name="rescaleW" format="boolean"/>
+        <attr name="rescaleH" format="boolean"/>
+        <attr name="scaleRatio" format="enum">
+            <enum name="scale_square" value="0" />
+            <enum name="scale_16x9" value="1" />
+            <enum name="scale_5x2" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="StyledRecyclerView">
+        <attr name="modelClass" format="string"/>
+        <attr name="viewClass" format="string"/>
+        <attr name="sql_query" format="string"/>
+        <attr name="sql_where" format="string"/>
+        <attr name="sql_order" format="string"/>
+        <attr name="itemlayout" format="enum">
+            <enum name="layout_horizontal" value="0" />
+            <enum name="layout_vertical" value="1" />
+            <enum name="layout_grid2" value="2" />
+            <enum name="layout_grid3" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MYQGLTextureView">
+        <attr name="continuous" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleTextView">
+        <attr name="circleWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleCountdown">
+        <attr name="countdownTime" format="integer"/>
+        <attr name="countdownColor" format="color"/>
+        <attr name="countdownRingSync" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyFiziq">
+        <attr name="MYQ_background" format="color"/>
+        <attr name="MYQ_text" format="string"/>
+        <attr name="MYQ_textColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="BottomNavigationBarButton">
+        <attr name="navigationImage" format="integer"/>
+        <attr name="navigationText" format="reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="MyFiziqChart">
+        <attr name="primaryLineColour" format="color" />
+        <attr name="primaryLineCircleColour" format="color" />
+        <attr name="primaryLineWidth" format="float" />
+        <attr name="primaryLineDashLength" format="integer" />
+        <attr name="primaryLineLength" format="integer" />
+        <attr name="primaryCircleRadius" format="integer" />
+
+        <attr name="secondaryLineColour" format="color" />
+        <attr name="secondaryLineCircleColour" format="color" />
+        <attr name="secondaryLineWidth" format="float" />
+        <attr name="secondaryLineDashLength" format="integer" />
+        <attr name="secondaryLineLength" format="integer" />
+        <attr name="secondaryCircleRadius" format="integer" />
+
+        <attr name="xAxisTextSize" format="integer" />
+        <attr name="xAxisTextColor" format="color" />
+        <attr name="xAxisTextFontFamily" format="reference" />
+        <attr name="xAxisLineColor" format="color" />
+        <attr name="xAxisLineWidth" format="float" />
+
+
+        <attr name="leftAxixDrawGridLines" format="boolean" />
+        <attr name="leftAxisGridColor" format="color" />
+
+
+        <attr name="lineDataValueTextColor" format="color" />
+        <attr name="lineDataValueTextSize" format="integer" />
+        <attr name="lineDataValueTextFontFamily" format="reference" />
+        <attr name="lineDataValueTypefaceIsBold" format="boolean" />
+
+        <attr name="lineDataValueFormat" format="string" />
+
+        <attr name="maxVisibleValues" format="integer" />
+
+        <attr name="desiredMaxXAxisLabels" format="integer" />
+
+    </declare-styleable>
+
+</resources>

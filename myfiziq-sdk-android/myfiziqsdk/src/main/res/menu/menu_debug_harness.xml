@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_clear"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Clear"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/menu_item_set_server"
+        android:title="Set Server"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/menu_item_process_all"
+        android:title="Process All"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/menu_item_indevice"
+        android:title="In-Device-Class"
+        android:checkable="true"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/menu_item_runjoints"
+        android:title="Run Joints"
+        android:checkable="true"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/menu_item_debugpayload"
+        android:title="Debug Payload"
+        android:checkable="true"
+        app:showAsAction="never"
+        />
+</menu>

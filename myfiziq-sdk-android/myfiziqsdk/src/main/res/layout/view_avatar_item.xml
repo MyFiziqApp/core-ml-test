@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentContainer"
+    style="@style/MFProfileCard"
+    android:elevation="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/errorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/cardErrorText"
+            style="@style/MFFailedCardTextView"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/error_processing" />
+
+        <LinearLayout
+            style="@style/MFFailedCardButtonLayout"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/cardCancelButton"
+                style="@style/MFFailedCardCancelButton"
+                android:text="@string/cancel_session" />
+
+            <Button
+                android:id="@+id/cardRetryButton"
+                style="@style/MFFailedCardRetryButton"
+                android:text="@string/retry" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dataContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/MFViewAvatarItemDate" />
+
+            <TextView
+                android:id="@+id/layout_heading"
+                style="@style/MFViewAvatarItemHeading" />
+
+            <TextView
+                android:id="@+id/layout_heading_indicator"
+                style="@style/MFViewAvatarItemIndicator" />
+
+            <TextView
+                android:id="@+id/layout_subheading"
+                style="@style/MFViewAvatarItemSubheading" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.myfiziq.sdk.views.AvatarDataItem
+                android:id="@+id/layout_chest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerBottom="true"
+                app:dividerTop="false"
+                app:layout="@layout/view_avatar_data_item_profile_list"
+                app:nameText="@string/chest" />
+
+            <com.myfiziq.sdk.views.AvatarDataItem
+                android:id="@+id/layout_waist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerBottom="true"
+                app:layout="@layout/view_avatar_data_item_profile_list"
+                app:nameText="@string/waist" />
+
+            <com.myfiziq.sdk.views.AvatarDataItem
+                android:id="@+id/layout_hips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerBottom="true"
+                app:layout="@layout/view_avatar_data_item_profile_list"
+                app:nameText="@string/hips" />
+
+            <com.myfiziq.sdk.views.AvatarDataItem
+                android:id="@+id/layout_thighs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerBottom="false"
+                app:layout="@layout/view_avatar_data_item_profile_list"
+                app:nameText="@string/thighs" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cardProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:visibility="invisible">
+
+        <ProgressBar
+            style="@style/MFProgressBar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/cardState"
+            style="@style/MFCardStateText"
+            tools:text="Processing...\nETA 30s" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,10 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MFViewCaptureCountdownLayout">
+
+    <TextView
+        android:id="@+id/textViewCountdown"
+        style="@style/MFViewCaptureCountdownText"
+        tools:text="10" />
+
+</FrameLayout>

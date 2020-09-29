@@ -1,7 +1,3 @@
-[submodule "myfiziq-android"]
-	path = myfiziq-android
-	url = https://github.com/MyFiziqApp/myfiziq-android.git
-	branch = master
 [submodule "myfiziqsdk-android-cpp"]
 	path = myfiziqsdk-android-cpp
 	url = https://github.com/MyFiziqApp/myfiziqsdk-android-cpp.git

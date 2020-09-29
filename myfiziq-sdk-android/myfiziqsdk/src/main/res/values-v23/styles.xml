@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MFCaptureHelpDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/robotoslab_bold</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:text">If you are having trouble fitting inside the outline, make sure the front camera is pointing at your hips.</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/myfiziqsdk_white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:breakStrategy">simple</item>
+    </style>
+</resources>

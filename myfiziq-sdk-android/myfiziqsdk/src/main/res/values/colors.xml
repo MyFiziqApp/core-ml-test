@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Start MyFiziq Colour Palette -->
+    <color name="myfiziqsdk_white">#FFFFFF</color>
+    <color name="myfiziqsdk_white_40_percent_opaque">#66FFFFFF</color>
+    <color name="myfiziqsdk_black">#000000</color>
+    <color name="myfiziqsdk_black1">#282828</color>
+    <color name="myfiziqsdk_black_opaque">#E0282828</color>
+    <color name="myfiziqsdk_black_87_percent_opaque">#DE000000</color>
+
+    <color name="myfiziqsdk_grey0">#232323</color>
+    <color name="myfiziqsdk_grey1">#323232</color>
+    <color name="myfiziqsdk_grey2">#646464</color>
+    <color name="myfiziqsdk_grey3">#878787</color>
+    <color name="myfiziqsdk_grey4">#C5C5C5</color>
+    <color name="myfiziqsdk_grey5">#E6E6E6</color>
+    <color name="myfiziqsdk_grey6">#FAFAFA</color>
+    <color name="myfiziqsdk_grey7">#D1D1D6</color>
+    <color name="myfiziqsdk_grey8">#C7C7CC</color>
+    <color name="myfiziqsdk_grey9">#E5E5E5</color>
+    <color name="myfiziqsdk_grey10">#F9F9F9</color>
+    <color name="myfiziqsdk_grey11">#DFDDDA</color>
+    <color name="myfiziqsdk_grey12">#9E9E9E</color>
+    <color name="myfiziqsdk_grey13">#DEDEDE</color>
+    <color name="myfiziqsdk_grey14">#8E8E93</color>
+    <color name="myfiziqsdk_grey15">#757575</color>
+    <color name="myfiziqsdk_grey16">#F6F6F6</color>
+    <color name="myfiziqsdk_grey17">#202020</color>
+    <color name="myfiziqsdk_grey18">#8F8F8F</color>
+    <color name="myfiziqsdk_grey19">#717171</color>
+    <color name="myfiziqsdk_grey20">#4C4C4C</color>
+    <color name="myfiziqsdk_grey21">#E0E0E0</color>
+    <color name="myfiziqsdk_grey22">#E5E5EA</color>
+    <color name="myfiziqsdk_grey23">#919191</color>
+
+    <color name="myfiziqsdk_row_seperator">#F2F2F2</color>
+
+    <color name="myfiziqsdk_grey3_opaque">#E0878787</color>
+    <color name="myfiziqsdk_grey_list_divider">#D8D8D8</color>
+
+
+    <color name="myfiziqsdk_blue0">#013088</color>
+    <color name="myfiziqsdk_blue1">#1E3367</color>
+    <color name="myfiziqsdk_blue2">#013F92</color>
+    <color name="myfiziqsdk_blue3">#006ADF</color>
+    <color name="myfiziqsdk_blue4">#C2E2F2</color>
+    <color name="myfiziqsdk_blue5">#E0F0F8</color>
+    <color name="myfiziqsdk_blue6">#67b8da</color>
+
+    <color name="myfiziqsdk_green">#41b351</color>
+    <color name="myfiziqsdk_green_opaque">#8041b351</color>
+
+    <color name="myfiziqsdk_pink">#9002ce</color>
+    <color name="myfiziqsdk_pink_opaque">#809002ce</color>
+
+    <color name="myfiziqsdk_orange2">#FF5621</color>
+    <!-- End MyFiziq Colour Palette -->
+
+
+    <!-- Buttons -->
+    <color name="myfiziqsdk_button_enabled">#FF5621</color>
+    <color name="myfiziqsdk_button_disabled">#E0E0E0</color>
+    <color name="myfiziqsdk_toolbar_button_color">@color/myfiziqsdk_grey2</color>
+
+    <!-- SDK -->
+    <color name="myfiziqsdk_colorPrimary">@color/myfiziqsdk_orange2</color>
+    <color name="myfiziqsdk_colorPrimaryDark">@color/myfiziqsdk_black</color>
+    <color name="myfiziqsdk_colorAccent">@color/myfiziqsdk_orange2</color>
+    <color name="myfiziqsdk_textColorPrimary">@color/myfiziqsdk_black1</color>
+    <color name="myfiziqsdk_textColorSecondary">@color/myfiziqsdk_grey1</color>
+    <color name="myfiziqsdk_windowBackground">@color/myfiziqsdk_grey4</color>
+    <color name="myfiziqsdk_backgroundColor">@android:color/transparent</color>
+    <color name="myfiziqsdk_dialog_positive_button">@color/myfiziqsdk_orange2</color>
+    <color name="myfiziqsdk_dialog_neutral_button">@color/myfiziqsdk_black</color>
+    <color name="myfiziqsdk_dialog_negative_button">@color/myfiziqsdk_black</color>
+    <color name="myfiziqsdk_capture_page_background_color">@color/myfiziqsdk_grey0</color>
+    <color name="myfiziqsdk_contour_dash_colour_1">@color/myfiziqsdk_grey0</color>
+    <color name="myfiziqsdk_contour_dash_colour_2">@color/myfiziqsdk_orange2</color>
+
+
+    <!-- Anrdoid Status Bar -->
+    <color name="myfiziqsdk_status_bar_orange">#E64E1E</color>
+    <color name="myfiziqsdk_status_bar_white">@color/myfiziqsdk_white</color>
+
+
+    <!-- SDK Track Screen -->
+    <color name="myfiziqsdk_progressChart_line">@color/myfiziqsdk_orange2</color>
+    <color name="myfiziqsdk_progressChart_circle">@color/myfiziqsdk_orange2</color>
+
+
+    <!-- Body Fat -->
+    <color name="myfiziqsdk_body_fat_indicator_underweight">#59C7FA</color>
+    <color name="myfiziqsdk_body_fat_indicator_normal">#4CD964</color>
+    <color name="myfiziqsdk_body_fat_indicator_overweight">#FFCC00</color>
+    <color name="myfiziqsdk_body_fat_indicator_obese">#FF5721</color>
+
+
+    <!-- Android -->
+    <color name="textColorPrimary">@color/myfiziqsdk_black1</color>
+    <color name="textColorSecondary">@color/myfiziqsdk_grey1</color>
+    <color name="windowBackground">@color/myfiziqsdk_grey4</color>
+    <color name="backgroundColor">@android:color/transparent</color>
+    <color name="avatarMeshColor">#999999</color>
+
+    <color name="indicator_low">#4CD964</color>
+    <color name="indicator_medium">#FFCC00</color>
+    <color name="indicator_high">#FF9500</color>
+    <color name="indicator_very_high">#FF3B30</color>
+
+</resources>

@@ -1,0 +1,174 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+apply from: '../../buildflavours.gradle'
+apply from: '../../buildtypes.gradle'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        multiDexEnabled true
+        //renderscriptTargetApi 18
+        //renderscriptSupportModeEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    buildTypes {
+
+        debug {
+            buildConfigField 'String', 'BILLING_BASE_URL', '"https://billing.myfiziq.io"'
+            buildConfigField 'String', 'BILLING_KEY', '"Wb5NnZkK0MaTCezLtEqGM4qzF6YYTUXb9qsDKo6t"'
+        }
+
+        miniRelease {
+            buildConfigField 'String', 'BILLING_BASE_URL', '"https://billing.myfiziq.io"'
+            buildConfigField 'String', 'BILLING_KEY', '"Wb5NnZkK0MaTCezLtEqGM4qzF6YYTUXb9qsDKo6t"'
+        }
+
+        release {
+            buildConfigField 'String', 'BILLING_BASE_URL', '"https://billing.myfiziq.io"'
+            buildConfigField 'String', 'BILLING_KEY', '"Wb5NnZkK0MaTCezLtEqGM4qzF6YYTUXb9qsDKo6t"'
+        }
+    }
+
+    signingConfigs {
+        all {
+            keyAlias 'key0'
+            keyPassword 'MyFiziq'
+            storeFile file('keystore/debug.jks')
+            storePassword 'MyFiziq'
+        }
+
+        release {
+            def props = new Properties()
+            props.load(new FileInputStream(project.file("../../release.myfiziq.properties")))
+            storeFile file('keystore/release.jks')
+            storePassword = props.keyStorePassword
+            keyAlias = props.keyAlias
+            keyPassword = props.keyAliasPassword
+            keyAlias 'myfiziq'
+            keyPassword 'password'
+            storePassword 'password'
+        }
+    }
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java'
+            }
+            jniLibs.srcDirs = [jniLibs.srcDirs, 'build/jniLibs']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+
+clean.doFirst {
+    println "Deleting ${buildDir}"
+    project.delete buildDir
+}
+
+//TODO: remove when C++ layer is implemented.
+apply from: '../../dependencies.gradle'
+
+configurations {
+    doclava
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    annotationProcessor project(':orm')
+    compileOnly project(':orm')
+
+    implementation project(':myfiziqsdk-android-cpp')
+
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Apache Commons Lang
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'commons-io:commons-io:2.6'
+
+    // TODO Make me a debug only asset and maybe make the DebugActivity a debug only class?
+    implementation "com.github.danielnilsson9:color-picker-view:1.4.0@aar"
+
+    implementation 'net.danlew:android.joda:2.10.3'
+
+
+    // Use API instead of implementation to make the library available to the customer app so they
+    // don't have to explicitally declare it
+    api ("androidx.work:work-runtime:2.3.4")
+
+    // Backport to Android 5.0 - 6.0 for WorkManager
+    api 'net.sourceforge.streamsupport:android-retrofuture:1.7.2'
+    api 'net.sourceforge.streamsupport:android-retroflow:1.7.2'
+
+    // Dynamic View inflation!!
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
+
+    implementation 'com.caverock:androidsvg-aar:1.4'
+    
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:3.1.0'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.4'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.4'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    doclava("com.google.doclava:doclava:1.0.6")
+}
+
+
+
+// update these next lines to fit your submodule
+group = 'com.myfiziq.sdk'
+version = '1.0'
+
+
+// Loop over all variants
+android.libraryVariants.configureEach { variant ->
+
+    def version = getGitReleaseName()
+    variant.buildConfigField "String", "SERVER_URL", "\"https://global.myfiziq.io\""
+
+    //variant.resValue "string", "content_provider", "myq.release.provider"
+    //variant.buildConfigField "String", "CONTENT_PROVIDER", "\"myq.release.provider\""
+    variant.buildConfigField "String", "SDK_VERSION", "\"${version}\""
+}
+
+def publishingGradlePath = "${projectDir}/../../publishing.gradle"
+
+if (file(publishingGradlePath).exists()) {
+    apply from: publishingGradlePath
+}
+else {
+    logger.warn ("Cannot find file at ${publishingGradlePath}. Publishing will be unsupported.")
+}
