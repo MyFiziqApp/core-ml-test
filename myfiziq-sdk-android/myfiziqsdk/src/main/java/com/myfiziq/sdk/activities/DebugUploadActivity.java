@@ -3,9 +3,13 @@ package com.myfiziq.sdk.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,19 +17,18 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.myfiziq.sdk.MyFiziq;
 import com.myfiziq.sdk.R;
 import com.myfiziq.sdk.builders.HeightSelectorBuilder;
 import com.myfiziq.sdk.builders.WeightSelectorBuilder;
 import com.myfiziq.sdk.components.MyDatePickerDialog;
 import com.myfiziq.sdk.db.Centimeters;
+import com.myfiziq.sdk.db.Gender;
 import com.myfiziq.sdk.db.Kilograms;
 import com.myfiziq.sdk.db.Length;
-import com.myfiziq.sdk.db.ModelUserProfile;
+import com.myfiziq.sdk.db.ModelAvatar;
 import com.myfiziq.sdk.db.Weight;
 import com.myfiziq.sdk.helpers.ActionBarHelper;
-import com.myfiziq.sdk.helpers.ConnectivityHelper;
-import com.myfiziq.sdk.helpers.DialogHelper;
-import com.myfiziq.sdk.helpers.GuestHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
 import com.myfiziq.sdk.util.TimeFormatUtils;
 import com.myfiziq.sdk.util.UiUtils;
@@ -35,15 +38,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
+import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
 import static com.myfiziq.sdk.util.GlobalContext.getContext;
 
 public class DebugUploadActivity extends AppCompatActivity
 {
     private EditText heightEditText;
     private EditText weightEditText;
-    private View dateOfBirthHeading;
-    private View dateOfBirthContainer;
-    private EditText dateOfBirthEditText;
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
     private Button continueButton;
@@ -53,14 +55,11 @@ public class DebugUploadActivity extends AppCompatActivity
 
     private RadioButton[] genderRadioGroup;
 
-    private boolean enableDateOfBirth = true;
-    private Date chosenDateOfBirth;
-
     private HeightSelectorBuilder heightSelectorBuilder;
     private WeightSelectorBuilder weightSelectorBuilder;
 
-    // This is a VO which represents the AWS user profile
-    private ModelUserProfile userProfile;
+    private String frontImageSource = null;
+    private String sideImageSource = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,12 +71,8 @@ public class DebugUploadActivity extends AppCompatActivity
 
         ActionBarHelper.setActionBarTitle(this, getString(R.string.myfiziqsdk_title_new_measurement));
 
-
         heightEditText = view.findViewById(R.id.heightEditText);
         weightEditText = view.findViewById(R.id.weightEditText);
-        dateOfBirthHeading = view.findViewById(R.id.dateOfBirthHeading);
-        dateOfBirthContainer = view.findViewById(R.id.dateOfBirthContainer);
-        dateOfBirthEditText = view.findViewById(R.id.dateOfBirth);
         maleRadioButton = view.findViewById(R.id.genderMale);
         femaleRadioButton = view.findViewById(R.id.genderFemale);
         continueButton = view.findViewById(R.id.btnCapture);
@@ -86,8 +81,6 @@ public class DebugUploadActivity extends AppCompatActivity
         layoutProcessing = view.findViewById(R.id.layoutProcessing);
 
         genderRadioGroup = new RadioButton[]{maleRadioButton, femaleRadioButton};
-
-        enableDateOfBirth = true;
 
         setCreateEnabled(true);
 
@@ -104,68 +97,7 @@ public class DebugUploadActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    private void showDateOfBirthPickerDialog()
-    {
-        MyDatePickerDialog datePicker;
-
-        if (null != chosenDateOfBirth)
-        {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(chosenDateOfBirth);
-
-            datePicker = MyDatePickerDialog.newInstance(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-        }
-        else
-        {
-            int defaultUserAge = getResources().getInteger(R.integer.myfiziqsdk_default_user_age);
-
-            Date todayDate = new Date();
-            Calendar calendar = Calendar.getInstance();
-
-            calendar.setTime(todayDate);
-            calendar.add(Calendar.YEAR, defaultUserAge * -1);
-
-            datePicker = MyDatePickerDialog.newInstance(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-        }
-
-        datePicker.setOnDateSetListener(this::onDateOfBirthSelected);
-        datePicker.show(getSupportFragmentManager(), "datePicker");
-
-        Resources resources = getResources();
-        new Handler().post(() ->
-                datePicker.setContainerPadding(
-                        resources.getInteger(R.integer.myfiziqsdk_datepicker_padding_left),
-                        resources.getInteger(R.integer.myfiziqsdk_datepicker_padding_top),
-                        resources.getInteger(R.integer.myfiziqsdk_datepicker_padding_right),
-                        resources.getInteger(R.integer.myfiziqsdk_datepicker_padding_bottom)
-                )
-        );
-    }
-
-    /**
-     * When the user has selected a Date of Birth.
-     *
-     * @param result The user's selection.
-     */
-    private void onDateOfBirthSelected(DatePickerResultVO result)
-    {
-        int chosenYear = result.getYear();
-        int chosenMonth = result.getMonth();
-        int chosenDay = result.getDay();
-
-        chosenDateOfBirth = new GregorianCalendar(chosenYear, chosenMonth, chosenDay).getTime();
-
-        // If the user has decided that they will be born in the future, set their date of birth to today
-        if (chosenDateOfBirth.getTime() >= new Date().getTime())
-        {
-            chosenDateOfBirth = new Date();
-        }
-
-        String formattedDateOfBirth = TimeFormatUtils.formatDateForDisplay(chosenDateOfBirth);
-        dateOfBirthEditText.setText(formattedDateOfBirth);
-    }
-
-    private void initializeBuilder()
+     private void initializeBuilder()
     {
         if (null == heightSelectorBuilder)
         {
@@ -186,12 +118,6 @@ public class DebugUploadActivity extends AppCompatActivity
         Resources resources = getResources();
         bindMeasurementUnitListeners();
 
-        if (enableDateOfBirth)
-        {
-            dateOfBirthEditText.setFocusableInTouchMode(false);
-            dateOfBirthEditText.setOnClickListener(v -> showDateOfBirthPickerDialog());
-        }
-
         maleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) ->
                 RadioButtonHelper.processRadioButtonState(resources, maleRadioButton, genderRadioGroup)
         );
@@ -199,7 +125,6 @@ public class DebugUploadActivity extends AppCompatActivity
         femaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) ->
                 RadioButtonHelper.processRadioButtonState(resources, femaleRadioButton, genderRadioGroup)
         );
-
 
         continueButton.setOnClickListener(v -> onContinueClicked());
         selectFrontImageButton.setOnClickListener(v -> onSelectFrontImageClicked());
@@ -227,11 +152,6 @@ public class DebugUploadActivity extends AppCompatActivity
         heightEditText.setError(null);
         weightEditText.setError(null);
 
-        if (enableDateOfBirth)
-        {
-            dateOfBirthEditText.setError(null);
-        }
-
         if (!heightSelectorBuilder.hasSelectedHeight())
         {
             heightEditText.setError("empty height");//getString(R.string.error_emptyheight));
@@ -253,12 +173,6 @@ public class DebugUploadActivity extends AppCompatActivity
             return false;
         }
 
-        if (enableDateOfBirth && TextUtils.isEmpty(dateOfBirthEditText.getText()))
-        {
-            dateOfBirthEditText.setError("empty DOB");
-            return false;
-        }
-
         if (!maleRadioButton.isChecked() && !femaleRadioButton.isChecked())
         {
             Toast.makeText(getContext(), "empty gender", Toast.LENGTH_LONG).show();
@@ -273,6 +187,18 @@ public class DebugUploadActivity extends AppCompatActivity
             return false;
         }
 
+        if(null == frontImageSource)
+        {
+            Toast.makeText(getContext(), "select front image", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(null == sideImageSource)
+        {
+            Toast.makeText(getContext(), "select side image", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
     /**
@@ -280,43 +206,38 @@ public class DebugUploadActivity extends AppCompatActivity
      */
     private void onContinueClicked()
     {
-        //put go to img capture here?
-
         if (validate())
         {
             UiUtils.hideSoftKeyboard(this);
 
-            // User clicked the "Continue" button instead of the guest button.
-            // We don't want to create a guest avatar so clear the guest selection.
-            GuestHelper.persistGuestSelection("");
-
-
-            if (true)
+            DebugActivity.DebugModel.DebugItem debugItem = DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD;
+            try
             {
-                String pleaseWaitString = getString(R.string.please_wait);
-
-                final AsyncProgressDialog dialog = AsyncProgressDialog.showProgress(this, pleaseWaitString, true, false, null);
-                UiUtils.setAlertDialogColours(this, dialog);
-
-                dialog.show();
-
-                if (!ConnectivityHelper.isNetworkAvailable(this))
-                {
-                    dialog.dismiss();
-                    DialogHelper.showInternetDownDialog(this);
-                    return;
-                }
+                Weight weight = weightSelectorBuilder.getSelectedWeight();
+                Length height = heightSelectorBuilder.getSelectedHeight();
+                Gender gender =  maleRadioButton.isChecked()? Gender.M : Gender.F;
+                MyFiziq.getInstance().initInspect(true);
+                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageSource, sideImageSource);
+                //MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+            }catch (Throwable t)
+            {
+                Timber.e(t, "Error in %s", debugItem.mTitle);
             }
         }
     }
 
     private void onSelectFrontImageClicked()
     {
-
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, SELECT_IMAGE_FRONT);
     }
 
     private void onSelectSideImageClicked()
     {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, SELECT_IMAGE_SIDE);
 
     }
 
@@ -357,5 +278,43 @@ public class DebugUploadActivity extends AppCompatActivity
                 continueButton.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SELECT_IMAGE_FRONT && resultCode == RESULT_OK)
+        {
+            Uri fullPhotoUri = data.getData();
+
+            String result = "";
+            Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    frontImageSource = result;
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
+        {
+            Uri fullPhotoUri = data.getData();
+
+            String result = "";
+            Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    sideImageSource = result;
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (resultCode == RESULT_CANCELED) {
+            return;
+        }
     }
 }

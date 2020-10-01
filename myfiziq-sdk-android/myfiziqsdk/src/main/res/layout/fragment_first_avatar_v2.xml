@@ -58,24 +58,6 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/dateOfBirthHeading"
-            style="@style/MFIDateOfBirthLabel" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dateOfBirthContainer"
-            style="@style/MFTextInputStyle.BirthDateForm"
-            tools:ignore="HardcodedText">
-            <!-- Leave a space in the TextInputLayout hint for a blank label but keep a hint in the EditText when there is no input -->
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dateOfBirth"
-                style="@style/MFEditTextStyle.BirthDateForm"
-                tools:ignore="UnusedAttribute" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView style="@style/MFIGenderLabel" />
 
         <LinearLayout

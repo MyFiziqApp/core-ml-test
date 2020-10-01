@@ -1490,6 +1490,54 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             return null;
         }
 
+        static ModelAvatar generateAvatar(@NonNull Activity activity, @NonNull DebugItem debugItem, double weight, double height, Gender gender, boolean bInspect, String frontSourceIn, String sideSourceIn) throws IOException
+        {
+            copyImagesToStorage(activity);
+
+            MyFiziq.SetFlag(
+                    "visualize",
+                    String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
+
+            long testStart = System.currentTimeMillis();
+
+
+            if (!TextUtils.isEmpty(frontSourceIn) && !TextUtils.isEmpty(sideSourceIn))
+            {
+                ModelAvatar avatar = Orm.newModel(ModelAvatar.class);
+
+                int nFrames = ModelAvatar.getCaptureFrames();
+
+                avatar.set(gender, new Centimeters(height), new Kilograms(weight), nFrames);
+                avatar.set(gender, new Centimeters(height), new Kilograms(weight));
+
+                avatar.setSensorValues(0.9612565815448761, -0.9410139858722687, 15.830237483978271, 0, 9.8, 0);
+
+                List<String> frontImages = new LinkedList<>();
+                List<String> sideImages = new LinkedList<>();
+
+                for (int i = 0; i < nFrames; i++)
+                {
+                    frontImages.add(createAvatarFrame(activity, avatar, PoseSide.front, frontSourceIn, i));
+                    sideImages.add(createAvatarFrame(activity, avatar, PoseSide.side, sideSourceIn, i));
+                }
+
+                if (bInspect)
+                {
+                    inspectAvatar(activity, avatar, PoseSide.front, frontImages);
+                    inspectAvatar(activity, avatar, PoseSide.side, sideImages);
+                }
+
+                avatar.save();
+                avatar.setStatus(Status.Pending);
+
+                long testTookTime = System.currentTimeMillis() - testStart;
+                ModelLog.d("STOPWATCH: " + debugItem.mTitle + " took: " + testTookTime + " ms");
+
+                return avatar;
+            }
+            return null;
+        }
+
         /**
          * Clones test data to create the files for a specific attempt ID.
          */
@@ -1560,75 +1608,4 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SELECT_IMAGE_FRONT && resultCode == RESULT_OK)
-        {
-            Uri fullPhotoUri = data.getData();
-
-            String result = "";
-            Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    ModelSetting.putSetting(ModelSetting.Setting.FRONT_IMAGE_NAME, result);
-                }
-            } finally {
-                cursor.close();
-            }
-
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            //if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, SELECT_IMAGE_SIDE);
-            //}
-
-        }
-        if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
-        {
-            Uri fullPhotoUri = data.getData();
-
-            String result = "";
-            Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    ModelSetting.putSetting(ModelSetting.Setting.SIDE_IMAGE_NAME, result);
-                }
-            } finally {
-                cursor.close();
-            }
-            DebugModel.DebugItem debugItem = DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD;
-
-            ModelLog.w(TAG, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle);
-            setStatus(DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle, true);
-            AsyncHelper.run(() ->
-                {
-                    try
-                    {
-
-                        boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                        boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                        boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-
-                        MyFiziq.getInstance().initInspect(true);
-                        ModelAvatar avatar = DebugModel.generateAvatar(this, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, -1, true, "", ModelSetting.getSetting(ModelSetting.Setting.FRONT_IMAGE_NAME, ""), ModelSetting.getSetting(ModelSetting.Setting.SIDE_IMAGE_NAME, ""));
-                        MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                    }catch (Throwable t)
-                    {
-                        Timber.e(t, "Error in %s", debugItem.mTitle);
-                    }
-                },
-                () ->
-                {
-                    setStatus(debugItem.mTitle, false);
-                },
-                true);
-
-        }
-        if (resultCode == RESULT_CANCELED) {
-            return;
-        }
-    }
 }

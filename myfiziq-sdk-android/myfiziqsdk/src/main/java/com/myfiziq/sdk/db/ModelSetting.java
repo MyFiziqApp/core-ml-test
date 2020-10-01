@@ -48,9 +48,7 @@ public class ModelSetting
         DEBUG_HARNESS,
         DEBUG_STYLING,
         STYLE,
-        STYLE_LAST_UPDATED,
-        FRONT_IMAGE_NAME,
-        SIDE_IMAGE_NAME
+        STYLE_LAST_UPDATED
     }
 
     public ModelSetting()
