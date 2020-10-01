@@ -144,7 +144,8 @@
     <string name="single_space">\u00A0</string>
     <string name="turn_phone_upright">Turn Phone Upright</string>
     <string name="continueText">Continue</string>
-    <string name="continueGuestText">Continue as Guest</string>
+    <string name="select_front_image">Select Front Image</string>
+    <string name="select_side_image">Select Side Image</string>
     <string name="guestInputHint">Name</string>
     <string name="send">send</string>
     <string name="reason">Reason</string>

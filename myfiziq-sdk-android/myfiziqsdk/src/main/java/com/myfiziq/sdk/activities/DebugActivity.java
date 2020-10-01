@@ -853,60 +853,13 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             }),
             TEST_AVATAR_IMAGE_UPLOAD("Test Avatar Image Upload", (debugItem, activity, callback) ->
             {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                //if (intent.resolveActivity(getPackageManager()) != null) {
-                    activity.startActivityForResult(intent, SELECT_IMAGE_FRONT);
-                //}
+                Intent visActivity = new Intent(GlobalContext.getContext(), DebugUploadActivity.class);
+                visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                GlobalContext.getContext().startActivity(visActivity);
 
-
-                //need to get custom file names 1st
-//                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-//                builder.setTitle("Test file name");
-//                final EditText input = new EditText(GlobalContext.getContext());
-//                input.setInputType(InputType.TYPE_CLASS_TEXT);
-//                input.setText(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_HARNESS, ""));
-//                builder.setView(input);
-//
-//                builder.setPositiveButton(android.R.string.ok, (dialog, which) ->
-//                {
-//                    String url = input.getText().toString();
-//
-//                    ModelLog.w(TAG, debugItem.mTitle);
-//                    setStatus(activity, debugItem.mTitle, true);
-//                    AsyncHelper.run(() ->
-//                            {
-//                                try
-//                                {
-//                                    boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-//                                    boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-//                                    boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-//
-//                                    MyFiziq.getInstance().initInspect(true);
-//                                    ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "", ModelSetting.getSetting(ModelSetting.Setting.FRONT_IMAGE_NAME, ""), ModelSetting.getSetting(ModelSetting.Setting.SIDE_IMAGE_NAME, ""));
-//                                    MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-//                                }
-//                                catch (Throwable t)
-//                                {
-//                                    Timber.e(t, "Error in %s", debugItem.mTitle);
-//                                }
-//                            },
-//                            () ->
-//                            {
-//                                setStatus(activity, debugItem.mTitle, false);
-//
-//                                if (callback != null)
-//                                {
-//                                    callback.execute();
-//                                }
-//                            },
-//                            true);
-//                });
-//                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
-//
-//                builder.show();
-
-
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/*");
+//                activity.startActivityForResult(intent, SELECT_IMAGE_FRONT);
             }),
             TEST_AVATAR("Test Avatar Upload Pass", (debugItem, activity, callback) ->
             {
@@ -1648,36 +1601,30 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             }
             DebugModel.DebugItem debugItem = DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD;
 
-            //launch activity to process image here
-                    ModelLog.w(TAG, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle);
-                    //setStatus(this, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle, true);
-                    AsyncHelper.run(() ->
-                            {
-                                try
-                                {
+            ModelLog.w(TAG, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle);
+            setStatus(DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD.mTitle, true);
+            AsyncHelper.run(() ->
+                {
+                    try
+                    {
 
-                                    boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                                    boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                                    boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
+                        boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
+                        boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
+                        boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
 
-                                    MyFiziq.getInstance().initInspect(true);
-                                    ModelAvatar avatar = DebugModel.generateAvatar(this, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, -1, true, "", ModelSetting.getSetting(ModelSetting.Setting.FRONT_IMAGE_NAME, ""), ModelSetting.getSetting(ModelSetting.Setting.SIDE_IMAGE_NAME, ""));
-                                    MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                                }catch (Throwable t)
-                                {
-                                    Timber.e(t, "Error in %s", debugItem.mTitle);
-                                }
-                            },
-                            () ->
-                            {
-                                //setStatus(this, debugItem.mTitle, false);
-
-//                                if (callback != null)
-//                                {
-//                                    callback.execute();
-//                                }
-                            },
-                            true);
+                        MyFiziq.getInstance().initInspect(true);
+                        ModelAvatar avatar = DebugModel.generateAvatar(this, DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, -1, true, "", ModelSetting.getSetting(ModelSetting.Setting.FRONT_IMAGE_NAME, ""), ModelSetting.getSetting(ModelSetting.Setting.SIDE_IMAGE_NAME, ""));
+                        MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+                    }catch (Throwable t)
+                    {
+                        Timber.e(t, "Error in %s", debugItem.mTitle);
+                    }
+                },
+                () ->
+                {
+                    setStatus(debugItem.mTitle, false);
+                },
+                true);
 
         }
         if (resultCode == RESULT_CANCELED) {

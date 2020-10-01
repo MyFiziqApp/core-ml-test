@@ -59,8 +59,6 @@ public class StateCapture
 
     private static ParameterSet getCapture(ParameterSet.Builder builder)
     {
-        boolean practiseMode = ModelSetting.getSetting(ModelSetting.Setting.FEATURE_PRACTISE_MODE, false);
-
         return builder.build();
 
     }
