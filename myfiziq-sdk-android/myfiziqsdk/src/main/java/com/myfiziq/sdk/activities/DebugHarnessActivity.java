@@ -559,7 +559,8 @@ public class DebugHarnessActivity extends BaseActivity implements RecyclerManage
                     side,
                     id,
                     sourceImageArray,
-                    imageBaseName);
+                    imageBaseName,
+                    false);
 
             String result = MiscUtils.join(Character.toString((char) 1), results);
             switch (side)

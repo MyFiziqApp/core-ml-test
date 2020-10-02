@@ -397,7 +397,7 @@ public class MyFiziq extends MyFiziqSdk
     public String[] testInspect2(PoseSide side, String fileid, String[] filename)
     {
         ModelLog.d("Run test inspect: " + Arrays.toString(filename));
-        return PoseInspect(side.ordinal(), fileid, filename, "");
+        return PoseInspect(side.ordinal(), fileid, filename, "", false);
 
             /*
             if (null != results && results.length > 0)
@@ -420,9 +420,9 @@ public class MyFiziq extends MyFiziqSdk
         PoseRelease();
     }
 
-    public String[] inspect(PoseSide side, String contourId, String[] filename, String imageName)
+    public String[] inspect(PoseSide side, String contourId, String[] filename, String imageName, Boolean writeOutput)
     {
-        return PoseInspect(side.ordinal(), contourId, filename, imageName);
+        return PoseInspect(side.ordinal(), contourId, filename, imageName, writeOutput);
     }
 
     public String[] inspect(PoseSide side, String contourId, int imageWidth, int imageHeight, int rotation, byte[] imageData)

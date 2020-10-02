@@ -1581,7 +1581,8 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
                     side,
                     id,
                     sourceImageArray,
-                    imageBaseName);
+                    imageBaseName,
+                    ModelSetting.getSetting(ModelSetting.Setting.DEBUG_DISABLE_ALIGNMENT, false));
 
             String result = MiscUtils.join(Character.toString((char) 1), results);
             switch (side)
