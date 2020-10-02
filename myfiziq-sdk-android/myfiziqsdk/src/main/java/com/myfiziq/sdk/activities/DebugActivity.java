@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -1490,9 +1492,13 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             return null;
         }
 
-        static ModelAvatar generateAvatar(@NonNull Activity activity, @NonNull DebugItem debugItem, double weight, double height, Gender gender, boolean bInspect, String frontSourceIn, String sideSourceIn) throws IOException
+        static ModelAvatar generateAvatar(@NonNull Activity activity, @NonNull DebugItem debugItem, double weight, double height, Gender gender, boolean bInspect, Uri frontSourceUri, String frontSourceName, Uri sideSourceUri, String sideSourceName) throws IOException
         {
-            copyImagesToStorage(activity);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontSourceUri);//getBitmapFromAsset(activity, frontSourceUri.getPath());
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + frontSourceName);
+
+            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), sideSourceUri);//getBitmapFromAsset(activity, frontSourceUri.getPath());
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + sideSourceName);
 
             MyFiziq.SetFlag(
                     "visualize",
@@ -1501,7 +1507,7 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             long testStart = System.currentTimeMillis();
 
 
-            if (!TextUtils.isEmpty(frontSourceIn) && !TextUtils.isEmpty(sideSourceIn))
+            if (!TextUtils.isEmpty(frontSourceName) && !TextUtils.isEmpty(sideSourceName))
             {
                 ModelAvatar avatar = Orm.newModel(ModelAvatar.class);
 
@@ -1517,8 +1523,8 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
 
                 for (int i = 0; i < nFrames; i++)
                 {
-                    frontImages.add(createAvatarFrame(activity, avatar, PoseSide.front, frontSourceIn, i));
-                    sideImages.add(createAvatarFrame(activity, avatar, PoseSide.side, sideSourceIn, i));
+                    frontImages.add(createAvatarFrame(activity, avatar, PoseSide.front, frontSourceName, i));
+                    sideImages.add(createAvatarFrame(activity, avatar, PoseSide.side, sideSourceName, i));
                 }
 
                 if (bInspect)

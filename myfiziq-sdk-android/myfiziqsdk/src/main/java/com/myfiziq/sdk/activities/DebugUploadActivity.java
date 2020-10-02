@@ -8,9 +8,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.OpenableColumns;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +19,6 @@ import com.myfiziq.sdk.MyFiziq;
 import com.myfiziq.sdk.R;
 import com.myfiziq.sdk.builders.HeightSelectorBuilder;
 import com.myfiziq.sdk.builders.WeightSelectorBuilder;
-import com.myfiziq.sdk.components.MyDatePickerDialog;
 import com.myfiziq.sdk.db.Centimeters;
 import com.myfiziq.sdk.db.Gender;
 import com.myfiziq.sdk.db.Kilograms;
@@ -30,13 +27,7 @@ import com.myfiziq.sdk.db.ModelAvatar;
 import com.myfiziq.sdk.db.Weight;
 import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
-import com.myfiziq.sdk.util.TimeFormatUtils;
 import com.myfiziq.sdk.util.UiUtils;
-import com.myfiziq.sdk.vo.DatePickerResultVO;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
@@ -58,8 +49,11 @@ public class DebugUploadActivity extends AppCompatActivity
     private HeightSelectorBuilder heightSelectorBuilder;
     private WeightSelectorBuilder weightSelectorBuilder;
 
-    private String frontImageSource = null;
-    private String sideImageSource = null;
+    private Uri frontImageUri = null;
+    private Uri sideImageUri = null;
+
+    private String frontImageName = null;
+    private String sideImageName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,7 +72,6 @@ public class DebugUploadActivity extends AppCompatActivity
         continueButton = view.findViewById(R.id.btnCapture);
         selectFrontImageButton = view.findViewById(R.id.btnFront);
         selectSideImageButton = view.findViewById(R.id.btnSide);
-        layoutProcessing = view.findViewById(R.id.layoutProcessing);
 
         genderRadioGroup = new RadioButton[]{maleRadioButton, femaleRadioButton};
 
@@ -187,13 +180,13 @@ public class DebugUploadActivity extends AppCompatActivity
             return false;
         }
 
-        if(null == frontImageSource)
+        if(null == frontImageUri)
         {
             Toast.makeText(getContext(), "select front image", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        if(null == sideImageSource)
+        if(null == sideImageUri)
         {
             Toast.makeText(getContext(), "select side image", Toast.LENGTH_LONG).show();
             return false;
@@ -217,13 +210,15 @@ public class DebugUploadActivity extends AppCompatActivity
                 Length height = heightSelectorBuilder.getSelectedHeight();
                 Gender gender =  maleRadioButton.isChecked()? Gender.M : Gender.F;
                 MyFiziq.getInstance().initInspect(true);
-                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageSource, sideImageSource);
+                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
                 //MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
             }catch (Throwable t)
             {
                 Timber.e(t, "Error in %s", debugItem.mTitle);
             }
         }
+
+        super.finish();
     }
 
     private void onSelectFrontImageClicked()
@@ -286,13 +281,14 @@ public class DebugUploadActivity extends AppCompatActivity
         if(requestCode == SELECT_IMAGE_FRONT && resultCode == RESULT_OK)
         {
             Uri fullPhotoUri = data.getData();
+            frontImageUri = fullPhotoUri;
 
             String result = "";
             Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    frontImageSource = result;
+                    frontImageName = result;
                 }
             } finally {
                 cursor.close();
@@ -301,13 +297,14 @@ public class DebugUploadActivity extends AppCompatActivity
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {
             Uri fullPhotoUri = data.getData();
+            sideImageUri = fullPhotoUri;
 
             String result = "";
             Cursor cursor = getContentResolver().query(fullPhotoUri, null, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    sideImageSource = result;
+                    sideImageName = result;
                 }
             } finally {
                 cursor.close();

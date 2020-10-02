@@ -14,8 +14,8 @@
         <TextView style="@style/MFICreateAvatarFormTitle" />
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView style="@style/MFIHeightWeightLabel" />
@@ -85,30 +85,20 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/layoutProcessing"
-            style="@style/MFIPleaseWaitProcessingText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="please wait processing" />
-
         <com.myfiziq.sdk.views.TintableButton
             android:id="@+id/btnFront"
             style="@style/MFButton.SelectImageFrontButton"
-            android:enabled="true"
-            android:visibility="visible" />
+            android:enabled="true" />
 
         <com.myfiziq.sdk.views.TintableButton
             android:id="@+id/btnSide"
             style="@style/MFButton.SelectImageSideButton"
-            android:enabled="true"
-            android:visibility="visible" />
+            android:enabled="true" />
 
         <com.myfiziq.sdk.views.TintableButton
             android:id="@+id/btnCapture"
             style="@style/MFButton.CreateAvatarButton"
-            android:enabled="false"
-            android:visibility="gone" />
+            android:enabled="true" />
 
     </com.myfiziq.sdk.views.BackgroundLinearLayout>
 
