@@ -1,0 +1,10 @@
+classV1Model.tflite filter=lfs diff=lfs merge=lfs -text
+classV2Modelmale.tflite filter=lfs diff=lfs merge=lfs -text
+classV2p5Model.tflite filter=lfs diff=lfs merge=lfs -text
+jointnet.tflite filter=lfs diff=lfs merge=lfs -text
+pose_light.tflite filter=lfs diff=lfs merge=lfs -text
+segnet.tflite filter=lfs diff=lfs merge=lfs -text
+stubmodel.tflite filter=lfs diff=lfs merge=lfs -text
+classV2Modelfemale.tflite filter=lfs diff=lfs merge=lfs -text
+classV3Modelfemale.tflite filter=lfs diff=lfs merge=lfs -text
+classV3Modelmale.tflite filter=lfs diff=lfs merge=lfs -text
