@@ -146,6 +146,7 @@
     <string name="continueText">Continue</string>
     <string name="select_front_image">Select Front Image</string>
     <string name="select_side_image">Select Side Image</string>
+    <string name="select_model">Select .tflite Model</string>
     <string name="guestInputHint">Name</string>
     <string name="send">send</string>
     <string name="reason">Reason</string>

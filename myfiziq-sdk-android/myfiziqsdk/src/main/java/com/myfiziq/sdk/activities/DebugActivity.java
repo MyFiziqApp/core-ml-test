@@ -1,6 +1,5 @@
 package com.myfiziq.sdk.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,9 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myfiziq.sdk.MyFiziq;
-import com.myfiziq.sdk.MyFiziqAsset;
 import com.myfiziq.sdk.R;
 import com.myfiziq.sdk.adapters.CursorHolder;
 import com.myfiziq.sdk.adapters.LayoutStyle;
@@ -44,21 +40,17 @@ import com.myfiziq.sdk.db.ModelAvatar;
 import com.myfiziq.sdk.db.ModelInspect;
 import com.myfiziq.sdk.db.ModelLog;
 import com.myfiziq.sdk.db.ModelSetting;
-import com.myfiziq.sdk.db.ORMTable;
 import com.myfiziq.sdk.db.Orm;
 import com.myfiziq.sdk.db.Persistent;
 import com.myfiziq.sdk.db.PoseSide;
 import com.myfiziq.sdk.db.Status;
 import com.myfiziq.sdk.helpers.AsyncHelper;
-import com.myfiziq.sdk.helpers.AvatarUploadWorker;
 import com.myfiziq.sdk.lifecycle.Parameter;
 import com.myfiziq.sdk.lifecycle.ParameterSet;
-import com.myfiziq.sdk.manager.FLAG;
 import com.myfiziq.sdk.util.BmpUtil;
 import com.myfiziq.sdk.util.FileProviderLogs;
 import com.myfiziq.sdk.util.GlobalContext;
 import com.myfiziq.sdk.util.MiscUtils;
-import com.myfiziq.sdk.util.Stopwatch;
 import com.myfiziq.sdk.util.TimeFormatUtils;
 import com.myfiziq.sdk.views.ItemViewDebug;
 import com.myfiziq.sdk.views.ItemViewLog;
@@ -71,7 +63,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -95,8 +86,6 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.RecyclerView;
 import timber.log.Timber;
-
-//import static com.myfiziq.sdk.activities.DebugActivity.DebugModel.generateAvatar;
 
 /**
  * @hide
@@ -125,6 +114,7 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
 
     static final int SELECT_IMAGE_FRONT = 0;
     static final int SELECT_IMAGE_SIDE = 1;
+    static final int SELECT_MODEL = 2;
 
     static
     {
@@ -853,497 +843,505 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
                 visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 GlobalContext.getContext().startActivity(visActivity);
             }),
-            TEST_AVATAR_IMAGE_UPLOAD("Test Avatar Image Upload", (debugItem, activity, callback) ->
+            TEST_INSPECT_POSE("Test Inspect Pose", (debugItem, activity, callback) ->
             {
-                Intent visActivity = new Intent(GlobalContext.getContext(), DebugUploadActivity.class);
+                Intent visActivity = new Intent(GlobalContext.getContext(), InspectPoseActivity.class);
                 visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 GlobalContext.getContext().startActivity(visActivity);
-
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/*");
-//                activity.startActivityForResult(intent, SELECT_IMAGE_FRONT);
             }),
-            TEST_AVATAR("Test Avatar Upload Pass", (debugItem, activity, callback) ->
+            TEST_SEGMENT("Test Segment", (debugItem, activity, callback) ->
             {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-
-                                MyFiziq.getInstance().initInspect(true);
-                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "", "", "");
-                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in %s", debugItem.mTitle);
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            }),
-            TEST_AVATAR_WEIGHT("Test Avatar Upload Weight", (debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setTitle("Avatar weight");
-                final EditText input = new EditText(activity);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                builder.setView(input);
-
-                builder.setPositiveButton(android.R.string.ok, (dialog, which) ->
-                {
-                    try
-                    {
-                        double weight = Double.parseDouble(input.getText().toString());
-                        AsyncHelper.run(() ->
-                                {
-                                    try
-                                    {
-                                        boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                                        boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                                        boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-                                        MyFiziq.getInstance().initInspect(true);
-                                        ModelAvatar avatar = generateAvatar(activity, debugItem, weight, true, "", "", "");
-                                        MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                                    }
-                                    catch (Throwable t)
-                                    {
-                                        Timber.e(t, "Error in %s", debugItem.mTitle);
-                                    }
-                                },
-                                () ->
-                                {
-                                    setStatus(activity, debugItem.mTitle, false);
-
-                                    if (callback != null)
-                                    {
-                                        callback.execute();
-                                    }
-                                },
-                                true);
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        Timber.e(e, "Cannot parse input %s", input.getText().toString());
-                    }
-                });
-                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
-                builder.show();
-            }),
-            TEST_AVATAR_FAILED("Test Avatar Upload Failure", (debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, false, "", "", "");
-                                avatar.setStatus(Status.FailedGeneral);
-                                avatar.save();
-
-                                AvatarUploadWorker.announceProcessingError(activity.getApplicationContext(), avatar);
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in %s", debugItem.mTitle);
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            }),
-            DEL_CAPTURES("Del Captures", (debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            String[] files = MiscUtils.getFiles(activity.getFilesDir(), ".*\\.bmp");
-                            for (String file : files)
-                            {
-                                File video = new File(activity.getFilesDir(), file);
-                                try
-                                {
-                                    video.delete();
-                                }
-                                catch (Throwable t)
-                                {
-                                }
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            }),
-            DEL_AVATARS("Del Local Avatars", (debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            ArrayList<ModelAvatar> list = ORMTable.getModelList(ModelAvatar.class, null, null);
-                            for (ModelAvatar avatar : list)
-                            {
-                                avatar.delete();
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            }),
-            TEST_JAVA_CRASH("Test Java Crash", ((debugItem, activity, callback) ->
-            {
-                // For testing Crashlytics
-                throw new RuntimeException("Test crash");
-            })),
-            TEST_GET_ASSETS("Test Get Assets List", ((debugItem, activity, callback) ->
-            {
-                MyFiziqAsset.getAssetList();
-            })),
-            TEST_GET_ASSET("Test Get Asset", ((debugItem, activity, callback) ->
-            {
-                new MyFiziqAsset(MyFiziqAsset.AssetType.MYQASSET_FILE, "test.png").fetchAsync((asset)->{});
-            })),
-            TEST_POLL_AVATARS("Test Poll Avatars", ((debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            MyFiziq.getInstance().pollAvatars();
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            })),
-            TEST_SEGFAULT("Test Segfault", ((debugItem, activity, callback) ->
-            {
-                // For testing Crashlytics
-                MyFiziq.getInstance().testSegfault();
-            })),
-            TEST_CAMERA_HIGH("Test Avatar Inspect High Camera", ((debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-                                MyFiziq.getInstance().initInspect(true);
-                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "_high_camera", "", "");
-                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in %s", debugItem.mTitle);
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            })),
-            TEST_CAMERA_LOW("Test Avatar Inspect Low Camera", ((debugItem, activity, callback) ->
-            {
-                ModelLog.w(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
-                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
-                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
-                                MyFiziq.getInstance().initInspect(true);
-                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "_low_camera", "", "");
-                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in %s", debugItem.mTitle);
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            })),
-            TEST_APISIG("Test Api Sig", ((debugItem, activity, callback) ->
-            {
-                AsyncHelper.run(
-                        () ->
-                        {
-                            MyFiziq mfz = MyFiziq.getInstance();
-
-                            @SuppressLint("UseValueOf")
-                            Integer responseCode = new Integer(0); // NOSONAR
-                            mfz.apiGet(
-                                    "",
-                                    "https://resources.myfiziq.io/index.html",
-                                    responseCode,
-                                    0,
-                                    0,
-                                    FLAG.getFlags(FLAG.FLAG_NO_EXTRA_HEADERS, FLAG.FLAG_NOBASE, FLAG.FLAG_SIGN_URL)
-                            );
-                        },
-                        () ->
-                        {
-                        }, true);
-            })),
-            TEST_AVATAR_VIS("Test Avatar Vis", ((debugItem, activity, callback) ->
-            {
-                Intent visActivity = new Intent(GlobalContext.getContext(), DebugAvatarActivity.class);
+                Intent visActivity = new Intent(GlobalContext.getContext(), SegmentActivity.class);
                 visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 GlobalContext.getContext().startActivity(visActivity);
-            })),
-            TEST_TENSOR("Test Tensor", (debugItem, activity, callback) ->
-            {
-                ModelLog.e(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                copyImagesToStorage(activity);
-
-                                MyFiziq.SetFlag(
-                                        "visualize",
-                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
-
-                                MyFiziq.getInstance().initInspect(true);
-
-                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
-
-                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
-
-                                Arrays.sort(filenames, String::compareTo);
-
-                                if (null != filenames && filenames.length > 0)
-                                {
-                                    for (String file : filenames)
-                                    {
-                                        File image = new File(activity.getFilesDir(), file);
-                                        String[] parts = file.split("_");
-                                        Gender gender = Gender.valueOf(parts[0]);
-                                        float height = Float.valueOf(parts[1]);
-                                        float weight = Float.valueOf(parts[2]);
-                                        PoseSide side = PoseSide.valueOf(parts[3]);
-
-                                        MyFiziq myFiziq = MyFiziq.getInstance();
-
-                                        String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
-
-                                        myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
-
-                                        validatePose(file, myFiziq.testInspect2(side, id, new String[]{image.getAbsolutePath()}));
-                                    }
-                                }
-
-                                stopwatch.print();
-
-                                MyFiziq.getInstance().releaseInspect();
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in Test Tensor");
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
             }),
-            TEST_INIT_TENSOR_PASS("Test Init Tensor Pass", (debugItem, activity, callback) ->
+            TEST_JOINT("Test Joint", (debugItem, activity, callback) ->
             {
-                ModelLog.e(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
-
-                                copyImagesToStorage(activity);
-
-                                MyFiziq.SetFlag(
-                                        "visualize",
-                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
-
-                                MyFiziq.getInstance().initInspect(true);
-
-                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
-
-                                if (null != filenames && filenames.length > 0)
-                                {
-                                    for (String file : filenames)
-                                    {
-                                        File image = new File(activity.getFilesDir(), file);
-                                        if (image.getName().contains("_pass"))
-                                        {
-                                            String[] parts = file.split("_");
-                                            if (parts.length > 4)
-                                            {
-                                                Gender gender = Gender.valueOf(parts[0]);
-                                                float height = Float.valueOf(parts[1]);
-                                                float weight = Float.valueOf(parts[2]);
-                                                PoseSide side = PoseSide.valueOf(parts[3]);
-
-                                                MyFiziq myFiziq = MyFiziq.getInstance();
-
-                                                String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
-                                                myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                stopwatch.print();
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in Test Tensor");
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
-            }),
-            TEST_TENSOR_PASS("Test Tensor Pass", (debugItem, activity, callback) ->
-            {
-                ModelLog.e(TAG, debugItem.mTitle);
-                setStatus(activity, debugItem.mTitle, true);
-                AsyncHelper.run(() ->
-                        {
-                            try
-                            {
-                                copyImagesToStorage(activity);
-
-                                MyFiziq.SetFlag(
-                                        "visualize",
-                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
-
-                                MyFiziq.getInstance().initInspect(true);
-
-                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
-
-                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
-
-                                if (null != filenames && filenames.length > 0)
-                                {
-                                    for (String file : filenames)
-                                    {
-                                        File image = new File(activity.getFilesDir(), file);
-                                        if (image.getName().contains("_pass"))
-                                        {
-                                            String[] parts = file.split("_");
-                                            if (parts.length > 4)
-                                            {
-                                                Gender gender = Gender.valueOf(parts[0]);
-                                                float height = Float.valueOf(parts[1]);
-                                                float weight = Float.valueOf(parts[2]);
-                                                PoseSide side = PoseSide.valueOf(parts[3]);
-
-                                                MyFiziq myFiziq = MyFiziq.getInstance();
-
-                                                String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
-
-                                                myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
-
-                                                validatePose(file, myFiziq.testInspect2(side, id, new String[]{image.getAbsolutePath()}));
-                                            }
-                                        }
-                                    }
-                                }
-
-                                stopwatch.print();
-                            }
-                            catch (Throwable t)
-                            {
-                                Timber.e(t, "Error in Test Tensor");
-                            }
-                        },
-                        () ->
-                        {
-                            setStatus(activity, debugItem.mTitle, false);
-
-                            if (callback != null)
-                            {
-                                callback.execute();
-                            }
-                        },
-                        true);
+                Intent visActivity = new Intent(GlobalContext.getContext(), JointActivity.class);
+                visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                GlobalContext.getContext().startActivity(visActivity);
             });
+//            TEST_AVATAR("Test Avatar Upload Pass", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
+//                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
+//                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
+//
+//                                MyFiziq.getInstance().initInspect(true);
+//                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "", "", "");
+//                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in %s", debugItem.mTitle);
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            TEST_AVATAR_WEIGHT("Test Avatar Upload Weight", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//                builder.setTitle("Avatar weight");
+//                final EditText input = new EditText(activity);
+//                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                builder.setView(input);
+//
+//                builder.setPositiveButton(android.R.string.ok, (dialog, which) ->
+//                {
+//                    try
+//                    {
+//                        double weight = Double.parseDouble(input.getText().toString());
+//                        AsyncHelper.run(() ->
+//                                {
+//                                    try
+//                                    {
+//                                        boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
+//                                        boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
+//                                        boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
+//                                        MyFiziq.getInstance().initInspect(true);
+//                                        ModelAvatar avatar = generateAvatar(activity, debugItem, weight, true, "", "", "");
+//                                        MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+//                                    }
+//                                    catch (Throwable t)
+//                                    {
+//                                        Timber.e(t, "Error in %s", debugItem.mTitle);
+//                                    }
+//                                },
+//                                () ->
+//                                {
+//                                    setStatus(activity, debugItem.mTitle, false);
+//
+//                                    if (callback != null)
+//                                    {
+//                                        callback.execute();
+//                                    }
+//                                },
+//                                true);
+//                    }
+//                    catch (NumberFormatException e)
+//                    {
+//                        Timber.e(e, "Cannot parse input %s", input.getText().toString());
+//                    }
+//                });
+//                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+//                builder.show();
+//            }),
+//            TEST_AVATAR_FAILED("Test Avatar Upload Failure", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, false, "", "", "");
+//                                avatar.setStatus(Status.FailedGeneral);
+//                                avatar.save();
+//
+//                                AvatarUploadWorker.announceProcessingError(activity.getApplicationContext(), avatar);
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in %s", debugItem.mTitle);
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            DEL_CAPTURES("Del Captures", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            String[] files = MiscUtils.getFiles(activity.getFilesDir(), ".*\\.bmp");
+//                            for (String file : files)
+//                            {
+//                                File video = new File(activity.getFilesDir(), file);
+//                                try
+//                                {
+//                                    video.delete();
+//                                }
+//                                catch (Throwable t)
+//                                {
+//                                }
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            DEL_AVATARS("Del Local Avatars", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            ArrayList<ModelAvatar> list = ORMTable.getModelList(ModelAvatar.class, null, null);
+//                            for (ModelAvatar avatar : list)
+//                            {
+//                                avatar.delete();
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            TEST_JAVA_CRASH("Test Java Crash", ((debugItem, activity, callback) ->
+//            {
+//                // For testing Crashlytics
+//                throw new RuntimeException("Test crash");
+//            })),
+//            TEST_GET_ASSETS("Test Get Assets List", ((debugItem, activity, callback) ->
+//            {
+//                MyFiziqAsset.getAssetList();
+//            })),
+//            TEST_GET_ASSET("Test Get Asset", ((debugItem, activity, callback) ->
+//            {
+//                new MyFiziqAsset(MyFiziqAsset.AssetType.MYQASSET_FILE, "test.png").fetchAsync((asset)->{});
+//            })),
+//            TEST_POLL_AVATARS("Test Poll Avatars", ((debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            MyFiziq.getInstance().pollAvatars();
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            })),
+//            TEST_SEGFAULT("Test Segfault", ((debugItem, activity, callback) ->
+//            {
+//                // For testing Crashlytics
+//                MyFiziq.getInstance().testSegfault();
+//            })),
+//            TEST_CAMERA_HIGH("Test Avatar Inspect High Camera", ((debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
+//                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
+//                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
+//                                MyFiziq.getInstance().initInspect(true);
+//                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "_high_camera", "", "");
+//                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in %s", debugItem.mTitle);
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            })),
+//            TEST_CAMERA_LOW("Test Avatar Inspect Low Camera", ((debugItem, activity, callback) ->
+//            {
+//                ModelLog.w(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                boolean bInDevice = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_INDEVICE, false);
+//                                boolean bRunJoints = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_RUNJOINTS, false);
+//                                boolean bDebugPayload = ModelSetting.getSetting(ModelSetting.Setting.DEBUG_PAYLOAD, false);
+//                                MyFiziq.getInstance().initInspect(true);
+//                                ModelAvatar avatar = generateAvatar(activity, debugItem, -1, true, "_low_camera", "", "");
+//                                MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in %s", debugItem.mTitle);
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            })),
+//            TEST_APISIG("Test Api Sig", ((debugItem, activity, callback) ->
+//            {
+//                AsyncHelper.run(
+//                        () ->
+//                        {
+//                            MyFiziq mfz = MyFiziq.getInstance();
+//
+//                            @SuppressLint("UseValueOf")
+//                            Integer responseCode = new Integer(0); // NOSONAR
+//                            mfz.apiGet(
+//                                    "",
+//                                    "https://resources.myfiziq.io/index.html",
+//                                    responseCode,
+//                                    0,
+//                                    0,
+//                                    FLAG.getFlags(FLAG.FLAG_NO_EXTRA_HEADERS, FLAG.FLAG_NOBASE, FLAG.FLAG_SIGN_URL)
+//                            );
+//                        },
+//                        () ->
+//                        {
+//                        }, true);
+//            })),
+//            TEST_AVATAR_VIS("Test Avatar Vis", ((debugItem, activity, callback) ->
+//            {
+//                Intent visActivity = new Intent(GlobalContext.getContext(), DebugAvatarActivity.class);
+//                visActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                GlobalContext.getContext().startActivity(visActivity);
+//            })),
+//            TEST_TENSOR("Test Tensor", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.e(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                copyImagesToStorage(activity);
+//
+//                                MyFiziq.SetFlag(
+//                                        "visualize",
+//                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
+//
+//                                MyFiziq.getInstance().initInspect(true);
+//
+//                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
+//
+//                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
+//
+//                                Arrays.sort(filenames, String::compareTo);
+//
+//                                if (null != filenames && filenames.length > 0)
+//                                {
+//                                    for (String file : filenames)
+//                                    {
+//                                        File image = new File(activity.getFilesDir(), file);
+//                                        String[] parts = file.split("_");
+//                                        Gender gender = Gender.valueOf(parts[0]);
+//                                        float height = Float.valueOf(parts[1]);
+//                                        float weight = Float.valueOf(parts[2]);
+//                                        PoseSide side = PoseSide.valueOf(parts[3]);
+//
+//                                        MyFiziq myFiziq = MyFiziq.getInstance();
+//
+//                                        String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
+//
+//                                        myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
+//
+//                                        validatePose(file, myFiziq.testInspect2(side, id, new String[]{image.getAbsolutePath()}));
+//                                    }
+//                                }
+//
+//                                stopwatch.print();
+//
+//                                MyFiziq.getInstance().releaseInspect();
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in Test Tensor");
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            TEST_INIT_TENSOR_PASS("Test Init Tensor Pass", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.e(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
+//
+//                                copyImagesToStorage(activity);
+//
+//                                MyFiziq.SetFlag(
+//                                        "visualize",
+//                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
+//
+//                                MyFiziq.getInstance().initInspect(true);
+//
+//                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
+//
+//                                if (null != filenames && filenames.length > 0)
+//                                {
+//                                    for (String file : filenames)
+//                                    {
+//                                        File image = new File(activity.getFilesDir(), file);
+//                                        if (image.getName().contains("_pass"))
+//                                        {
+//                                            String[] parts = file.split("_");
+//                                            if (parts.length > 4)
+//                                            {
+//                                                Gender gender = Gender.valueOf(parts[0]);
+//                                                float height = Float.valueOf(parts[1]);
+//                                                float weight = Float.valueOf(parts[2]);
+//                                                PoseSide side = PoseSide.valueOf(parts[3]);
+//
+//                                                MyFiziq myFiziq = MyFiziq.getInstance();
+//
+//                                                String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
+//                                                myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//
+//                                stopwatch.print();
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in Test Tensor");
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            }),
+//            TEST_TENSOR_PASS("Test Tensor Pass", (debugItem, activity, callback) ->
+//            {
+//                ModelLog.e(TAG, debugItem.mTitle);
+//                setStatus(activity, debugItem.mTitle, true);
+//                AsyncHelper.run(() ->
+//                        {
+//                            try
+//                            {
+//                                copyImagesToStorage(activity);
+//
+//                                MyFiziq.SetFlag(
+//                                        "visualize",
+//                                        String.valueOf(ModelSetting.getSetting(ModelSetting.Setting.DEBUG_VISUALIZE, false)));
+//
+//                                MyFiziq.getInstance().initInspect(true);
+//
+//                                Stopwatch stopwatch = new Stopwatch(debugItem.mTitle);
+//
+//                                String[] filenames = MiscUtils.getFiles(activity.getFilesDir(), "[MF]_.*\\.bmp");
+//
+//                                if (null != filenames && filenames.length > 0)
+//                                {
+//                                    for (String file : filenames)
+//                                    {
+//                                        File image = new File(activity.getFilesDir(), file);
+//                                        if (image.getName().contains("_pass"))
+//                                        {
+//                                            String[] parts = file.split("_");
+//                                            if (parts.length > 4)
+//                                            {
+//                                                Gender gender = Gender.valueOf(parts[0]);
+//                                                float height = Float.valueOf(parts[1]);
+//                                                float weight = Float.valueOf(parts[2]);
+//                                                PoseSide side = PoseSide.valueOf(parts[3]);
+//
+//                                                MyFiziq myFiziq = MyFiziq.getInstance();
+//
+//                                                String id = myFiziq.getContourId(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1);
+//
+//                                                myFiziq.getContour(255, 255, 1280, 720, height, weight, gender, side, 0.0f, 1, id);
+//
+//                                                validatePose(file, myFiziq.testInspect2(side, id, new String[]{image.getAbsolutePath()}));
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//
+//                                stopwatch.print();
+//                            }
+//                            catch (Throwable t)
+//                            {
+//                                Timber.e(t, "Error in Test Tensor");
+//                            }
+//                        },
+//                        () ->
+//                        {
+//                            setStatus(activity, debugItem.mTitle, false);
+//
+//                            if (callback != null)
+//                            {
+//                                callback.execute();
+//                            }
+//                        },
+//                        true);
+//            });
 
             String mTitle;
             DebugRunnable mRunnable;
@@ -1494,10 +1492,10 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
 
         static ModelAvatar generateAvatar(@NonNull Activity activity, @NonNull DebugItem debugItem, double weight, double height, Gender gender, boolean bInspect, Uri frontSourceUri, String frontSourceName, Uri sideSourceUri, String sideSourceName) throws IOException
         {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontSourceUri);//getBitmapFromAsset(activity, frontSourceUri.getPath());
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontSourceUri);
             BmpUtil.save(bitmap,activity.getFilesDir() + "/" + frontSourceName);
 
-            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), sideSourceUri);//getBitmapFromAsset(activity, frontSourceUri.getPath());
+            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), sideSourceUri);
             BmpUtil.save(bitmap,activity.getFilesDir() + "/" + sideSourceName);
 
             MyFiziq.SetFlag(

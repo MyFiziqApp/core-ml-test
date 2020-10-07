@@ -12,6 +12,7 @@ import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -29,11 +30,14 @@ import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
 import com.myfiziq.sdk.util.UiUtils;
 
+import java.lang.reflect.Array;
+
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
+import static com.myfiziq.sdk.activities.DebugActivity.SELECT_MODEL;
 import static com.myfiziq.sdk.util.GlobalContext.getContext;
 
-public class DebugUploadActivity extends AppCompatActivity
+public class JointActivity extends AppCompatActivity
 {
     private EditText heightEditText;
     private EditText weightEditText;
@@ -42,6 +46,8 @@ public class DebugUploadActivity extends AppCompatActivity
     private Button continueButton;
     private Button selectFrontImageButton;
     private Button selectSideImageButton;
+    private Button selectModelButton;
+    private ProgressBar progressBar;
     private View layoutProcessing;
 
     private RadioButton[] genderRadioGroup;
@@ -59,19 +65,19 @@ public class DebugUploadActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_first_avatar_v2);
+        setContentView(R.layout.activity_joint);
 
         View view = getWindow().getDecorView().getRootView();
-
-        ActionBarHelper.setActionBarTitle(this, getString(R.string.myfiziqsdk_title_new_measurement));
 
         heightEditText = view.findViewById(R.id.heightEditText);
         weightEditText = view.findViewById(R.id.weightEditText);
         maleRadioButton = view.findViewById(R.id.genderMale);
         femaleRadioButton = view.findViewById(R.id.genderFemale);
-        continueButton = view.findViewById(R.id.btnCapture);
+        continueButton = view.findViewById(R.id.btnContinue);
         selectFrontImageButton = view.findViewById(R.id.btnFront);
         selectSideImageButton = view.findViewById(R.id.btnSide);
+        selectModelButton = view.findViewById(R.id.btnModel);
+        progressBar = view.findViewById(R.id.spinner);
 
         genderRadioGroup = new RadioButton[]{maleRadioButton, femaleRadioButton};
 
@@ -90,7 +96,7 @@ public class DebugUploadActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-     private void initializeBuilder()
+    private void initializeBuilder()
     {
         if (null == heightSelectorBuilder)
         {
@@ -122,6 +128,7 @@ public class DebugUploadActivity extends AppCompatActivity
         continueButton.setOnClickListener(v -> onContinueClicked());
         selectFrontImageButton.setOnClickListener(v -> onSelectFrontImageClicked());
         selectSideImageButton.setOnClickListener(v -> onSelectSideImageClicked());
+        selectModelButton.setOnClickListener(v -> onSelectModelClicked());
     }
     /**
      * Listens for input changes to text fields that are units of measurement and applies a mask to them.
@@ -199,41 +206,57 @@ public class DebugUploadActivity extends AppCompatActivity
      */
     private void onContinueClicked()
     {
+        if(null != progressBar)
+        {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(validate()? View.VISIBLE : View.INVISIBLE);
+                }
+            });
+        }
+
         if (validate())
         {
             UiUtils.hideSoftKeyboard(this);
+            DebugActivity.DebugModel.DebugItem debugItem = DebugActivity.DebugModel.DebugItem.TEST_INSPECT_POSE;
 
-            DebugActivity.DebugModel.DebugItem debugItem = DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD;
             try
             {
                 Weight weight = weightSelectorBuilder.getSelectedWeight();
                 Length height = heightSelectorBuilder.getSelectedHeight();
                 Gender gender =  maleRadioButton.isChecked()? Gender.M : Gender.F;
                 MyFiziq.getInstance().initInspect(true);
-                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, DebugActivity.DebugModel.DebugItem.TEST_AVATAR_IMAGE_UPLOAD, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
+                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, debugItem, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
                 //MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
             }catch (Throwable t)
             {
                 Timber.e(t, "Error in %s", debugItem.mTitle);
             }
+            super.finish();
         }
-
-        super.finish();
     }
 
     private void onSelectFrontImageClicked()
     {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            startActivityForResult(intent, SELECT_IMAGE_FRONT);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, SELECT_IMAGE_FRONT);
     }
 
+    private void onSelectModelClicked()
+    {
+        String[] files = this.fileList();
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("*/*"); //how to get tflite only
+//        //how to look in app storage?
+//        startActivityForResult(intent, SELECT_MODEL);
+    }
     private void onSelectSideImageClicked()
     {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, SELECT_IMAGE_SIDE);
-
     }
 
     /**
@@ -293,6 +316,10 @@ public class DebugUploadActivity extends AppCompatActivity
             } finally {
                 cursor.close();
             }
+        }
+        if(requestCode == SELECT_MODEL  && resultCode == RESULT_OK)
+        {
+            //process here
         }
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {

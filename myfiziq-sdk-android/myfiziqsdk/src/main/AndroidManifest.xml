@@ -19,7 +19,15 @@
         android:value="face" />
 
     <application android:largeHeap="true">
-        <activity android:name=".activities.DebugUploadActivity"></activity>
+        <activity
+            android:name=".activities.JointActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SegmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.InspectPoseActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name=".util.FileProviderLogs"

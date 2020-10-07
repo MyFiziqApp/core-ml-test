@@ -85,6 +85,14 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/layoutProcessing"
+            style="@style/MFIPleaseWaitProcessingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="please wait processing"
+            android:visibility="invisible" />
+
         <com.myfiziq.sdk.views.TintableButton
             android:id="@+id/btnFront"
             style="@style/MFButton.SelectImageFrontButton"
@@ -96,9 +104,21 @@
             android:enabled="true" />
 
         <com.myfiziq.sdk.views.TintableButton
-            android:id="@+id/btnCapture"
+            android:id="@+id/btnModel"
+            style="@style/MFButton.SelectModelButton"
+            android:enabled="true" />
+
+        <com.myfiziq.sdk.views.TintableButton
+            android:id="@+id/btnContinue"
             style="@style/MFButton.CreateAvatarButton"
             android:enabled="true" />
+
+        <ProgressBar
+            android:id="@+id/spinner"
+            style="@style/MFProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
     </com.myfiziq.sdk.views.BackgroundLinearLayout>
 

@@ -141,6 +141,25 @@
         <item name="android:text">@string/select_side_image</item>
     </style>
 
+    <style name="MFButton.SelectModelButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:text">@string/select_model</item>
+    </style>
+
+    <style name="MFIPleaseWaitProcessingText">
+        <item name="android:textColor">@color/myfiziqsdk_black</item>
+        <item name="android:drawableStart">@drawable/ic_info_dark</item>
+        <item name="android:drawablePadding">@dimen/myfiziqsdk_icon_padding</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginLeft">@dimen/myfiziqsdk_icon_padding</item>
+        <item name="android:layout_marginRight">@dimen/myfiziqsdk_icon_padding</item>
+    </style>
+
     <style name="MFIImageConsentContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
