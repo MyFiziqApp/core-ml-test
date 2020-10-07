@@ -946,4 +946,10 @@ public class MyFiziq extends MyFiziqSdk
         asset.fetch();
         return asset.isReady();
     }
+
+    @Keep
+    public void initModels()
+    {
+        nativeInitModels();
+    }
 }

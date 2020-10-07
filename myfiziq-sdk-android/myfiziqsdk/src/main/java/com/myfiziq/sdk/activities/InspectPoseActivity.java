@@ -1,5 +1,6 @@
 package com.myfiziq.sdk.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
@@ -30,7 +32,12 @@ import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
 import com.myfiziq.sdk.util.UiUtils;
 
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
@@ -301,6 +308,7 @@ public class InspectPoseActivity extends AppCompatActivity
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -322,7 +330,32 @@ public class InspectPoseActivity extends AppCompatActivity
         }
         if(requestCode == SELECT_MODEL  && resultCode == RESULT_OK)
         {
-            //process here
+            //copy model from selected location
+            Uri fullPhotoUri = data.getData();
+            File out = new File(getDataDir() + "/app_files/", "pose_light.tflite");
+            out.setWritable(true);
+
+            try
+            {
+                //this will be a bit slow...
+                InputStream inputStream = getContentResolver().openInputStream(fullPhotoUri);
+                OutputStream outputStream = new FileOutputStream(out);
+
+                byte buffer[] = new byte[1024];
+                int length = 0;
+
+                while((length=inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer,0,length);
+                }
+                outputStream.close();
+                inputStream.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            //re-initialise the models on the c++ side
+            MyFiziq.getInstance().initModels();
         }
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {
