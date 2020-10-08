@@ -33,9 +33,7 @@ import com.myfiziq.sdk.helpers.RadioButtonHelper;
 import com.myfiziq.sdk.util.UiUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -68,9 +66,14 @@ public class InspectPoseActivity extends AppCompatActivity
     private String frontImageName = null;
     private String sideImageName = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //delete old tflite file
+        File out = new File(getDataDir() + "/app_files/", "pose_light.tflite");
+        out.delete();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspect_pose);
 
@@ -157,6 +160,7 @@ public class InspectPoseActivity extends AppCompatActivity
      *
      * @return Whether the validation was successful.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean validate()
     {
         heightEditText.setError(null);
@@ -209,11 +213,20 @@ public class InspectPoseActivity extends AppCompatActivity
             return false;
         }
 
+        File file = new File(getDataDir() + "/app_files/", "pose_light.tflite");
+        if(!file.exists())
+        {
+            //need to allow for it to finish processing
+            Toast.makeText(getContext(), "select tflite model", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
     /**
      * Executed when the user clicks the "Continue" button to move to the next screen in the wizard.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void onContinueClicked()
     {
         if(null != progressBar)
@@ -259,8 +272,6 @@ public class InspectPoseActivity extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*"); //get all files, there is no MIME type for .tflite
         startActivityForResult(intent, SELECT_MODEL);
-        //will need to pass chosen file through
-        //probably tell it to copy somewhere
     }
     private void onSelectSideImageClicked()
     {
@@ -330,6 +341,8 @@ public class InspectPoseActivity extends AppCompatActivity
         }
         if(requestCode == SELECT_MODEL  && resultCode == RESULT_OK)
         {
+            //need to check if the file is correct type?
+
             //copy model from selected location
             Uri fullPhotoUri = data.getData();
             File out = new File(getDataDir() + "/app_files/", "pose_light.tflite");
@@ -356,6 +369,7 @@ public class InspectPoseActivity extends AppCompatActivity
             }
             //re-initialise the models on the c++ side
             MyFiziq.getInstance().initModels();
+            //the file is persisted for next run - can we delete it afterwards?
         }
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {
