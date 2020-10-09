@@ -26,7 +26,6 @@ import com.myfiziq.sdk.db.Orm;
 import com.myfiziq.sdk.db.PoseSide;
 import com.myfiziq.sdk.enums.Broadcast;
 import com.myfiziq.sdk.helpers.AsyncHelper;
-import com.myfiziq.sdk.manager.FLAG;
 import com.myfiziq.sdk.manager.MyFiziqSdkManager;
 import com.myfiziq.sdk.util.GlobalContext;
 import com.myfiziq.sdk.util.MiscUtils;
@@ -697,6 +696,12 @@ public class MyFiziq extends MyFiziqSdk
     public boolean segment(String avatarId, int viewside, String baseDirectory, String extraData, boolean runJoints)
     {
         return nativeSegment(avatarId, viewside, baseDirectory, extraData, runJoints);
+    }
+
+    @Keep
+    public boolean testSegment(int viewside, double height, double weight, String gender, String imagename, boolean writeOutput)
+    {
+        return nativeTestSegment(viewside, height, weight, gender, imagename);
     }
 
     @Keep

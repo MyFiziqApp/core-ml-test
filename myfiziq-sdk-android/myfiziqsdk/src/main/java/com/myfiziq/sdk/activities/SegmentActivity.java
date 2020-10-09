@@ -1,5 +1,6 @@
 package com.myfiziq.sdk.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
@@ -25,11 +27,17 @@ import com.myfiziq.sdk.db.Gender;
 import com.myfiziq.sdk.db.Kilograms;
 import com.myfiziq.sdk.db.Length;
 import com.myfiziq.sdk.db.ModelAvatar;
+import com.myfiziq.sdk.db.PoseSide;
 import com.myfiziq.sdk.db.Weight;
 import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
+import com.myfiziq.sdk.util.GlobalContext;
 import com.myfiziq.sdk.util.UiUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
 
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
@@ -61,9 +69,16 @@ public class SegmentActivity extends AppCompatActivity
     private String frontImageName = null;
     private String sideImageName = null;
 
+    private File model;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //delete old tflite file
+        model = new File(getDataDir() + "/app_files/", "segnet.tflite");
+        model.delete();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segment);
 
@@ -199,6 +214,13 @@ public class SegmentActivity extends AppCompatActivity
             return false;
         }
 
+        if(!model.exists())
+        {
+            //need to allow for it to finish processing
+            Toast.makeText(getContext(), "select tflite model", Toast.LENGTH_LONG).show();
+            //return false;
+        }
+
         return true;
     }
     /**
@@ -227,8 +249,10 @@ public class SegmentActivity extends AppCompatActivity
                 Length height = heightSelectorBuilder.getSelectedHeight();
                 Gender gender =  maleRadioButton.isChecked()? Gender.M : Gender.F;
                 MyFiziq.getInstance().initInspect(true);
-                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, debugItem, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
-                //MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
+                ModelAvatar avatar =  new ModelAvatar();
+                avatar.set(gender, height, weight, 4);
+                DebugActivity.DebugModel.segment(this, avatar, height.getValueInCm(), weight.getValueInKg(), gender.toString(), true, frontImageUri, frontImageName, sideImageUri, sideImageName);
+
             }catch (Throwable t)
             {
                 Timber.e(t, "Error in %s", debugItem.mTitle);
@@ -246,11 +270,9 @@ public class SegmentActivity extends AppCompatActivity
 
     private void onSelectModelClicked()
     {
-        String[] files = this.fileList();
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("*/*"); //how to get tflite only
-//        //how to look in app storage?
-//        startActivityForResult(intent, SELECT_MODEL);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*"); //get all files, there is no MIME type for .tflite
+        startActivityForResult(intent, SELECT_MODEL);
     }
     private void onSelectSideImageClicked()
     {
@@ -298,6 +320,7 @@ public class SegmentActivity extends AppCompatActivity
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -319,7 +342,33 @@ public class SegmentActivity extends AppCompatActivity
         }
         if(requestCode == SELECT_MODEL  && resultCode == RESULT_OK)
         {
-            //process here
+            //need to check if the file is correct type?
+
+            //copy model from selected location
+            Uri fullPhotoUri = data.getData();
+            model.setWritable(true);
+
+            try
+            {
+                //this will be a bit slow...
+                InputStream inputStream = getContentResolver().openInputStream(fullPhotoUri);
+                OutputStream outputStream = new FileOutputStream(model);
+
+                byte buffer[] = new byte[1024];
+                int length = 0;
+
+                while((length=inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer,0,length);
+                }
+                outputStream.close();
+                inputStream.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            //re-initialise the models on the c++ side
+            MyFiziq.getInstance().initModels();
         }
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {

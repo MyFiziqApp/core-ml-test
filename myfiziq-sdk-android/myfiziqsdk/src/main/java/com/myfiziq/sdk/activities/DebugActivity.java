@@ -1595,6 +1595,28 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             }
         }
 
+        public static void segment(Activity activity, ModelAvatar avatar, double height, double weight, String gender, boolean writeOutput, Uri frontImageUri, String frontImageName, Uri sideImageUri, String sideImageName) throws IOException
+        {
+
+            //need to copy out files
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontImageUri);
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + frontImageName);
+
+            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), sideImageUri);
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + sideImageName);
+
+            //then make 4x captures
+            int nFrames = ModelAvatar.getCaptureFrames();
+            for (int i = 0; i < nFrames; i++)
+            {
+                createAvatarFrame(activity, avatar, PoseSide.front, frontImageName, i);
+                createAvatarFrame(activity, avatar, PoseSide.side, sideImageName, i);
+            }
+
+            MyFiziq.getInstance().testSegment(PoseSide.front.ordinal(), height, weight, gender, avatar.getId(), writeOutput);
+            MyFiziq.getInstance().testSegment(PoseSide.side.ordinal(), height, weight, gender, avatar.getId(), writeOutput);
+        }
+
         public static void copy(File src, File dst) throws IOException
         {
             try (InputStream in = new FileInputStream(src))
