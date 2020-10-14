@@ -705,6 +705,12 @@ public class MyFiziq extends MyFiziqSdk
     }
 
     @Keep
+    public boolean testJoints(int viewside, String[] filenameArray)
+    {
+        return nativeTestJoints(viewside, filenameArray);
+    }
+
+    @Keep
     public String uploadAvatar(String avatarId, String baseDirectory, String extraData)
     {
         return nativeUploadAvatar(avatarId, baseDirectory, extraData, mOnDeviceFlags);

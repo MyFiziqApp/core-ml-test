@@ -27,18 +27,14 @@ import com.myfiziq.sdk.db.Gender;
 import com.myfiziq.sdk.db.Kilograms;
 import com.myfiziq.sdk.db.Length;
 import com.myfiziq.sdk.db.ModelAvatar;
-import com.myfiziq.sdk.db.PoseSide;
 import com.myfiziq.sdk.db.Weight;
-import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
-import com.myfiziq.sdk.util.GlobalContext;
 import com.myfiziq.sdk.util.UiUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
@@ -218,7 +214,7 @@ public class SegmentActivity extends AppCompatActivity
         {
             //need to allow for it to finish processing
             Toast.makeText(getContext(), "select tflite model", Toast.LENGTH_LONG).show();
-            //return false;
+            return false;
         }
 
         return true;

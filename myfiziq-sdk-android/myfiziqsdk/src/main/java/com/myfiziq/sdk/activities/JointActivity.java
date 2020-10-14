@@ -1,12 +1,15 @@
 package com.myfiziq.sdk.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
@@ -25,12 +28,15 @@ import com.myfiziq.sdk.db.Gender;
 import com.myfiziq.sdk.db.Kilograms;
 import com.myfiziq.sdk.db.Length;
 import com.myfiziq.sdk.db.ModelAvatar;
+import com.myfiziq.sdk.db.PoseSide;
 import com.myfiziq.sdk.db.Weight;
-import com.myfiziq.sdk.helpers.ActionBarHelper;
 import com.myfiziq.sdk.helpers.RadioButtonHelper;
 import com.myfiziq.sdk.util.UiUtils;
 
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_FRONT;
 import static com.myfiziq.sdk.activities.DebugActivity.SELECT_IMAGE_SIDE;
@@ -61,9 +67,16 @@ public class JointActivity extends AppCompatActivity
     private String frontImageName = null;
     private String sideImageName = null;
 
+    private File model;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //delete old tflite file
+        model = new File(getDataDir() + "/app_files/", "jointnet.tflite");
+        model.delete();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joint);
 
@@ -199,6 +212,13 @@ public class JointActivity extends AppCompatActivity
             return false;
         }
 
+        if(!model.exists())
+        {
+            //need to allow for it to finish processing
+            Toast.makeText(getContext(), "select tflite model", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
     /**
@@ -226,8 +246,11 @@ public class JointActivity extends AppCompatActivity
                 Weight weight = weightSelectorBuilder.getSelectedWeight();
                 Length height = heightSelectorBuilder.getSelectedHeight();
                 Gender gender =  maleRadioButton.isChecked()? Gender.M : Gender.F;
-                MyFiziq.getInstance().initInspect(true);
-                ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, debugItem, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
+
+                ModelAvatar avatar =  new ModelAvatar();
+                avatar.set(gender, height, weight, 4);
+                DebugActivity.DebugModel.joint(this, avatar, frontImageUri, frontImageName, sideImageUri, sideImageName);
+                //ModelAvatar avatar = DebugActivity.DebugModel.generateAvatar(this, debugItem, weight.getValueInKg(), height.getValueInCm(), gender, true, frontImageUri, frontImageName, sideImageUri, sideImageName);
                 //MyFiziq.getInstance().uploadAvatar(avatar.getId(), GlobalContext.getContext().getFilesDir().getAbsolutePath(), null, bInDevice, bRunJoints, bDebugPayload, true);
             }catch (Throwable t)
             {
@@ -246,12 +269,11 @@ public class JointActivity extends AppCompatActivity
 
     private void onSelectModelClicked()
     {
-        String[] files = this.fileList();
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("*/*"); //how to get tflite only
-//        //how to look in app storage?
-//        startActivityForResult(intent, SELECT_MODEL);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*"); //get all files, there is no MIME type for .tflite
+        startActivityForResult(intent, SELECT_MODEL);
     }
+
     private void onSelectSideImageClicked()
     {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -319,7 +341,33 @@ public class JointActivity extends AppCompatActivity
         }
         if(requestCode == SELECT_MODEL  && resultCode == RESULT_OK)
         {
-            //process here
+            //need to check if the file is correct type?
+
+            //copy model from selected location
+            Uri fullPhotoUri = data.getData();
+            model.setWritable(true);
+
+            try
+            {
+                //this will be a bit slow...
+                InputStream inputStream = getContentResolver().openInputStream(fullPhotoUri);
+                OutputStream outputStream = new FileOutputStream(model);
+
+                byte buffer[] = new byte[1024];
+                int length = 0;
+
+                while((length=inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer,0,length);
+                }
+                outputStream.close();
+                inputStream.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            //re-initialise the models on the c++ side
+            MyFiziq.getInstance().initModels();
         }
         if(requestCode == SELECT_IMAGE_SIDE  && resultCode == RESULT_OK)
         {

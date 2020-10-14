@@ -1597,7 +1597,6 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
 
         public static void segment(Activity activity, ModelAvatar avatar, double height, double weight, String gender, boolean writeOutput, Uri frontImageUri, String frontImageName, Uri sideImageUri, String sideImageName) throws IOException
         {
-
             //need to copy out files
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontImageUri);
             BmpUtil.save(bitmap,activity.getFilesDir() + "/" + frontImageName);
@@ -1616,6 +1615,31 @@ public class DebugActivity extends BaseActivity implements RecyclerManagerInterf
             MyFiziq.getInstance().testSegment(PoseSide.front.ordinal(), height, weight, gender, avatar.getId(), writeOutput);
             MyFiziq.getInstance().testSegment(PoseSide.side.ordinal(), height, weight, gender, avatar.getId(), writeOutput);
         }
+
+        public static void joint(Activity activity, ModelAvatar avatar, Uri frontImageUri, String frontImageName, Uri sideImageUri, String sideImageName) throws IOException
+        {
+            //need to copy out files
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), frontImageUri);
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + frontImageName);
+
+            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), sideImageUri);
+            BmpUtil.save(bitmap,activity.getFilesDir() + "/" + sideImageName);
+
+            List<String> frontImages = new LinkedList<>();
+            List<String> sideImages = new LinkedList<>();
+
+            //then make 4x captures
+            int nFrames = ModelAvatar.getCaptureFrames();
+            for (int i = 0; i < nFrames; i++)
+            {
+                frontImages.add(createAvatarFrame(activity, avatar, PoseSide.front, frontImageName, i));
+                sideImages.add(createAvatarFrame(activity, avatar, PoseSide.side, sideImageName, i));
+            }
+
+            MyFiziq.getInstance().testJoints(PoseSide.front.ordinal(), frontImages.toArray(new String[0]));
+            MyFiziq.getInstance().testJoints(PoseSide.side.ordinal(), sideImages.toArray(new String[0]));
+
+        };
 
         public static void copy(File src, File dst) throws IOException
         {
